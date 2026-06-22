@@ -1,7 +1,7 @@
 ## Title
-> Your project title
+> CraftClass
 
 ## Team Members
-> Team Member #1 name
+> Melinda Garren
 
-> Team Member #2 name
+> Maria Reynoso
