@@ -19,5 +19,5 @@ Our goal is to create an easy user friendly platform where users can discover an
     2. View available services: We will display a list of activities by category, date, price range, and location. The customer will have the option to filter results to make it easier to find a specific category or activity. 
     3. Subscribe to available services: Each activity will have a "Book" or "Reserve" option. The customer can select the date and time, and the system will show the remaining open spots. For cancellations, the customer can cancel from the "My Bookings" tab up until the provider's cancellation deadline. 
     4. Write reviews for subscribed services: Once the activity date ends, the customer will see a "Leave a review" button located in "Previous Bookings" tab. When the user clicks it, they will have a rating option from 1-5 stars and an optional small text box to write feedback. The website will confirm the customer actually booked the event based on their "Previous Bookings" history. 
-
+    
 2. Provider:
