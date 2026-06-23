@@ -2,6 +2,7 @@
 > CraftClass
 
 ## Team Members
-> Melinda Garren
-
 > Maria Reynoso
+
+> Melinda Garren
+##
