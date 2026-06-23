@@ -25,3 +25,6 @@ Our goal is to create an easy user friendly platform where users can discover an
     2. Create services - Providers can create an event from the "Create Event" tab. Providers can upload an event image, create an event header, enter an event summary, indicate the target age ranges, price of attendence, RSVP by date, Cancel by date, and indicate venue limitations when creating an event. Venue limitations will inclue "Family Friendly", "Pet Friendly", "Childfree", "Alcohol Available", "Alcohol Free", "Physical", "Relaxing", and "Date Night" when creating the event to help customers filter by their needs.
     3. View customer statistics - The Planner Metrics Dashboard will offer metrics for event views, confirmed RSVP, confirmed cancellation, event check-ins, repeat attendees, and number of customers that click on the company website.
     4. Reply to reviews - The provider will be able to read and make a short reply to customer reviews. The provider will have an option to dispute a review if the content of the review is defamatory that will be reviewed by the app developers. Disputes on 1-star reviews that are not defamatory will not be removed from the site. 
+
+
+    merging changes is being a problem. trying to upload changes again.
