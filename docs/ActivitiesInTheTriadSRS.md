@@ -14,9 +14,8 @@ Term 1: description.
 Term 2: description
 Primary Users / Roles.
 
-Customer (e.g., Student/Patient/Pet Owner/etc. ) — 1 line goal statement.
-Provider (e.g., Teacher/Doctor/Pet Sitter/etc. ) — 1 line goal statement.
-SysAdmin (optional) — 1 line goal statement.
+Customer — Find an entertainment activity at desired price point.
+Provider — Attract customers and manage events.
 Scope (this semester).
 
 <capability 1>
