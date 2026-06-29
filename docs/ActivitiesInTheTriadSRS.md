@@ -74,7 +74,7 @@ Security/Privacy: description
 Usability: description
 
 ## 4. Assumptions, Constraints, and Policies
-list any rules, policies, assumptions, etc.
+list any rules, policies, assumptions, etc..
 
 ## 5. Milestones (course‑aligned)
 M1 Requirements — this file + stories opened as issues.
