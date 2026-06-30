@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Portal | Activities in the Triad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <img src="images/logo-sample.png" alt="logo">
+
+        <ul>
+            <li><a href="index.html">Home</a></li> <!-- This will link to the provider or customer landing page depending on who is logged in -->
+            <li><a href="about.html">About</a></li> 
+            <li><a href="events.html">Events</a></li> <!-- This will link to the events page, cards for booking-->
+            <li><a href="">Place Holder</a></li> <!-- delete if not needed-->
+        </ul>
+    </nav>
+
+    <!-- New Provider Form -->
+    
+     <form>
+         <h1 class="new-provider-form-header">Become an Event Planner!</h1>
+         <h2 class="new-provider-form-subheader">Please fill out the form below to register your business with Activities in the Triad.</h2>
+    
+        <h3 class="form-contact-info">Business Contact Details</h3>
+        <label>First Name *</label>
+        <input type="text" placeholder="John" required>
+
+        <label>Last Name *</label>
+        <input type="text" placeholder="Smith" required>
+
+        <label>Email Address *</label>
+        <input type="text" placeholder="john-smith@domain.com" required>
+
+        <label>Phone Number *</label>
+        <input type="text" placeholder="555-555-5555" required>
+
+        <label>Password *</label>
+        <input type="password" id="pass1" value="" required>
+
+        <label>Validate Password *</label>
+        <input type="password" id="pass2" value="" required> <!--Note for Melinda: This isn't set up right for backend validation, need to correct. Fine for prototype-->
+        <p><strong>NOTE: Passwords must match</strong></p>
+
+        <h3 class="form-business-info">Company Details</h3>
+        <label>Company Name *</label>
+        <input type="text" placeholder="Shiny Ferret Studios" required>
+
+        <label>Company Website</label>
+        <input text="text" placeholder="http://www.website-name.com">
+
+        
+
+        <button type="submit">Create Business Account</button>
+
+     </form>
+
+     <footer>
+        <p>&copy; 2026 Activities in the Triad. Created as an educational project.</p>
+     </footer>
+    
+
+</body>
+</html>
