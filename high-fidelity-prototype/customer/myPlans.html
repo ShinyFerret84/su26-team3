@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Plans - Triad Activities</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html">Triad<span>Activities</span></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+            <a href="myPlans.html" class="active">My Plans</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="header-actions">
+            <span class="location">Winston-Salem, NC</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>My Plans</h1>
+            <p>Manage your upcoming and past activities</p>
+        </div>
+
+        <div class="booking-tabs">
+            <button class="tab-btn active" onclick="showBookings('upcoming')">Upcoming</button>
+            <button class="tab-btn" onclick="showBookings('past')">Past</button>
+            <button class="tab-btn" onclick="showBookings('cancelled')">Cancelled</button>
+        </div>
+
+        <div id="upcoming-bookings" class="booking-list">
+            <div class="booking-card">
+                <div class="booking-status confirmed">Confirmed</div>
+                <div class="booking-info">
+                    <h3>Wine Tasting in Yadkin Valley</h3>
+                    <p class="booking-details">
+                        Sat, Jul 12 · 2-5 PM<br>
+                        Yadkin Valley, NC<br>
+                        2 people · $90 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-secondary" onclick="alert('Reminder sent!')">Send Reminder</button>
+                    <button class="btn-danger" onclick="cancelBooking()">Cancel</button>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="booking-status confirmed">Confirmed</div>
+                <div class="booking-info">
+                    <h3>Food Tour - Downtown Greensboro</h3>
+                    <p class="booking-details">
+                        Sat, Jul 19 · 11 AM - 2 PM<br>
+                        Greensboro, NC<br>
+                        4 people · $300 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-secondary" onclick="alert('Reminder sent!')">Send Reminder</button>
+                    <button class="btn-danger" onclick="cancelBooking()">Cancel</button>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="booking-status confirmed">Confirmed</div>
+                <div class="booking-info">
+                    <h3>Live Jazz Night</h3>
+                    <p class="booking-details">
+                        Fri, Jul 18 · 8-11 PM<br>
+                        Winston-Salem, NC<br>
+                        2 people · $50 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-secondary" onclick="alert('Reminder sent!')">Send Reminder</button>
+                    <button class="btn-danger" onclick="cancelBooking()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="past-bookings" class="booking-list" style="display: none;">
+            <div class="booking-card past">
+                <div class="booking-status">Attended</div>
+                <div class="booking-info">
+                    <h3>Hiking at Hanging Rock</h3>
+                    <p class="booking-details">
+                        Sun, Jun 29 · 8-11 AM<br>
+                        Hanging Rock State Park<br>
+                        3 people · $45 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-primary" onclick="alert('Rate this activity!')">Rate & Review</button>
+                    <button class="btn-secondary" onclick="alert('Booking again!')">Book Again</button>
+                </div>
+            </div>
+
+            <div class="booking-card past">
+                <div class="booking-status">Attended</div>
+                <div class="booking-info">
+                    <h3>Dash Baseball Game</h3>
+                    <p class="booking-details">
+                        Tue, Jun 24 · 7 PM<br>
+                        Winston-Salem, NC<br>
+                        4 people · $48 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-primary" onclick="alert('Rate this activity!')">Rate & Review</button>
+                    <button class="btn-secondary" onclick="alert('Booking again!')">Book Again</button>
+                </div>
+            </div>
+
+            <div class="booking-card past">
+                <div class="booking-status">Attended</div>
+                <div class="booking-info">
+                    <h3>Art & Wine Night</h3>
+                    <p class="booking-details">
+                        Wed, Jun 18 · 7-9 PM<br>
+                        Greensboro, NC<br>
+                        2 people · $70 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-primary" onclick="alert('Rate this activity!')">Rate & Review</button>
+                    <button class="btn-secondary" onclick="alert('Booking again!')">Book Again</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="cancelled-bookings" class="booking-list" style="display: none;">
+            <div class="booking-card cancelled">
+                <div class="booking-status cancelled">Cancelled</div>
+                <div class="booking-info">
+                    <h3>Pottery Class at Sawtooth</h3>
+                    <p class="booking-details">
+                        Thu, Jul 3 · 6-8 PM<br>
+                        Winston-Salem, NC<br>
+                        2 people · $80 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-secondary" onclick="alert('Booking again!')">Book Again</button>
+                </div>
+            </div>
+
+            <div class="booking-card cancelled">
+                <div class="booking-status cancelled">Cancelled</div>
+                <div class="booking-info">
+                    <h3>Kernersville Corn Maze</h3>
+                    <p class="booking-details">
+                        Sat, Oct 12 · 10 AM - 6 PM<br>
+                        Kernersville, NC<br>
+                        4 people · $80 total
+                    </p>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn-secondary" onclick="alert('Booking again!')">Book Again</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                <a href="myPlans.html">My Plans</a>
+                <a href="profile.html">Profile</a>
+            </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showBookings(tab) {
+            document.querySelectorAll('.booking-list').forEach(list => {
+                list.style.display = 'none';
+            });
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (tab === 'upcoming') {
+                document.getElementById('upcoming-bookings').style.display = 'block';
+                document.querySelector('.tab-btn:first-child').classList.add('active');
+            } else if (tab === 'past') {
+                document.getElementById('past-bookings').style.display = 'block';
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+            } else if (tab === 'cancelled') {
+                document.getElementById('cancelled-bookings').style.display = 'block';
+                document.querySelector('.tab-btn:nth-child(3)').classList.add('active');
+            }
+        }
+
+        function cancelBooking() {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                alert('Booking cancelled successfully.');
+            }
+        }
+    </script>
+    <script src="../common/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

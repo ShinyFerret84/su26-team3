@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Details - Triad Activities</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html">Triad<span>Activities</span></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+            <a href="myPlans.html">My Plans</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="header-actions">
+            <span class="location">Winston-Salem, NC</span>
+        </div>
+    </header>
+
+    <main class="detail-page">
+        <a href="browse.html" class="back-link">← Back to Browse</a>
+
+        <div class="detail-container">
+            <div class="detail-info">
+                <div class="detail-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 300px; border-radius: 12px;">
+                    <span class="detail-badge">Featured</span>
+                </div>
+                
+                <div class="detail-header">
+                    <h2>Wine Tasting in Yadkin Valley</h2>
+                    <div class="detail-rating">
+                        <span class="stars">★★★★★</span>
+                        <span>(47 reviews)</span>
+                    </div>
+                </div>
+                
+                <p class="detail-location">Yadkin Valley, NC</p>
+                
+                <div class="detail-meta">
+                    <span>Sat, Jul 12</span>
+                    <span>2-5 PM</span>
+                    <span>15 spots left</span>
+                    <span>3 hours</span>
+                </div>
+
+                <div class="detail-description">
+                    <h4>About this activity</h4>
+                    <p>Join us for an afternoon of wine tasting in beautiful Yadkin Valley. You'll visit 3 local vineyards, taste 10 different wines, and enjoy a cheese pairing. Perfect for a day out with friends!</p>
+                    <p>Our expert guides will take you through the history of the region and explain the winemaking process. This is a must-do experience for wine lovers and anyone looking to explore the beautiful North Carolina countryside.</p>
+                </div>
+
+                <div class="detail-includes">
+                    <h4>What's Included</h4>
+                    <ul>
+                        <li>Wine tasting at 3 vineyards</li>
+                        <li>Cheese and charcuterie pairing</li>
+                        <li>Expert guide</li>
+                        <li>Transportation between vineyards</li>
+                        <li>Souvenir wine glass</li>
+                    </ul>
+                </div>
+
+                <div class="provider-section">
+                    <h4>About the Provider</h4>
+                    <div class="provider-card">
+                        <div class="provider-avatar">🍷</div>
+                        <div class="provider-info">
+                            <h5>Yadkin Valley Wine Tours</h5>
+                            <p>4.9 (47 reviews)</p>
+                            <p class="provider-desc">Professional wine tour company with 10+ years of experience in Yadkin Valley.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reviews-section">
+                    <h4>Reviews</h4>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>Mike R.</strong>
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <p>"Best wine tour I've been to in NC! The guides were knowledgeable and the wine selection was amazing."</p>
+                        <small>2 weeks ago</small>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>Lisa K.</strong>
+                            <span class="stars">★★★★</span>
+                        </div>
+                        <p>"Great selection of wines. The guide was very knowledgeable. Would recommend!"</p>
+                        <small>1 month ago</small>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>James P.</strong>
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <p>"Incredible experience! The views were beautiful and the wine was delicious. Highly recommend!"</p>
+                        <small>2 months ago</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-sidebar">
+                <div class="booking-card-sticky">
+                    <div class="price-box">
+                        <span class="price">$45</span>
+                        <span class="price-per">/ person</span>
+                    </div>
+                    
+                    <form class="booking-form">
+                        <div class="form-group">
+                            <label>Date</label>
+                            <select>
+                                <option>Sat, Jul 12 - 2:00 PM</option>
+                                <option>Sat, Jul 12 - 5:00 PM</option>
+                                <option>Sun, Jul 13 - 2:00 PM</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of people</label>
+                            <select id="peopleCount" onchange="updateTotal()">
+                                <option value="1">1 person</option>
+                                <option value="2" selected>2 people</option>
+                                <option value="3">3 people</option>
+                                <option value="4">4 people</option>
+                                <option value="5">5+ people</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Special requests</label>
+                            <textarea placeholder="Dietary restrictions, mobility needs, etc."></textarea>
+                        </div>
+
+                        <div class="booking-total">
+                            <span>Total:</span>
+                            <span class="total-price" id="totalPrice">$90</span>
+                        </div>
+
+                        <button type="button" class="btn-primary book-now-btn" onclick="confirmBooking()">
+                            Confirm Booking
+                        </button>
+                        
+                        <p class="booking-note">No payment required now. You'll pay at the event.</p>
+                    </form>
+
+                    <div class="quick-info">
+                        <div class="info-item">
+                            <span>Free cancellation</span>
+                        </div>
+                        <div class="info-item">
+                            <span>Pay at event</span>
+                        </div>
+                        <div class="info-item">
+                            <span>Meeting point provided after booking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                <a href="myPlans.html">My Plans</a>
+                <a href="profile.html">Profile</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateTotal() {
+            const people = document.getElementById('peopleCount').value;
+            const pricePerPerson = 45;
+            const total = people * pricePerPerson;
+            document.getElementById('totalPrice').textContent = '$' + total;
+        }
+
+        function confirmBooking() {
+            if (confirm('Confirm your booking?')) {
+                alert('Booking confirmed! Check "My Plans" to see it.');
+                window.location.href = 'myPlans.html';
+            }
+        }
+    </script>
+    <script src="../common/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
