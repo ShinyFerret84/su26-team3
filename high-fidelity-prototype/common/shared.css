@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #f5f7fa;
+    color: #2d3748;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo a {
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #2d3748;
+}
+
+.logo span {
+    color: #667eea;
+}
+
+.main-nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.main-nav a:hover {
+    background: #f7fafc;
+    color: #667eea;
+}
+
+.main-nav a.active {
+    background: #667eea;
+    color: white;
+}
+
+.location {
+    color: #718096;
+    font-size: 14px;
+}
+
+.app-footer {
+    background: #1a1a2e;
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: 60px;
+    border-radius: 16px 16px 0 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h4 {
+    margin-bottom: 12px;
+    color: #667eea;
+}
+
+.footer-section a {
+    display: block;
+    color: #ddd;
+    text-decoration: none;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: #667eea;
+}
+
+.footer-section p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    color: #888;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+    
+    .app-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .main-nav {
+        justify-content: center;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
