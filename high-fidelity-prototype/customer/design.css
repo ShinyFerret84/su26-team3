@@ -252,3 +252,164 @@
         padding: 6px 14px;
     }
 }
+
+/* design layout for browse */ 
+
+.browse-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.browse-header h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.browse-header p {
+    color: #718096;
+    font-size: 16px;
+}
+
+.filter-section {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #4a5568;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    border-color: #667eea;
+}
+
+.price-range-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price-range-display span {
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.price-range-display input[type="range"] {
+    flex: 1;
+}
+
+.filter-search {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-search input {
+    flex: 1;
+    padding: 10px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.filter-search input:focus {
+    border-color: #667eea;
+}
+
+.search-btn-small {
+    padding: 10px 24px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-btn-small:hover {
+    background: #5a6fd6;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 30px;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #4a5568;
+    transition: all 0.2s;
+}
+
+.pagination a:hover {
+    border-color: #667eea;
+    background: #f7fafc;
+}
+
+.pagination a.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.pagination a.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination a.disabled:hover {
+    border-color: #e2e8f0;
+    background: transparent;
+}
+
+@media (max-width: 768px) {
+    .filter-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .filter-search {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-row {
+        grid-template-columns: 1fr;
+    }
+}
