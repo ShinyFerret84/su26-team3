@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Triad Activities</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html">Triad<span>Activities</span></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+            <a href="myPlans.html">My Plans</a>
+            <a href="profile.html" class="active">Profile</a>
+        </nav>
+        <div class="header-actions">
+            <span class="location">Winston-Salem, NC</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-page">
+            <div class="profile-header-section">
+                <div class="profile-avatar">
+                    <span class="avatar-initials">LC</span>
+                </div>
+                <div class="profile-user-info">
+                    <h1>Lisa Clark</h1>
+                    <p class="profile-email">LisaClark@email.com</p>
+                    <p class="profile-location">Winston-Salem, NC</p>
+                    <p class="profile-member">Member since 2025</p>
+                </div>
+                <button class="btn-edit-profile" onclick="alert('Edit profile form would appear here')">Edit Profile</button>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Activities Done</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Reviews Written</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">4.8</span>
+                    <span class="stat-label">Avg Rating Given</span>
+                </div>
+            </div>
+
+            <div class="profile-interests-section">
+                <div class="section-header">
+                    <h2>My Interests</h2>
+                    <button class="btn-secondary" onclick="alert('Edit interests')">Edit Interests</button>
+                </div>
+                <div class="interests-tags">
+                    <span class="interest-tag">Outdoor</span>
+                    <span class="interest-tag">Food & Drink</span>
+                    <span class="interest-tag">Entertainment</span>
+                    <span class="interest-tag">Culture</span>
+                    <span class="interest-tag">Sports</span>
+                    <span class="interest-tag-add" onclick="alert('Add new interest')">+ Add</span>
+                </div>
+            </div>
+
+            <div class="profile-reviews-section">
+                <div class="section-header">
+                    <h2>My Recent Reviews</h2>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Wine Tasting in Yadkin Valley</h3>
+                            <span class="review-date">2 weeks ago</span>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">"Amazing experience! Beautiful views and delicious wine. Highly recommend!"</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Hiking at Hanging Rock</h3>
+                            <span class="review-date">1 month ago</span>
+                        </div>
+                        <span class="review-stars">★★★★</span>
+                    </div>
+                    <p class="review-text">"Great hike with beautiful views. Would be better with more time at the top."</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Live Jazz Night</h3>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">"Incredible music and atmosphere! The band was amazing."</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                <a href="myPlans.html">My Plans</a>
+                <a href="profile.html">Profile</a>
+            </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../common/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
