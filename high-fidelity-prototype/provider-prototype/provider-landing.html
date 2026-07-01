@@ -3,86 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provider Portal | Activities in the Triad</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Triad Activities - Provider Portal</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="../customer/design.css">
+    <link rel="stylesheet" href="provider.css">
 </head>
 
 <body>
 
     <!-- Navigation Bar -->
-    <nav>
-        <img src="images/logo-sample.png" alt="logo">
+    <header class="app-header">
+        <div class="logo">
+            <a href="provider-landing.html"> Triad<span>Activities</span></a>
+        </div>
 
-        <ul>
-            <li><a href="index.html">Home</a></li> <!-- This will link to the provider or customer landing page depending on who is logged in -->
-            <li><a href="about.html">About</a></li> 
-            <li><a href="events.html">Events</a></li> <!-- This will link to the events page, cards for booking-->
-            <li><a href="">Place Holder</a></li> <!-- delete if not needed-->
-        </ul>
-    </nav>
+        <nav class="main-nav">
+            <a href="provider-landing.html" class="active">Dashboard</a> 
+            <a href="provider-profile.html">Profile</a> 
+            <a href="new-event-form.html">Create Event</a> 
+            <a href="provider-metrics.html">Metrics</a>
+        </nav>
 
-    <!-- Provider Bar -->
-    <div class="provider-bar">
-        <ul>
-            <li><a href="provider-landing.html">Home</a></li>
-            <li><a href="provider-profile.html">My Profile</a></li>
-            <li><a href="New Event Form.html">Events</a></li>
-            <li><a href="provider-metrics.html">Metrics</a></li>
-        </ul>   
+        <div class="header-actions">
+            <span class="location"> Winston-Salem, NC</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-page">
+
+            <!-- Profile Header Section -->
+            <div class="profile-header-section">
+                <div class="profile-avatar">
+                    <span class="avatar-initials">JB</span>
+                </div>
+
+                <div class="profile-user-info">
+                    <h1>Welcome back, Julie!</h1>
+                    <p class="profile-email"> julie@example.com</p>
+                    <p class="profile-location"> High Point, NC</p>
+                    <p class="profile-member">Provider since June 2026</p>
+                </div>
+                
+                <button class="btn-edit-profile">Edit Profile</button>
+
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="profile-stats-grid">
+                
+                <div class="stat-card">
+                    <span class="stat-number">18</span>
+                    <p class="stat-label">Events Hosted</p>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-number">324</span>
+                    <p class="stat-label">Total Attendees</p>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-number">4.8</span>
+                    <p class="stat-label">Average Rating</p>
+                </div>
+
+            </div>
+
+            <!-- Upcoming Events Section -->
+            <div class="profile-reviews-section">
+
+                <div class="section-header">
+                    <h2>Upcoming Events</h2>
+                    <a href="event-management.html" class="view-all">View All →</a>
+                </div>
+
+                <div class="activity-grid">
+                    <!-- Upcoming event cards will be displayed here -->
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                        
+                        <div class="card-body">
+                            <h3>Wine Tasting</h3>
+                            <p class="location">Yadkin Valley, NC</p>
+                            <div class="card-meta">
+                                <span>Sat, July 12</span>
+                                <span>2-5 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$45 <span>/person</span> </span>
+
+                                <a href="#" class="view-detail-btn">
+                                    Manage                               
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);"></div>
+
+                        <div class="card-body">
+                            <h3>Art & Wine Night</h3>
+                            <p class="location">Greensboro, NC</p>
+                            <div class="card-meta">
+                                <span>Wed, July 16 </span>
+                                <span>7-9 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$35 <span>/person</span> </span>
+
+                                <a href="#" class="view-detail-btn">
+                                    Manage                               
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
+
+                        <div class="card-body">
+                            <h3>Food Tour Downtown Greensboro</h3>
+                            <p class="location">Greensboro, NC</p>
+                            <div class="card-meta">
+                                <span>Sat, July 19 </span>
+                                <span>11 AM - 2 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$75 <span>/person</span> </span>
+
+                                <a href="#" class="view-detail-btn">
+                                    Manage                               
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- Past Events Section -->
+            <div class="profile-reviews-section">
+
+                <div class="section-header">
+                    <h2>Past Events</h2>
+                    <a href="new-event-form.html" class="view-all">View All →</a>
+                </div>
+
+                <div class="activity-grid">
+                    <!-- Past event cards will be displayed here -->
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+
+                        <div class="card-body">
+                            <h3>Wine Tasting</h3>
+                            <p class="location">Yadkin Valley, NC</p>
+                            <div class="card-meta">
+                                <span>Sat, June 13</span>
+                                <span>2-5 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$45 <span>/person</span> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);"></div>
+
+                        <div class="card-body">
+                            <h3>Art & Wine Night</h3>
+                            <p class="location">Greensboro, NC</p>
+                            <div class="card-meta">
+                                <span>Wed, June 17 </span>
+                                <span>7-9 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$35 <span>/person</span> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Card -->
+                    <div class="activity-card">
+                        <div class="card-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
+
+                        <div class="card-body">
+                            <h3>Food Tour Downtown Greensboro</h3>
+                            <p class="location">Greensboro, NC</p>
+                            <div class="card-meta">
+                                <span>Sat, July 19 </span>
+                                <span>11 AM - 2 PM</span>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="price">$75 <span>/person</span> </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="app-footer">
+
+    <div class="footer-content">
+
+        <div class="footer-section">
+            <h4>Triad Activities</h4>
+            <p>Discover the best experiences in the Triad area.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="provider-landing.html">Dashboard</a>
+            <a href="provider-profile.html">Profile</a>
+            <a href="new-event-form.html">Create Event</a>
+            <a href="provider-metrics.html">Metrics</a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Location</h4>
+            <p>Winston-Salem, NC</p>
+        </div>
+
     </div>
 
-    <hr>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+    </div>
 
-    <h1>Hello, Julie!</h1> <!--Name here is a place holder-->
-
-    <section class="gallery">
-        <h2 class="-upcoming-events"> Upcoming Events</h2> <!--Only most recent three upcoming events-->
-    
-        <div class="card">
-            <img src="images/event-sample.png" alt="event-image">
-            <h3>Event Name</h3>
-            <p>Location Name</p>
-            <p>July 2, 2026 • 11:30 am</p>
-            <p>RSVP by July 1, 2026</p>
-            <p>Tag1, Tag2</p>
-        </div>
-    </section>
-
-    <hr>
-
-    <section class="gallery">    
-        <h2 class="past-events"> Past Events</h2> <!--Only most recent three past events-->
-        <div class="card">
-            <img src="images/event-sample.png" alt="event-image">
-            <h3>Event Name</h3>
-            <p>Location Name</p>
-            <p>June 2, 2026 • 11:30 am</p>
-            <p>RSVP by June 1, 2026</p>
-            <p>Tag1, Tag2</p>
-        </div>
-    
-        <div class="card">
-            <img src="images/event-sample.png" alt="event-image">
-            <h3>Event Name</h3>
-            <p>Location Name</p>
-            <p>June 2, 2026 • 11:30 am</p>
-            <p>RSVP by June 1, 2026</p>
-            <p>Tag1, Tag2</p>
-        </div>
-    
-        <div class="card">
-            <img src="images/event-sample.png" alt="event-image">
-            <h3>Event Name</h3>
-            <p>Location Name</p>
-            <p>June 2, 2026 • 11:30 am</p>
-            <p>RSVP by June 1, 2026</p>
-            <p>Tag1, Tag2</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Activities in the Triad. Created as an educational project.</p>
-     </footer>
+</footer>
 
 </body>
 </html>
