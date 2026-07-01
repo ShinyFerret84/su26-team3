@@ -3,66 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provider Portal | Activities in the Triad</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Triad Activities - New Provider Form</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="../customer/design.css">
+    <link rel="stylesheet" href="provider.css">
 </head>
 
 <body>
 
     <!-- Navigation Bar -->
-    <nav>
-        <img src="images/logo-sample.png" alt="logo">
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html"> Triad<span>Activities</span></a>
+        </div>
 
-        <ul>
-            <li><a href="index.html">Home</a></li> <!-- This will link to the provider or customer landing page depending on who is logged in -->
-            <li><a href="about.html">About</a></li> 
-            <li><a href="events.html">Events</a></li> <!-- This will link to the events page, cards for booking-->
-            <li><a href="">Place Holder</a></li> <!-- delete if not needed-->
-        </ul>
-    </nav>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+        </nav>
 
-    <!-- New Provider Form -->
-    
-     <form>
-         <h1 class="new-provider-form-header">Become an Event Planner!</h1>
-         <h2 class="new-provider-form-subheader">Please fill out the form below to register your business with Activities in the Triad.</h2>
-    
-        <h3 class="form-contact-info">Business Contact Details</h3>
-        <label>First Name *</label>
-        <input type="text" placeholder="John" required>
+        <div class="header-actions">
+            <span class="location"> Winston-Salem, NC</span>
+        </div>
+    </header>
 
-        <label>Last Name *</label>
-        <input type="text" placeholder="Smith" required>
+        <!-- New Provider Form -->
+    <main>
+        <div class="profile-page">
+            
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Become an Event Planner!</h1>
+                <p>
+                    Register your business with Triad Activities and start hosting events.
+                </p>
+            </div>
 
-        <label>Email Address *</label>
-        <input type="text" placeholder="john-smith@domain.com" required>
+            <!-- Form Card -->
+            <div class="form-card">
+                <form>
+                    <!-- Contact Information -->
+                    <h2>Business Contact Information</h2>
 
-        <label>Phone Number *</label>
-        <input type="text" placeholder="555-555-5555" required>
+                        <div class="form-grid">
 
-        <label>Password *</label>
-        <input type="password" id="pass1" value="" required>
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text"
+                                   id="firstName"
+                                   placeholder="John"
+                                   required>
+                        </div>
 
-        <label>Validate Password *</label>
-        <input type="password" id="pass2" value="" required> <!--Note for Melinda: This isn't set up right for backend validation, need to correct. Fine for prototype-->
-        <p><strong>NOTE: Passwords must match</strong></p>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text"
+                                   id="lastName"
+                                   placeholder="Smith"
+                                   required>
+                        </div>
 
-        <h3 class="form-business-info">Company Details</h3>
-        <label>Company Name *</label>
-        <input type="text" placeholder="Shiny Ferret Studios" required>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email"
+                                   id="email"
+                                   placeholder="johnsmith@email.com"
+                                   required>
+                        </div>
 
-        <label>Company Website</label>
-        <input text="text" placeholder="http://www.website-name.com">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel"
+                                   id="phone"
+                                   placeholder="555-555-5555">
+                        </div>
 
-        
+                    <br>
 
-        <button type="submit">Create Business Account</button>
+                    <!-- Business Information -->
 
-     </form>
+                    <h2>Business Information</h2>
 
-     <footer>
-        <p>&copy; 2026 Activities in the Triad. Created as an educational project.</p>
-     </footer>
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text"
+                                   id="companyName"
+                                   placeholder="Shiny Ferret Studios"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Business Category *</label>
+
+                            <select id="category" required>
+                                <option value="">Select Category</option>
+                                <option>Food & Drink</option>
+                                <option>Outdoor Activities</option>
+                                <option>Entertainment</option>
+                                <option>Arts & Culture</option>
+                                <option>Sports & Recreation</option>
+                                <option>Educational</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="website">Company Website</label>
+
+                            <input type="url"
+                                   id="website"
+                                   placeholder="https://www.yourbusiness.com">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description">
+                                Business Description
+                            </label>
+
+                            <textarea id="description"
+                                      placeholder="Tell customers about your business..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <!-- Account Information -->
+
+                    <h2>Account Information</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+
+                            <input type="password"
+                                   id="password"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                Confirm Password *
+                            </label>
+
+                            <input type="password"
+                                   id="confirmPassword"
+                                   required>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        <strong>Note:</strong> Passwords must match before
+                        the account can be created.
+                    </p>
+
+                    <!-- Buttons -->
+
+                    <div class="form-actions">
+
+                        <button type="reset"
+                                class="btn-secondary">
+                            Clear Form
+                        </button>
+
+                        <button type="submit"
+                                class="btn-primary">
+                            Create Business Account
+                        </button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main> 
+
+     <!-- Footer -->
+
+    <footer class="app-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>
+                    Discover the best experiences in the Triad area.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                
+            </div>
+
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+
+    </footer>
     
 
 </body>
