@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Triad Activities</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="design.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html">Triad<span>Activities</span></a>
+        </div>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+            <a href="myPlans.html">My Plans</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="header-actions">
+            <a href="login.html" class="login-btn-header active-btn">Login</a>
+            <a href="signup.html" class="get-started-btn-header">Get Started</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-page">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to your account to manage your activities and bookings</p>
+                </div>
+
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="********" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="submit" class="auth-submit-btn customer-login">Sign In as Customer</button>
+                        <button type="button" class="auth-submit-btn provider-login" onclick="alert('Provider login would redirect to provider portal')">Sign In as Provider</button>
+                    </div>
+                </form>
+
+                <div class="auth-footer-links">
+                    <p>Don't have an account? <a href="signup.html">Click here to sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                <a href="myPlans.html">My Plans</a>
+                <a href="profile.html">Profile</a>
+            </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../common/script.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
