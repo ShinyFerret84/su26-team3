@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Triad Activities</title>
+    <title>Provider Login - Triad Activities</title>
     <link rel="stylesheet" href="../common/shared.css">
-    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="../customer/design.css">
+    <link rel="stylesheet" href="provider.css">
 </head>
 <body>
 
     <header class="app-header">
         <div class="logo">
-            <a href="index.html">Triad<span>Activities</span></a>
+            <a href="../customer/index.html">Triad<span>Activities</span></a>
         </div>
         <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="browse.html">Browse</a>
-            <a href="myPlans.html">My Plans</a>
-            <a href="profile.html">Profile</a>
+            <a href="../customer/index.html">Home</a>
+            <a href="../customer/browse.html">Browse</a>
         </nav>
         <div class="header-actions">
-            <a href="login.html" class="login-btn-header active-btn">Login</a>
-            <a href="signup.html" class="get-started-btn-header">Get Started</a>
+            <a href="../customer/login.html" class="login-btn-header">Customer Login</a>
+            <a href="provider-login.html" class="get-started-btn-header active-btn">Provider Login</a>
         </div>
     </header>
 
@@ -29,14 +28,14 @@
         <div class="auth-page">
             <div class="auth-container">
                 <div class="auth-header">
-                    <h1>Welcome Back</h1>
-                    <p>Sign in to your account to manage your activities and bookings</p>
+                    <h1>Provider Login</h1>
+                    <p>Sign in to manage your events and business</p>
                 </div>
 
                 <form class="auth-form">
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="you@example.com" required>
+                        <input type="email" placeholder="business@example.com" required>
                     </div>
 
                     <div class="form-group">
@@ -51,14 +50,12 @@
                         <a href="#" class="forgot-password">Forgot password?</a>
                     </div>
 
-                    <div class="login-buttons">
-                        <button type="submit" class="auth-submit-btn customer-login">Sign In as Customer</button>
-                        <a href="../provider/provider-login.html" class="auth-submit-btn provider-login" style="text-align: center; text-decoration: none; display: block;">Sign In as Provider</a>
-                    </div>
+                    <button type="submit" class="auth-submit-btn" onclick="window.location.href='provider-landing.html'">Sign In as Provider</button>
                 </form>
 
                 <div class="auth-footer-links">
-                    <p>Don't have an account? <a href="signup.html">Click here to sign up</a></p>
+                    <p>Don't have a provider account? <a href="provider-signup.html">Sign up as a provider</a></p>
+                    <p>Are you a customer? <a href="../customer/login.html">Login as customer</a></p>
                 </div>
             </div>
         </div>
@@ -68,14 +65,12 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Triad Activities</h4>
-                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+                <p>Discover the best experiences in the Triad area.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="browse.html">Browse Activities</a>
-                <a href="myPlans.html">My Plans</a>
-                <a href="profile.html">Profile</a>
+                <a href="../customer/index.html">Home</a>
+                <a href="../customer/browse.html">Browse Activities</a>
             </div>
             <div class="footer-section">
                 <h4>Location</h4>
