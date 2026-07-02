@@ -1,5 +1,5 @@
-Requirements – Activites in the Triad
-Project Name:  Activities in the Triad
+Requirements
+Project Name:  Triad Activities
 Team: Melinda Garren - Provider, Maria Reynoso - Customer
 Course: CSC 340
 Version: 1.0
@@ -10,21 +10,26 @@ Vision. Activities in the Triad is a platform that will allow customers to find 
 
 Glossary Terms used in the project
 
-Term 1: description.
-Term 2: description
+Term 1: Customer - Person who uses the website to book entertainment events for themselves.
+Term 2: Provider - This is a business or a Person who plans and hosts events for customer to attend.
+
 Primary Users / Roles.
 
 Customer — Find an entertainment activity at desired price point.
 Provider — Attract customers and manage events.
 Scope (this semester).
 
-<capability 1>
-<capability 2>
-<capability 3>
-Out of scope (deferred).
+Customer:
+Create and modify an interest profile
+Book and manage events
+Write and leave reviews for events attended
 
-<deferred 1>
-<deferred 2>
+Provider:
+Create, modify, or delete a business profile
+Create and manage events for customers to book
+Respond to customer reviews
+Review event attendance metrics and customer ratings
+
 This document is requirements‑level and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
 ## 2. Functional Requirements (User Stories)
@@ -39,6 +44,7 @@ Scenario: <happy path>
   Given <preconditions>
   When  <action>
   Then  <observable outcome>
+
 US‑2 —
 Story: As a customer, I want … so that …
 Acceptance:
