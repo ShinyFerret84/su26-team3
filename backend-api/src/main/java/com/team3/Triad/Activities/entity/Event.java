@@ -28,6 +28,9 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "price_per_person")
+    private Double pricePerPerson;
+
     @Column(nullable = false)
     private String eventName;
 
