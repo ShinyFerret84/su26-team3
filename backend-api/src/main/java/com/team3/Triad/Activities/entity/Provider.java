@@ -15,12 +15,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "providers")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Provider {
@@ -61,10 +63,24 @@ public class Provider {
 
     //Account Creation Date
     @Column(nullable = false)
-    private LocalDate memberSince;
+    private LocalDate memberSince = LocalDate.now();
 
     //Provider -> Event Relationship
     @JsonIgnore
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "provider", 
+                cascade = CascadeType.ALL, 
+                orphanRemoval = true)
     private List<Event> events = new ArrayList<>();
+
+    public void addEvent(Event event) {
+        events.add(event);
+        event.setProvider(this);
+    }
+
+    public void removeEvent(Event event) {
+        events.remove(event);
+        event.setProvider(null);
+    }
+
+
 }
