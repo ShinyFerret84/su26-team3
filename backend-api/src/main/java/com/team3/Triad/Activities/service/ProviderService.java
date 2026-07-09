@@ -7,13 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.team3.Triad.Activities.entity.Provider;
 import com.team3.Triad.Activities.repository.ProviderRepository;
+import com.team3.Triad.Activities.entity.Review;
+import com.team3.Triad.Activities.repository.ReviewRepository;
 
 @Service
 public class ProviderService {
     private final ProviderRepository providerRepository;
+    private final ReviewRepository reviewRepository;
 
-    public ProviderService(ProviderRepository providerRepository) {
+    public ProviderService(ProviderRepository providerRepository, ReviewRepository reviewRepository) {
         this.providerRepository = providerRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     // GET all providers
@@ -57,6 +61,21 @@ public class ProviderService {
     // DELETE provider
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
+    }
+
+    //Provider replies to reviews
+    public List<Review> getProviderReviews(Long providerId) {
+    return reviewRepository.findByEventProviderId(providerId);
+    }
+
+    public Review replyToReview(Long reviewId, String reply) {
+        Review review = reviewRepository.findById(reviewId)
+            .orElseThrow(() -> new RuntimeException("Review not found"));
+
+        review.setProviderReply(reply);
+        review.setReplyDate(LocalDate.now().toString());
+
+        return reviewRepository.save(review);
     }
 }
 

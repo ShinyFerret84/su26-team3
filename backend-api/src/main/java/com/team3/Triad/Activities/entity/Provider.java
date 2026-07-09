@@ -82,5 +82,7 @@ public class Provider {
         event.setProvider(null);
     }
 
-
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Review> reviews = new ArrayList<>();
 }
