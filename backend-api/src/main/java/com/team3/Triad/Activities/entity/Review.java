@@ -61,4 +61,28 @@ public class Review {
 
     public Event getEvent() { return event; }
     public void setEvent(Event event) { this.event = event; }
+
+    //Provider can reply to reviews
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
+    @Column(length = 1000)
+    private String providerReply;
+
+    @Column(name = "reply_date")
+    private String replyDate;
+
+    //Provider reply getters and setters
+    public Provider getProvider() { return provider; }
+
+    public void setProvider(Provider provider) { this.provider = provider; }
+    
+    public String getProviderReply() { return providerReply; }
+
+    public void setProviderReply(String providerReply) { this.providerReply = providerReply; }
+
+    public String getReplyDate() { return replyDate; }
+
+    public void setReplyDate(String replyDate) { this.replyDate = replyDate; }
 }
