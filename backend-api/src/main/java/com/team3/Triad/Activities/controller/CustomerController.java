@@ -101,32 +101,6 @@ public class CustomerController {
         }
     }
 
-    // Get all events
-    @GetMapping("/events")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        return ResponseEntity.ok(eventRepository.findAll());
-    }
-
-    // Get event by ID
-    @GetMapping("/events/{id}")
-    public ResponseEntity<?> getEventById(@PathVariable Long id) {
-        return eventRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // Get events by category
-    @GetMapping("/events/category/{category}")
-    public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
-        return ResponseEntity.ok(eventRepository.findByCategoryContainingIgnoreCase(category));
-    }
-
-    // Search events
-    @GetMapping("/events/search")
-    public ResponseEntity<List<Event>> searchEvents(@RequestParam String keyword) {
-        return ResponseEntity.ok(eventRepository.findByEventNameContainingIgnoreCase(keyword));
-    }
-
     // Book an event
     @PostMapping("/{customerId}/bookings")
     public ResponseEntity<?> bookEvent(
