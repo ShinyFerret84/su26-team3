@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team3.Triad.Activities.entity.Provider;
 import com.team3.Triad.Activities.service.ProviderService;
 import com.team3.Triad.Activities.entity.Review;
+import com.team3.Triad.Activities.dto.ProviderStatistics;
 
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/api/providers")
 @CrossOrigin(origins = "*")
 public class ProviderController {
     private final ProviderService providerService;
@@ -74,5 +75,13 @@ public class ProviderController {
     return providerService.replyToReview(
             reviewId,
             body.get("reply"));
+    }
+
+    //Provider Statistics
+    @GetMapping("/{providerId}/statistics")
+        public ProviderStatistics getProviderStatistics(
+        @PathVariable Long providerId) {
+
+    return providerService.getProviderStatistics(providerId);
     }
 }

@@ -3,9 +3,7 @@ package com.team3.Triad.Activities.controller;
 import com.team3.Triad.Activities.dto.LoginRequest;
 import com.team3.Triad.Activities.entity.Booking;
 import com.team3.Triad.Activities.entity.Customer;
-import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Review;
-import com.team3.Triad.Activities.repository.EventRepository;
 import com.team3.Triad.Activities.service.CustomerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +22,6 @@ public class CustomerController {
 
     @Autowired
     private CustomerManager customerManager;
-
-    @Autowired
-    private EventRepository eventRepository;
 
     // create a new customer
     @PostMapping("/register")
