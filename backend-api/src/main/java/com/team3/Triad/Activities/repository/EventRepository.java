@@ -20,4 +20,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByStateContainingIgnoreCase(String state);
 
     List<Event> findByDate(LocalDate date);
+
+    Long countByProviderId(Long providerId);
 }
