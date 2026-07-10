@@ -31,20 +31,20 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Contact Information
+    //Contact Information
     @Column(nullable = false)
     private String firstName;
 
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column
     private String phoneNumber;
 
-    // Business Information
+    //Business Information
     @Column(nullable = false)
     private String companyName;
 
@@ -57,25 +57,21 @@ public class Provider {
     @Column(length = 1000)
     private String description;
 
-    // Account Information
+    //Account Information
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "account_status")
-    private String accountStatus = "active";
-
-    // Account Creation Date
+    //Account Creation Date
     @Column(nullable = false)
     private LocalDate memberSince = LocalDate.now();
 
-    // Provider -> Event Relationship
+    //Provider -> Event Relationship
     @JsonIgnore
     @OneToMany(mappedBy = "provider", 
                 cascade = CascadeType.ALL, 
                 orphanRemoval = true)
     private List<Event> events = new ArrayList<>();
 
-    // Helper Methods
     public void addEvent(Event event) {
         events.add(event);
         event.setProvider(this);
@@ -86,8 +82,5 @@ public class Provider {
         event.setProvider(null);
     }
 
-    // Helper method for full name
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
+
 }
