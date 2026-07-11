@@ -32,7 +32,7 @@ The Triad Activities backend exposes a RESTful API for the activity discovery an
 
 ## 2. UML Class Diagram
 
-![UML Class Diagram](../docs/c:\Users\Maria Reynoso\OneDrive - UNCG\CSC340\Team 3 current UML Diagram.png)
+![UML Class Diagram](../docs/UML-Diagram.png)
 
 
 ---
