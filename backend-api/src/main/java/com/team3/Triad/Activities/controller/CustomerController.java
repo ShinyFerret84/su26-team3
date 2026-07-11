@@ -3,9 +3,7 @@ package com.team3.Triad.Activities.controller;
 import com.team3.Triad.Activities.dto.LoginRequest;
 import com.team3.Triad.Activities.entity.Booking;
 import com.team3.Triad.Activities.entity.Customer;
-import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Review;
-import com.team3.Triad.Activities.repository.EventRepository;
 import com.team3.Triad.Activities.service.CustomerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +22,6 @@ public class CustomerController {
 
     @Autowired
     private CustomerManager customerManager;
-
-    @Autowired
-    private EventRepository eventRepository;
 
     // create a new customer
     @PostMapping("/register")
@@ -99,32 +94,6 @@ public class CustomerController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    // Get all events
-    @GetMapping("/events")
-    public ResponseEntity<List<Event>> getAllEvents() {
-        return ResponseEntity.ok(eventRepository.findAll());
-    }
-
-    // Get event by ID
-    @GetMapping("/events/{id}")
-    public ResponseEntity<?> getEventById(@PathVariable Long id) {
-        return eventRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // Get events by category
-    @GetMapping("/events/category/{category}")
-    public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
-        return ResponseEntity.ok(eventRepository.findByCategoryContainingIgnoreCase(category));
-    }
-
-    // Search events
-    @GetMapping("/events/search")
-    public ResponseEntity<List<Event>> searchEvents(@RequestParam String keyword) {
-        return ResponseEntity.ok(eventRepository.findByEventNameContainingIgnoreCase(keyword));
     }
 
     // Book an event

@@ -19,4 +19,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     // Get reviews by event and rating
     List<Review> findByEventIdAndRating(Long eventId, Integer rating);
+
+    //For Provider Replies
+    //Find Reviews by Event
+    List<Review> findByEventProviderId(Long providerId);
+    
 }

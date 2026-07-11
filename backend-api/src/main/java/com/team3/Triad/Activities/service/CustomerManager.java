@@ -121,6 +121,7 @@ public class CustomerManager {
         Review review = new Review();
         review.setCustomer(customer);
         review.setEvent(event);
+        review.setProvider(event.getProvider());
         review.setRating(rating);
         review.setComment(comment);
         review.setReviewDate(LocalDate.now().toString());
@@ -133,4 +134,6 @@ public class CustomerManager {
         }
         return reviewRepository.findByCustomerId(customerId);
     }
+
+
 }

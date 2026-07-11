@@ -1,6 +1,7 @@
 package com.team3.Triad.Activities.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.team3.Triad.Activities.entity.Provider;
 import com.team3.Triad.Activities.service.ProviderService;
+import com.team3.Triad.Activities.entity.Review;
+import com.team3.Triad.Activities.dto.ProviderStatistics;
 
 @RestController
-@RequestMapping("/providers")
+@RequestMapping("/api/providers")
 @CrossOrigin(origins = "*")
 public class ProviderController {
     private final ProviderService providerService;
@@ -56,5 +59,29 @@ public class ProviderController {
     @DeleteMapping("/{id}")
     public void deleteProvider(@PathVariable Long id) {
         providerService.deleteProvider(id);
+    }
+
+    //GET provider review replies
+    @GetMapping("/{providerId}/reviews")
+    public List<Review> getProviderReviews(@PathVariable Long providerId) {
+        return providerService.getProviderReviews(providerId);
+    }
+
+    @PutMapping("/reviews/{reviewId}/reply")
+    public Review replyToReview(
+        @PathVariable Long reviewId,
+        @RequestBody Map<String, String> body) {
+
+    return providerService.replyToReview(
+            reviewId,
+            body.get("reply"));
+    }
+
+    //Provider Statistics
+    @GetMapping("/{providerId}/statistics")
+        public ProviderStatistics getProviderStatistics(
+        @PathVariable Long providerId) {
+
+    return providerService.getProviderStatistics(providerId);
     }
 }
