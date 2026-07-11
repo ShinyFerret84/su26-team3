@@ -11,11 +11,11 @@ public class Booking {
     private Long id;
  
     // How many people are attending 
-    @Column(name = "number_of_people")
+    @Column(name = "number_of_people", nullable = false)
     private Integer numberOfPeople;
 
    // Total price  
-    @Column(name = "total_price")
+    @Column(name = "total_price", nullable = false)
     private Double totalPrice;
    
     // Special requests from the customer
