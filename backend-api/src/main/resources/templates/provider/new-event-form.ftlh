@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triad Activities - Create Event</title>
+    <link rel="stylesheet" href="../common/shared.css">
+    <link rel="stylesheet" href="../customer/design.css">
+    <link rel="stylesheet" href="provider.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="app-header">
+        <div class="logo">
+            <a href="index.html"> Triad<span>Activities</span></a>
+        </div>
+
+        <nav class="main-nav">
+            <a href="provider-landing.html" >Dashboard</a> 
+            <a href="provider-profile.html">Profile</a> 
+            <a href="new-event-form.html" class="active">Create Event</a>
+        </nav>
+
+        <div class="header-actions">
+            <span class="location"> Winston-Salem, NC</span>
+        </div>
+    </header>
+
+        
+    <main>
+        <div class="profile-page">
+            
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Create a New Event</h1>
+                <p>
+                    Fill out the information below to publish a new activity
+                    for customers to discover.
+                </p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <form>
+                    <!-- Event Information -->
+
+                    <h2>Event Information</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="eventName">Event Name *</label>
+
+                            <input
+                                type="text"
+                                id="eventName"
+                                placeholder="Wine Tasting Experience"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category *</label>
+
+                            <select id="category" required>
+                                <option value="">Select Category</option>
+                                <option>Food & Drink</option>
+                                <option>Outdoor Activities</option>
+                                <option>Entertainment</option>
+                                <option>Arts & Culture</option>
+                                <option>Sports & Recreation</option>
+                                <option>Educational</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Price Per Person *</label>
+
+                            <input
+                                type="number"
+                                id="price"
+                                placeholder="45"
+                                min="0"
+                                required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description">
+                                Event Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                placeholder="Describe your event and what attendees can expect."></textarea>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <!-- Date & Time -->
+
+                    <h2>Date & Time</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="eventDate">Event Date *</label>
+
+                            <input
+                                type="date"
+                                id="eventDate"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startTime">Start Time *</label>
+
+                            <input
+                                type="time"
+                                id="startTime"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endTime">End Time *</label>
+
+                            <input
+                                type="time"
+                                id="endTime"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="capacity">
+                                Maximum Attendees
+                            </label>
+
+                            <input
+                                type="number"
+                                id="capacity"
+                                placeholder="25"
+                                min="1">
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <!-- Location -->
+
+                    <h2>Location</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="venue">
+                                Venue Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="venue"
+                                placeholder="Yadkin Valley Winery"
+                                required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address">
+                                Street Address *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="address"
+                                placeholder="123 Main Street"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City *</label>
+
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="Winston-Salem"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">State *</label>
+
+                            <input
+                                type="text"
+                                id="state"
+                                placeholder="NC"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zip">ZIP Code *</label>
+
+                            <input
+                                type="text"
+                                id="zip"
+                                placeholder="27101"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <!-- Image -->
+
+                    <h2>Event Image</h2>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+                            <label for="image">
+                                Upload Event Image
+                            </label>
+
+                            <input
+                                type="file"
+                                id="image"
+                                accept="image/*">
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+
+                    <div class="form-actions">
+
+                        <button
+                            type="reset"
+                            class="btn-secondary">
+
+                            Clear Form
+
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn-primary">
+
+                            Publish Event
+
+                        </button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </main> 
+
+     <!-- Footer -->
+
+    <footer class="app-footer">
+
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <h4>Triad Activities</h4>
+                <p>
+                    Discover the best experiences in the Triad area.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+
+                <a href="index.html">Home</a>
+                <a href="browse.html">Browse Activities</a>
+                
+            </div>
+
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+
+    </footer>
+    
+
+</body>
+</html>
