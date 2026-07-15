@@ -24,4 +24,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Long countByProviderId(Long providerId);
 
     List<Event> findByProviderId(Long providerId);
+
+    // User story 2: Get events that match customer's interests
+     List<Event> findByCategoryIn(List<String> categories); 
 }

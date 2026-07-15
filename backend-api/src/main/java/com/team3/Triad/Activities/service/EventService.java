@@ -76,5 +76,15 @@ public class EventService {
     public List<Event> getEventsByProviderId(Long providerId) {
         return eventRepository.findByProviderId(providerId);
     }
+
+    // User story 2: Get events that match customer's interests
+    public List<Event> getEventsByInterests(List<String> interests) {
+        // If customer has no interests, show all events
+        if (interests == null || interests.isEmpty()) {
+            return eventRepository.findAll();
+        }
+        // Find events where category matches any interest
+        return eventRepository.findByCategoryIn(interests);
+    }
     
 }
