@@ -38,9 +38,9 @@
                 </div>
                 <div class="profile-user-info">
                     <h1 id="userName">Loading...</h1>
-                    <p class="profile-email" id="userEmail">Loading...</p>
-                    <p class="profile-location" id="userLocationDisplay">Loading...</p>
-                    <p class="profile-member" id="userMemberSince">Loading...</p>
+                    <p class="profile-email" id="LunaClark@gmail.com">Loading...</p>
+                    <p class="profile-location" id="Winston-Salem">Loading...</p>
+                    <p class="profile-member" id="Member since 2025">Loading...</p>
                 </div>
                 <button class="btn-edit-profile" id="saveProfileBtn">Save Profile</button>
             </div>
