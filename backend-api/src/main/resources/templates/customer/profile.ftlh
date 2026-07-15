@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Interest Profile - Triad Activities</title>
+    <title>Profile - Triad Activities</title>
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="design.css">
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER  -->
     <header class="app-header">
         <div class="logo">
             <a href="/index.html">Triad<span>Activities</span></a>
@@ -20,10 +21,10 @@
             <a href="/index.html">Home</a>
             <a href="/browse.html">Browse</a>
             <a href="/myPlans.html">My Plans</a>
-            <a href="/profile.html" class="active">Profile</a>
+            <a href="/customer/profile/${customer.id}" class="active">Profile</a>
         </nav>
         <div class="header-actions">
-            <span class="location" id="userLocation">Loading...</span>
+            <span class="location">${location!"No location set"}</span>
         </div>
     </header>
 
@@ -31,79 +32,93 @@
     <main>
         <div class="profile-page">
 
-            <!-- Profile Header (Name, avatar, email) -->
+            <!-- Profile Header -->
             <div class="profile-header-section">
                 <div class="profile-avatar">
-                    <span class="avatar-initials" id="avatarInitials">??</span>
+                    <span class="avatar-initials">${initials!"??"}</span>
                 </div>
                 <div class="profile-user-info">
-                    <h1 id="userName">Loading...</h1>
-                    <p class="profile-email" id="LunaClark@gmail.com">Loading...</p>
-                    <p class="profile-location" id="Winston Salem">Loading...</p>
-                    <p class="profile-member" id="Member since 2025">Loading...</p>
+                    <h1>${firstName!"User"} ${lastName!""}</h1>
+                    <p class="profile-email">${email!"No email set"}</p>
+                    <p class="profile-location">${location!"No location set"}</p>
+                    <p class="profile-member">Member since ${memberSince!"2025"}</p>
                 </div>
-                <button class="btn-edit-profile" id="saveProfileBtn">Save Profile</button>
+                <button class="btn-edit-profile" onclick="alert('Edit profile form would appear here')">Edit Profile</button>
             </div>
 
-            <!-- Statistics Cards -->
+            <!-- Stats Cards -->
             <div class="profile-stats-grid">
                 <div class="stat-card">
-                    <span class="stat-number" id="activitiesDone">-</span>
+                    <span class="stat-number">${activitiesDone!"-"}</span>
                     <span class="stat-label">Activities Done</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number" id="reviewsWritten">-</span>
+                    <span class="stat-number">${reviewsWritten!"-"}</span>
                     <span class="stat-label">Reviews Written</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number" id="interestsCount">-</span>
+                    <span class="stat-number">${interestsCount!"-"}</span>
                     <span class="stat-label">Interests</span>
                 </div>
-            </div>
-
-            <!-- Edit Profile Form -->
-            <div class="profile-edit-section">
-                <h2>Edit Personal Information</h2>
-                <form id="profileForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="e.g., Winston-Salem, NC">
-                    </div>
-                    <button type="submit" class="btn-primary">Update Profile</button>
-                </form>
             </div>
 
             <!-- Interests Section -->
             <div class="profile-interests-section">
                 <div class="section-header">
                     <h2>My Interests</h2>
+                    <button class="btn-secondary" onclick="alert('Edit interests')">Edit Interests</button>
                 </div>
-                <div class="add-interest">
-                    <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
-                    <button id="addInterestBtn" class="btn-secondary">+ Add</button>
-                </div>
-                <div class="interests-tags" id="interestsContainer">
-                    <p class="no-interests">No interests added yet. Start adding some!</p>
+                <div class="interests-tags">
+                    <#if interests?has_content>
+                        <#list interests as interest>
+                            <span class="interest-tag">${interest}</span>
+                        </#list>
+                    <#else>
+                        <p class="no-interests">No interests added yet.</p>
+                    </#if>
+                    <span class="interest-tag-add" onclick="alert('Add new interest')">+ Add</span>
                 </div>
             </div>
 
-            <!-- Message Area -->
-            <div id="message" class="message hidden"></div>
-            
+            <!-- My Recent Reviews -->
+            <div class="profile-reviews-section">
+                <div class="section-header">
+                    <h2>My Recent Reviews</h2>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Wine Tasting in Yadkin Valley</h3>
+                            <span class="review-date">2 weeks ago</span>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">"Amazing experience! Beautiful views and delicious wine. Highly recommend!"</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Hiking at Hanging Rock</h3>
+                            <span class="review-date">1 month ago</span>
+                        </div>
+                        <span class="review-stars">★★★★</span>
+                    </div>
+                    <p class="review-text">"Great hike with beautiful views. Would be better with more time at the top."</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div>
+                            <h3>Live Jazz Night</h3>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">"Incredible music and atmosphere! The band was amazing."</p>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -112,14 +127,14 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Triad Activities</h4>
-                <p>Discover the best experiences in the Triad area.</p>
+                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="/index.html">Home</a>
                 <a href="/browse.html">Browse Activities</a>
                 <a href="/myPlans.html">My Plans</a>
-                <a href="/profile.html">Profile</a>
+                <a href="/customer/profile/${customer.id}">Profile</a>
             </div>
             <div class="footer-section">
                 <h4>Location</h4>
@@ -131,7 +146,5 @@
         </div>
     </footer>
 
-    <!-- JavaScript to function the page-->
-    <script src="profile.js"></script>
 </body>
 </html>
