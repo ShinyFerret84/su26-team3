@@ -135,5 +135,11 @@ public class CustomerManager {
         return reviewRepository.findByCustomerId(customerId);
     }
 
+    // USER1: Interest Profile Management Save Customer
 
+    //  It saves customer to database (used for updating interests)
+    // This method is needed by CustomerController when adding/removing interests
+    public Customer saveCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
 }
