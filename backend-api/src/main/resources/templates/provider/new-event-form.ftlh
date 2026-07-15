@@ -18,9 +18,9 @@
         </div>
 
         <nav class="main-nav">
-            <a href="provider-landing.html" >Dashboard</a> 
+            <a href="/providers/${providers.id?c}" >Dashboard</a> 
             <a href="provider-profile.html">Profile</a> 
-            <a href="/create-event" class="active">Create Event</a>
+            <a href="/providers/${providerId}/events/create" class="active">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -43,7 +43,7 @@
 
             <!-- Form Card -->
             <div class="form-card">
-                <form action="/create-event" method="post">
+                <form action="//providers/{providerId}/events/create" method="post">
                     <!-- Event Information -->
 
                     <h2>Event Information</h2>
@@ -56,7 +56,7 @@
                             <input
                                 type="text"
                                 id="eventName"
-                                name=""
+                                name="eventName"
                                 placeholder="Wine Tasting Experience"
                                 required>
                         </div>
@@ -64,14 +64,14 @@
                         <div class="form-group">
                             <label for="category">Category *</label>
 
-                            <select id="category" required>
+                            <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option>Food & Drink</option>
-                                <option>Outdoor Activities</option>
-                                <option>Entertainment</option>
-                                <option>Arts & Culture</option>
-                                <option>Sports & Recreation</option>
-                                <option>Educational</option>
+                                <option value="Food & Drink">Food & Drink</option>
+                                <option value="Outdoor">Outdoor Activities</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Arts & Culture">Arts & Culture</option>
+                                <option value="Sports & Recreation">Sports & Recreation</option>
+                                <option value="Educational">Educational</option>
                             </select>
                         </div>
 
@@ -81,6 +81,7 @@
                             <input
                                 type="number"
                                 id="price"
+                                name="pricePerPerson"
                                 placeholder="45"
                                 min="0"
                                 required>
@@ -92,7 +93,7 @@
                             </label>
 
                             <textarea
-                                id="description"
+                                id="description" name="description"
                                 placeholder="Describe your event and what attendees can expect."></textarea>
                         </div>
 
@@ -112,6 +113,7 @@
                             <input
                                 type="date"
                                 id="eventDate"
+                                name="date"
                                 required>
                         </div>
 
@@ -121,6 +123,7 @@
                             <input
                                 type="time"
                                 id="startTime"
+                                name="startTime"
                                 required>
                         </div>
 
@@ -130,6 +133,7 @@
                             <input
                                 type="time"
                                 id="endTime"
+                                name="endTime"
                                 required>
                         </div>
 
@@ -141,6 +145,7 @@
                             <input
                                 type="number"
                                 id="capacity"
+                                name="maxCapacity"
                                 placeholder="25"
                                 min="1">
                         </div>
@@ -163,6 +168,7 @@
                             <input
                                 type="text"
                                 id="venue"
+                                name="venueName"
                                 placeholder="Yadkin Valley Winery"
                                 required>
                         </div>
@@ -175,6 +181,7 @@
                             <input
                                 type="text"
                                 id="address"
+                                name="streetAddress"
                                 placeholder="123 Main Street"
                                 required>
                         </div>
@@ -185,6 +192,7 @@
                             <input
                                 type="text"
                                 id="city"
+                                name="city"
                                 placeholder="Winston-Salem"
                                 required>
                         </div>
@@ -195,6 +203,7 @@
                             <input
                                 type="text"
                                 id="state"
+                                name="state"
                                 placeholder="NC"
                                 required>
                         </div>
@@ -205,6 +214,7 @@
                             <input
                                 type="text"
                                 id="zip"
+                                name="zipCode"
                                 placeholder="27101"
                                 required>
                         </div>
@@ -227,6 +237,7 @@
                             <input
                                 type="file"
                                 id="image"
+                                name="imageUrl"
                                 accept="image/*">
                         </div>
 

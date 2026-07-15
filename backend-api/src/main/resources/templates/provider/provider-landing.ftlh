@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triad Activities - Provider Portal</title>
-    <link rel="stylesheet" href="../common/shared.css">
-    <link rel="stylesheet" href="../customer/design.css">
-    <link rel="stylesheet" href="provider.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/provider.css">
 </head>
 
 <body>
@@ -14,13 +14,13 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <a href="provider-landing.html"> Triad<span>Activities</span></a>
+            <a href="/providers/${providers.id?c}"> Triad<span>Activities</span></a>
         </div>
 
         <nav class="main-nav">
-            <a href="provider-landing.html" class="active">Dashboard</a> 
+            <a href="/providers/${providers.id?c}" class="active">Dashboard</a> 
             <a href="provider-profile.html">Profile</a> 
-            <a href="new-event-form.html">Create Event</a>
+            <a href="/providers/{providerId}/events/new">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -38,10 +38,10 @@
                 </div>
 
                 <div class="profile-user-info">
-                    <h1>Welcome back, Julie!</h1>
-                    <p class="profile-email"> julie@example.com</p>
-                    <p class="profile-location"> High Point, NC</p>
-                    <p class="profile-member">Provider since June 2026</p>
+                    <h1>Welcome back, ${provider.firstName}!</h1>
+                    <p class="profile-email"> ${provider.email}</p>
+                    <p class="profile-location"> ${provider.city}, ${provider.state}</p>
+                    <p class="profile-member">Provider since ${provider.memberSince}</p>
                 </div>
                 
                 <button class="btn-edit-profile">Edit Profile</button>
