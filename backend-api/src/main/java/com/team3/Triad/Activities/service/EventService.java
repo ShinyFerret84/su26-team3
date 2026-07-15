@@ -37,6 +37,7 @@ public class EventService {
                     event.setCity(updatedEvent.getCity());
                     event.setState(updatedEvent.getState());
                     event.setZipCode(updatedEvent.getZipCode());
+                    event.setPricePerPerson(updatedEvent.getPricePerPerson());
                     event.setCost(updatedEvent.getCost());
                     event.setDate(updatedEvent.getDate());
                     event.setStartTime(updatedEvent.getStartTime());
@@ -70,6 +71,10 @@ public class EventService {
         } else {
             return getAllEvents();
         }
+    }
+
+    public List<Event> getEventsByProviderId(Long providerId) {
+        return eventRepository.findByProviderId(providerId);
     }
     
 }

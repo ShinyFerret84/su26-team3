@@ -35,17 +35,26 @@ public class ProviderService {
 
     // GET all providers
     public List<Provider> getAllProviders() {
-        return providerRepository.findAll();
+        return providerRepository.findByActiveTrue();
     }
 
     // GET provider by ID
+    //Used for event history
     public Provider getProviderById(Long id) {
         return providerRepository.findById(id).orElse(null);
     }
 
+    //Used to create new events and provider search
+    public Provider getActiveProviderById(Long id) {
+    return providerRepository.findById(id)
+            .filter(Provider::getActive)
+            .orElse(null);
+}
+
     // CREATE provider
     public Provider createProvider(Provider provider) {
         provider.setMemberSince(LocalDate.now());
+        provider.setActive(true);
         return providerRepository.save(provider);
     }
 
@@ -73,7 +82,12 @@ public class ProviderService {
 
     // DELETE provider
     public void deleteProvider(Long id) {
-        providerRepository.deleteById(id);
+        Provider provider = providerRepository.findById(id).orElse(null);
+        if (provider != null) {
+            provider.setActive(false);
+            providerRepository.save(provider);
+        }
+        
     }
 
     //Provider replies to reviews
