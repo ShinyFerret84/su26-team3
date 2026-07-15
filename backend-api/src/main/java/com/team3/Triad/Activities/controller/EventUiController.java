@@ -6,33 +6,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.team3.Triad.Activities.entity.Customer;
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
-import com.team3.Triad.Activities.service.CustomerManager;
 import com.team3.Triad.Activities.service.EventService;
 import com.team3.Triad.Activities.service.ProviderService;
 
-import java.util.List;
-import java.util.Optional;
-
 @Controller
 public class EventUiController {
-
     private final EventService eventService;
     private final ProviderService providerService;
-    private final CustomerManager customerManager;  // NEW: Added for US-2
 
-    // NEW: Updated constructor to include CustomerManager for US-2
-    public EventUiController(EventService eventService, ProviderService providerService, CustomerManager customerManager) {
+    public EventUiController(EventService eventService, ProviderService providerService) {
         this.eventService = eventService;
         this.providerService = providerService;
-        this.customerManager = customerManager;  // NEW: Added for US-2
     }
 
-    //New event form
+    // New event form
     @GetMapping("/providers/{providerId}/events/new")
     public String showNewEventForm(
             @PathVariable Long providerId,
@@ -51,7 +41,7 @@ public class EventUiController {
         return "new-event-form";
     }
 
-     //Create event
+    // Create event
     @PostMapping("/providers/{providerId}/events/create")
     public String createEvent(
             @PathVariable Long providerId,
@@ -60,7 +50,7 @@ public class EventUiController {
         Provider provider =
                 providerService.getProviderById(providerId);
 
-        //Failsafe check: confirms the provider id is in the database
+        // Failsafe check: confirms the provider id is in the database
         if (provider == null || !provider.getActive()) {
             return "redirect:/providers/new";
         }
@@ -76,7 +66,7 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    //Display event update form
+    // Display event update form
     @GetMapping("/providers/{providerId}/events/{eventId}/edit")
     public String showEventUpdateForm(
             @PathVariable Long providerId,
@@ -103,7 +93,7 @@ public class EventUiController {
         return "event-update-form";
     }
 
-    //Update event
+    // Update event
     @PostMapping("/providers/{providerId}/events/{eventId}/update")
     public String updateEvent(
             @PathVariable Long providerId,
@@ -127,7 +117,7 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    //Delete event
+    // Delete event
     @PostMapping("/providers/{providerId}/events/{eventId}/delete")
     public String deleteEvent(
             @PathVariable Long providerId,
@@ -144,49 +134,5 @@ public class EventUiController {
         }
 
         return "redirect:/providers/" + providerId;
-    }
-
-    // User story2: Customer Browse Events shows events matching customer's interests
-    // URL: http://localhost:8080/events/browse/1
-    @GetMapping("/browse/{customerId}")
-    public String browseEvents(@PathVariable Long customerId,
-                               @RequestParam(required = false) String search,
-                               @RequestParam(required = false) String category,
-                               Model model) {
-
-        // Get customer to find their interests
-        Optional<Customer> customerOpt = customerManager.getCustomerById(customerId);
-        if (customerOpt.isEmpty()) {
-            return "error/404";
-        }
-
-        Customer customer = customerOpt.get();
-        List<String> interests = customer.getInterests();
-
-        // Get events matching customer's interests
-        List<Event> events = eventService.getEventsByInterests(interests);
-
-        // Filter by search term if provided
-        if (search != null && !search.isEmpty()) {
-            events = events.stream()
-                    .filter(e -> e.getEventName().toLowerCase().contains(search.toLowerCase()))
-                    .toList();
-        }
-
-        // Filter by category if provided
-        if (category != null && !category.isEmpty()) {
-            events = events.stream()
-                    .filter(e -> e.getCategory().equalsIgnoreCase(category))
-                    .toList();
-        }
-
-        // Add data to model for the FreeMarker template
-        model.addAttribute("customer", customer);   
-        model.addAttribute("events", events);       
-        model.addAttribute("interests", interests);
-        model.addAttribute("search", search);
-        model.addAttribute("category", category);
-
-        return "customer/browse"; // loads browse.ftlh
     }
 }
