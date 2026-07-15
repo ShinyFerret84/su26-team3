@@ -146,7 +146,7 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    // User 2 Story:Customer Browse Events to shows events matching customer's interests
+    // User story2: Customer Browse Events shows events matching customer's interests
     // URL: http://localhost:8080/events/browse/1
     @GetMapping("/browse/{customerId}")
     public String browseEvents(@PathVariable Long customerId,
@@ -181,8 +181,8 @@ public class EventUiController {
         }
 
         // Add data to model for the FreeMarker template
-        model.addAttribute("customer", customer);
-        model.addAttribute("events", events);
+        model.addAttribute("customer", customer);   // ← FIXED: no quotes!
+        model.addAttribute("events", events);       // ← FIXED: no quotes!
         model.addAttribute("interests", interests);
         model.addAttribute("search", search);
         model.addAttribute("category", category);
