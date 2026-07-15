@@ -6,6 +6,7 @@
     <title>Browse Activities - Triad Activities</title>
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/browse.css">
 </head>
 <body>
 
@@ -15,12 +16,12 @@
         </div>
         <nav class="main-nav">
             <a href="index.html">Home</a>
-            <a href="browse.html" class="active">Browse</a>
+            <a href="/events/browse/${customer.id}" class="active">Browse</a>
             <a href="myPlans.html">My Plans</a>
-            <a href="profile.html">Profile</a>
+            <a href="/customer/profile/${customer.id}">Profile</a>
         </nav>
         <div class="header-actions">
-            <span class="location">Winston-Salem, NC</span>
+            <span class="location">${customer.location!"Winston-Salem, NC"}</span>
         </div>
     </header>
 
@@ -30,18 +31,18 @@
             <p>Browse through all available activities in the Triad area</p>
         </section>
 
+        <!-- ===== FILTER SECTION ===== -->
         <section class="filter-section">
             <div class="filter-row">
                 <div class="filter-group">
                     <label for="categoryFilter">Category</label>
                     <select id="categoryFilter">
                         <option value="all">All Categories</option>
-                        <option value="outdoor">Outdoor</option>
-                        <option value="indoor">Indoor</option>
-                        <option value="food">Food & Drink</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="culture">Culture</option>
-                        <option value="sports">Sports</option>
+                        <option value="Outdoor">Outdoor</option>
+                        <option value="Food">Food & Drink</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Culture">Culture</option>
+                        <option value="Sports">Sports</option>
                     </select>
                 </div>
 
@@ -76,148 +77,43 @@
             </div>
         </section>
 
+        <!-- ===== RESULTS SECTION ===== -->
         <section class="results-section">
             <div class="section-header">
-                <h2 id="resultsCount">8 Activities Found</h2>
-                <span class="result-count">Showing 1-8 of 8</span>
+                <h2 id="resultsCount">${events?size} Activities Found</h2>
+                <span class="result-count">Showing 1-${events?size} of ${events?size}</span>
             </div>
 
+            <!-- ===== EVENTS GRID ===== -->
             <div class="activity-grid">
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <span class="card-badge">Featured</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Wine Tasting in Yadkin Valley</h3>
-                        <p class="location">Yadkin Valley, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Jul 12</span>
-                            <span>2-5 PM</span>
+                <#if events?has_content>
+                    <#list events as event>
+                        <div class="activity-card">
+                            <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <#if event.featured?? && event.featured == true>
+                                    <span class="card-badge">Featured</span>
+                                </#if>
+                                <#if event.category??>
+                                    <span class="card-badge" style="right: 10px; top: 40px;">${event.category}</span>
+                                </#if>
+                            </div>
+                            <div class="card-body">
+                                <h3>${event.eventName}</h3>
+                                <p class="location">${event.city}, ${event.state}</p>
+                                <div class="card-meta">
+                                    <span>${event.date}</span>
+                                    <span>${event.startTime} - ${event.endTime}</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
+                                    <a href="booking.html?id=${event.id}" class="view-detail-btn">View Details</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <span class="price">$45 <span>/person</span></span>
-                            <a href="booking.html?id=1" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-                    <div class="card-body">
-                        <h3>Hiking at Hanging Rock</h3>
-                        <p class="location">Hanging Rock State Park</p>
-                        <div class="card-meta">
-                            <span>Sun, Jul 13</span>
-                            <span>8-11 AM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$15 <span>/person</span></span>
-                            <a href="booking.html?id=2" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-                    <div class="card-body">
-                        <h3>Food Tour - Downtown Greensboro</h3>
-                        <p class="location">Greensboro, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Jul 19</span>
-                            <span>11 AM - 2 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$75 <span>/person</span></span>
-                            <a href="booking.html?id=3" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
-                        <span class="card-badge">Live Music</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Live Jazz Night</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Fri, Jul 18</span>
-                            <span>8-11 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$25 <span>/person</span></span>
-                            <a href="booking.html?id=4" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);"></div>
-                    <div class="card-body">
-                        <h3>Kernersville Corn Maze</h3>
-                        <p class="location">Kernersville, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Oct 12</span>
-                            <span>10 AM - 6 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$20 <span>/person</span></span>
-                            <a href="booking.html?id=5" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
-                        <span class="card-badge">Arts</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Pottery Class at Sawtooth</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Thu, Jul 17</span>
-                            <span>6-8 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$40 <span>/person</span></span>
-                            <a href="booking.html?id=6" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <span class="card-badge">Game Day</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Dash Baseball Game</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Tue, Jul 15</span>
-                            <span>7 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$12 <span>/person</span></span>
-                            <a href="booking.html?id=7" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);"></div>
-                    <div class="card-body">
-                        <h3>Art & Wine Night</h3>
-                        <p class="location">Greensboro, NC</p>
-                        <div class="card-meta">
-                            <span>Wed, Jul 16</span>
-                            <span>7-9 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$35 <span>/person</span></span>
-                            <a href="booking.html?id=8" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
+                    </#list>
+                <#else>
+                    <p class="no-events">No events found matching your interests. Try adding more interests!</p>
+                </#if>
             </div>
 
             <div class="pagination">
@@ -239,10 +135,19 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="index.html">Home</a>
-                <a href="browse.html">Browse Activities</a>
+                <a href="/events/browse/${customer.id}">Browse Activities</a>
                 <a href="myPlans.html">My Plans</a>
-                <a href="profile.html">Profile</a>
+                <a href="/customer/profile/${customer.id}">Profile</a>
             </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <p>Winston-Salem, NC</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Triad Activities. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
-<div class="n"></div>
