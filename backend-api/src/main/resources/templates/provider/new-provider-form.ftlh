@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triad Activities - New Provider Form</title>
-    <link rel="stylesheet" href="../common/shared.css">
-    <link rel="stylesheet" href="../customer/design.css">
-    <link rel="stylesheet" href="provider.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/provider.css">
 </head>
 
 <body>
@@ -14,11 +14,11 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <a href="index.html"> Triad<span>Activities</span></a>
+            <a href="index.html"> Triad<span>Activities</span></a>          //needs to link to Maria's customer controller
         </div>
 
         <nav class="main-nav">
-            <a href="index.html">Home</a>
+            <a href="index.html">Home</a>                                   //needs to link to Maria's customer controller
             <a href="browse.html">Browse</a>
         </nav>
 
@@ -41,7 +41,7 @@
 
             <!-- Form Card -->
             <div class="form-card">
-                <form>
+                <form action="/providers/create" method="post">
                     <!-- Contact Information -->
                     <h2>Business Contact Information</h2>
 
@@ -51,6 +51,7 @@
                             <label for="firstName">First Name *</label>
                             <input type="text"
                                    id="firstName"
+                                   name="firstName"
                                    placeholder="John"
                                    required>
                         </div>
@@ -59,6 +60,7 @@
                             <label for="lastName">Last Name *</label>
                             <input type="text"
                                    id="lastName"
+                                   name="lastName"
                                    placeholder="Smith"
                                    required>
                         </div>
@@ -67,6 +69,7 @@
                             <label for="email">Email Address *</label>
                             <input type="email"
                                    id="email"
+                                   name="email"
                                    placeholder="johnsmith@email.com"
                                    required>
                         </div>
@@ -75,6 +78,7 @@
                             <label for="phone">Phone Number</label>
                             <input type="tel"
                                    id="phone"
+                                   name="phoneNumber"
                                    placeholder="555-555-5555">
                         </div>
 
@@ -90,6 +94,7 @@
                             <label for="companyName">Company Name *</label>
                             <input type="text"
                                    id="companyName"
+                                   name="companyName"
                                    placeholder="Shiny Ferret Studios"
                                    required>
                         </div>
@@ -97,14 +102,14 @@
                         <div class="form-group">
                             <label for="category">Business Category *</label>
 
-                            <select id="category" required>
+                            <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option>Food & Drink</option>
-                                <option>Outdoor Activities</option>
-                                <option>Entertainment</option>
-                                <option>Arts & Culture</option>
-                                <option>Sports & Recreation</option>
-                                <option>Educational</option>
+                                <option value="Food & Drink">Food & Drink</option>
+                                <option value="Outdoor">Outdoor Activities</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Arts & Culture">Arts & Culture</option>
+                                <option value="Sporta & Recreation">Sports & Recreation</option>
+                                <option value="Educational">Educational</option>
                             </select>
 
                         </div>
@@ -114,6 +119,7 @@
 
                             <input type="url"
                                    id="website"
+                                   name="website"
                                    placeholder="https://www.yourbusiness.com">
                         </div>
 
@@ -122,7 +128,7 @@
                                 Business Description
                             </label>
 
-                            <textarea id="description"
+                            <textarea id="description" name="description"
                                       placeholder="Tell customers about your business..."></textarea>
                         </div>
 
