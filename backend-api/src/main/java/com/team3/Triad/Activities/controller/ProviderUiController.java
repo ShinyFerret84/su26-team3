@@ -1,12 +1,16 @@
 package com.team3.Triad.Activities.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
 
+import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
 import com.team3.Triad.Activities.service.EventService;
 import com.team3.Triad.Activities.service.ProviderService;
@@ -40,7 +44,7 @@ public class ProviderUiController {
                 + savedProvider.getId();
     }
 
-    // Provider dashboard
+    //Provider dashboard
     @GetMapping("/providers/{id}")
     public String showProviderDashboard(
             @PathVariable Long id,
@@ -49,20 +53,40 @@ public class ProviderUiController {
         Provider provider =
                 providerService.getProviderById(id);
 
-        if (provider == null) {
+        //Failsafe check: confirms provider ID is in the database
+        if (provider == null || !provider.getActive()) {
             return "redirect:/providers/new";
         }
 
+        List<Event> events =
+                eventService.getEventsByProviderId(id);
+
+        List<Event> upcomingEvents = events.stream()
+                .filter(event ->
+                        event.getDate() != null
+                        && !event.getDate().isBefore(LocalDate.now()))
+                .sorted((event1, event2) ->
+                        event1.getDate().compareTo(event2.getDate()))
+                .toList();
+
+        List<Event> pastEvents = events.stream()
+                .filter(event ->
+                        event.getDate() != null
+                        && event.getDate().isBefore(LocalDate.now()))
+                .sorted((event1, event2) ->
+                        event2.getDate().compareTo(event1.getDate()))
+                .toList();
+
         model.addAttribute("provider", provider);
-        model.addAttribute(
-                "eventList",
-                eventService.getEventsByProviderId(id));
+        model.addAttribute("upcomingEvents", upcomingEvents);
+        model.addAttribute("pastEvents", pastEvents);
+        model.addAttribute("eventCount", events.size());
 
         return "provider-landing";
     }
 
-    // Display provider update form
-    @GetMapping("/providers/{id}/edit")
+    //Display provider update form
+   @GetMapping("/providers/{id}/edit")
     public String showProviderUpdateForm(
             @PathVariable Long id,
             Model model) {
@@ -70,7 +94,7 @@ public class ProviderUiController {
         Provider provider =
                 providerService.getProviderById(id);
 
-        if (provider == null) {
+        if (provider == null || !provider.getActive()) {
             return "redirect:/providers/new";
         }
 
@@ -79,18 +103,18 @@ public class ProviderUiController {
         return "provider-update-form";
     }
 
-    // Update provider
-    @PostMapping("/providers/{id}/update")
+    //Update provider
+     @PostMapping("/providers/{id}/update")
     public String updateProvider(
             @PathVariable Long id,
-            @ModelAttribute Provider provider) {
+            @ModelAttribute("provider") Provider provider) {
 
         providerService.updateProvider(id, provider);
 
         return "redirect:/providers/" + id;
     }
 
-    // Delete provider
+    //Delete provider: Soft delete, does not remove from database completely. Marks as inactive
     @PostMapping("/providers/{id}/delete")
     public String deleteProvider(@PathVariable Long id) {
 

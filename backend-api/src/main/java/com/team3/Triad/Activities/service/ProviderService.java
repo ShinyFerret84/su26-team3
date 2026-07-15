@@ -33,12 +33,12 @@ public class ProviderService {
     this.reviewRepository = reviewRepository;
 }
 
-    // GET all providers
+    //GET all providers
     public List<Provider> getAllProviders() {
         return providerRepository.findByActiveTrue();
     }
 
-    // GET provider by ID
+    //GET provider by ID
     //Used for event history
     public Provider getProviderById(Long id) {
         return providerRepository.findById(id).orElse(null);
@@ -51,14 +51,14 @@ public class ProviderService {
             .orElse(null);
 }
 
-    // CREATE provider
+    //CREATE provider
     public Provider createProvider(Provider provider) {
         provider.setMemberSince(LocalDate.now());
         provider.setActive(true);
         return providerRepository.save(provider);
     }
 
-    // UPDATE provider
+    //UPDATE provider
     public Provider updateProvider(Long id, Provider providerDetails) {
         return providerRepository.findById(id)
                 .map(provider -> {
@@ -80,7 +80,7 @@ public class ProviderService {
                 .orElse(null);
     }
 
-    // DELETE provider
+    //DELETE provider
     public void deleteProvider(Long id) {
         Provider provider = providerRepository.findById(id).orElse(null);
         if (provider != null) {
