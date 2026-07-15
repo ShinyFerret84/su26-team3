@@ -6,7 +6,7 @@
 **Base URL:**
 
 - local: http://localhost:8080
-- production: (to be added)
+- production: https://su26-team3.onrender.com/
 
 ---
 
