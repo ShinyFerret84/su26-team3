@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -61,15 +60,16 @@ public class Provider {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false) //This allows for a "soft delete" that doesn't actually remove the provider profile from the database
+    private Boolean active = true;
+
     //Account Creation Date
     @Column(nullable = false)
     private LocalDate memberSince = LocalDate.now();
 
     //Provider -> Event Relationship
     @JsonIgnore
-    @OneToMany(mappedBy = "provider", 
-                cascade = CascadeType.ALL, 
-                orphanRemoval = true)
+    @OneToMany(mappedBy = "provider")
     private List<Event> events = new ArrayList<>();
 
     public void addEvent(Event event) {
@@ -82,7 +82,8 @@ public class Provider {
         event.setProvider(null);
     }
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "provider")
     @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
+
 }

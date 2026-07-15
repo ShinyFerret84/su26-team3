@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triad Activities - Create Event</title>
-    <link rel="stylesheet" href="../common/shared.css">
-    <link rel="stylesheet" href="../customer/design.css">
-    <link rel="stylesheet" href="provider.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/provider.css">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <nav class="main-nav">
             <a href="provider-landing.html" >Dashboard</a> 
             <a href="provider-profile.html">Profile</a> 
-            <a href="new-event-form.html" class="active">Create Event</a>
+            <a href="/create-event" class="active">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -43,7 +43,7 @@
 
             <!-- Form Card -->
             <div class="form-card">
-                <form>
+                <form action="/create-event" method="post">
                     <!-- Event Information -->
 
                     <h2>Event Information</h2>
@@ -56,6 +56,7 @@
                             <input
                                 type="text"
                                 id="eventName"
+                                name=""
                                 placeholder="Wine Tasting Experience"
                                 required>
                         </div>

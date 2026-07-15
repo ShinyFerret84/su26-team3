@@ -22,4 +22,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByDate(LocalDate date);
 
     Long countByProviderId(Long providerId);
+
+    List<Event> findByProviderId(Long providerId);
 }
