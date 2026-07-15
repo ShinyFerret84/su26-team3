@@ -181,8 +181,8 @@ public class EventUiController {
         }
 
         // Add data to model for the FreeMarker template
-        model.addAttribute("customer", customer);   // ← FIXED: no quotes!
-        model.addAttribute("events", events);       // ← FIXED: no quotes!
+        model.addAttribute("customer", customer);   
+        model.addAttribute("events", events);       
         model.addAttribute("interests", interests);
         model.addAttribute("search", search);
         model.addAttribute("category", category);
