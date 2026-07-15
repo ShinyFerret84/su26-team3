@@ -28,7 +28,14 @@ public class Customer {
 
     private String location;
 
-    private String interests;
+    // NEW: Changed from single String to List for multiple interests
+    // NEW: @ElementCollection creates a separate table for interests
+    // NEW: Each interest is stored as a separate row in customer_interests table
+    @ElementCollection
+    @CollectionTable(name = "customer_interests", 
+                     joinColumns = @JoinColumn(name = "customer_id"))
+    @Column(name = "interest_tag")
+    private List<String> interests = new ArrayList<>();
 
     @Column(name = "member_since")
     private String memberSince;
@@ -47,12 +54,13 @@ public class Customer {
     public Customer() {}
 
     // Constructor to create a new customer with basic info
-    public Customer(String firstName, String lastName, String email, String location, String interests) {
+    // NEW: Changed parameter from String interests to List<String> interests
+    public Customer(String firstName, String lastName, String email, String location, List<String> interests) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.location = location;
-        this.interests = interests;
+        this.interests = interests != null ? interests : new ArrayList<>();
     }
 
     // Getters and Setters set it to that value
@@ -104,12 +112,28 @@ public class Customer {
         this.location = location;
     }
 
-    public String getInterests() {
+    // Changed return type from String to List<String>
+    public List<String> getInterests() {
         return interests;
     }
 
-    public void setInterests(String interests) {
-        this.interests = interests;
+    // Changed parameter from String to List<String>
+    public void setInterests(List<String> interests) {
+        this.interests = interests != null ? interests : new ArrayList<>();
+    }
+
+    // Helper method to add a single interest (prevents duplicates)
+    public void addInterest(String interest) {
+        if (interest != null && !interest.trim().isEmpty() && !this.interests.contains(interest.trim())) {
+            this.interests.add(interest.trim());
+        }
+    }
+
+    // Helper method to remove a single interest
+    public void removeInterest(String interest) {
+        if (interest != null) {
+            this.interests.remove(interest.trim());
+        }
     }
 
     public String getMemberSince() {

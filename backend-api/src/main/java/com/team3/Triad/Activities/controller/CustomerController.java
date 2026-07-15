@@ -181,4 +181,64 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // USER1: Interest Profile Management
+    // These endpoints allow customers to manage their interests
+
+    // GET /api/customers/{id}/interests This gets all interests for a customer
+    @GetMapping("/{id}/interests")
+    public ResponseEntity<?> getCustomerInterests(@PathVariable Long id) {
+        try {
+            Customer customer = customerManager.getCustomerById(id)
+                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+            return ResponseEntity.ok(customer.getInterests());
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // POST /api/customers/{id}/interests will add a single interest to customer
+    @PostMapping("/{id}/interests")
+    public ResponseEntity<?> addInterest(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> request) {
+        try {
+            String interest = request.get("interest");
+            if (interest == null || interest.trim().isEmpty()) {
+                Map<String, String> error = new HashMap<>();
+                error.put("error", "Interest cannot be empty");
+                return ResponseEntity.badRequest().body(error);
+            }
+            
+            Customer customer = customerManager.getCustomerById(id)
+                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+            customer.addInterest(interest.trim());
+            Customer updated = customerManager.saveCustomer(customer);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // DELETE /api/customers/{id}/interests/{interest}  will remove an interest
+    @DeleteMapping("/{id}/interests/{interest}")
+    public ResponseEntity<?> removeInterest(
+            @PathVariable Long id,
+            @PathVariable String interest) {
+        try {
+            Customer customer = customerManager.getCustomerById(id)
+                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+            customer.removeInterest(interest);
+            Customer updated = customerManager.saveCustomer(customer);
+            return ResponseEntity.ok(updated);
+        } catch (RuntimeException e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
