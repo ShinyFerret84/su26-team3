@@ -67,7 +67,8 @@ public class ProviderUiController {
         List<Event> allUpcomingEvents = events.stream()
                 .filter(event ->
                         event.getDate() != null
-                        && !event.getDate().isBefore(LocalDate.now()))
+                        && !event.getDate().isBefore(LocalDate.now())
+                        && !Boolean.TRUE.equals(event.isCancelled()))
                 .sorted((event1, event2) ->
                         event1.getDate().compareTo(event2.getDate()))
                 .toList();

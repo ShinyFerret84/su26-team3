@@ -25,6 +25,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByProviderId(Long providerId);
 
+    List<Event> findByCancelledFalseAndDateGreaterThanEqualOrderByDateAsc(LocalDate date);
+
     // User story 2: Get events that match customer's interests
      List<Event> findByCategoryIn(List<String> categories); 
 }

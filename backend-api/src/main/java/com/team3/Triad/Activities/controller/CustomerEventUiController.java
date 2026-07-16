@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,14 @@ public class CustomerEventUiController {
         List<String> interests = customer.getInterests();
 
         // Get events matching customer's interests
-        List<Event> events = eventService.getEventsByInterests(interests);
+        List<Event> events =
+        eventService.getEventsByInterests(interests)
+                .stream()
+                .filter(event ->
+                        event.getDate() != null
+                        && !event.getDate().isBefore(LocalDate.now())
+                        && !event.isCancelled())
+                .toList();
 
         // Filter by search term if provided
         if (search != null && !search.isEmpty()) {

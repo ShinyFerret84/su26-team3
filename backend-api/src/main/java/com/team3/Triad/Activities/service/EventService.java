@@ -38,7 +38,6 @@ public class EventService {
                     event.setState(updatedEvent.getState());
                     event.setZipCode(updatedEvent.getZipCode());
                     event.setPricePerPerson(updatedEvent.getPricePerPerson());
-                    event.setCost(updatedEvent.getCost());
                     event.setDate(updatedEvent.getDate());
                     event.setStartTime(updatedEvent.getStartTime());
                     event.setEndTime(updatedEvent.getEndTime());
@@ -47,14 +46,20 @@ public class EventService {
                     event.setImageUrl(updatedEvent.getImageUrl());
                     event.setCategory(updatedEvent.getCategory());
                     event.setIncluded(updatedEvent.getIncluded());
-                    event.setFeatured(updatedEvent.getFeatured());
+                    
                     return eventRepository.save(event);
                 })
                 .orElse(null);
     }
 
-    public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+    public Event cancelEvent(Long id) {
+
+        return eventRepository.findById(id)
+                .map(event -> {
+                    event.setCancelled(true);
+                    return eventRepository.save(event);
+                })
+                .orElse(null);
     }
 
     public List<Event> searchEvents(String eventName, String category, String city, String state, LocalDate date) {
@@ -71,6 +76,13 @@ public class EventService {
         } else {
             return getAllEvents();
         }
+    }
+
+    public List<Event> getAvailableUpcomingEvents() {
+
+    return eventRepository
+        .findByCancelledFalseAndDateGreaterThanEqualOrderByDateAsc(
+            LocalDate.now());
     }
 
     public List<Event> getEventsByProviderId(Long providerId) {

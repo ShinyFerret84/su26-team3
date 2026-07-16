@@ -12,13 +12,13 @@
 
     <header class="app-header">
         <div class="logo">
-            <a href="index.html">Triad<span>Activities</span></a>
+            <a href="#">Triad<span>Activities</span></a>
         </div>
         <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="/events/browse/${customer.id}" class="active">Browse</a>
-            <a href="myPlans.html">My Plans</a>
-            <a href="/customer/profile/${customer.id}">Profile</a>
+            <a href="#">Home</a>
+            <a href="/events/browse/${customer.id?c}" class="active">Browse</a>
+            <a href="#">My Plans</a>
+            <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
             <span class="location">Winston-Salem, NC</span>  //This shows the local area the person wants to find events, need to figure out the filter. Ideally would default to customers registered area
@@ -85,177 +85,73 @@
                 <span class="result-count">Showing 1-${events?size} of ${events?size}</span>
             </div>
 
-            //Activity card to loop
-            <div class="activity-grid">
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <span class="card-badge">Featured</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Wine Tasting in Yadkin Valley</h3>
-                        <p class="location">Yadkin Valley, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Jul 12</span>
-                            <span>2-5 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$45 <span>/person</span></span>
-                            <a href="booking.html?id=1" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                //End single activity card
-
-                //This section can be deleted once the looping cards work
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-                    <div class="card-body">
-                        <h3>Hiking at Hanging Rock</h3>
-                        <p class="location">Hanging Rock State Park</p>
-                        <div class="card-meta">
-                            <span>Sun, Jul 13</span>
-                            <span>8-11 AM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$15 <span>/person</span></span>
-                            <a href="booking.html?id=2" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-                    <div class="card-body">
-                        <h3>Food Tour - Downtown Greensboro</h3>
-                        <p class="location">Greensboro, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Jul 19</span>
-                            <span>11 AM - 2 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$75 <span>/person</span></span>
-                            <a href="booking.html?id=3" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
-                        <span class="card-badge">Live Music</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Live Jazz Night</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Fri, Jul 18</span>
-                            <span>8-11 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$25 <span>/person</span></span>
-                            <a href="booking.html?id=4" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);"></div>
-                    <div class="card-body">
-                        <h3>Kernersville Corn Maze</h3>
-                        <p class="location">Kernersville, NC</p>
-                        <div class="card-meta">
-                            <span>Sat, Oct 12</span>
-                            <span>10 AM - 6 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$20 <span>/person</span></span>
-                            <a href="booking.html?id=5" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
-                        <span class="card-badge">Arts</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Pottery Class at Sawtooth</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Thu, Jul 17</span>
-                            <span>6-8 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$40 <span>/person</span></span>
-                            <a href="booking.html?id=6" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <span class="card-badge">Game Day</span>
-                    </div>
-                    <div class="card-body">
-                        <h3>Dash Baseball Game</h3>
-                        <p class="location">Winston-Salem, NC</p>
-                        <div class="card-meta">
-                            <span>Tue, Jul 15</span>
-                            <span>7 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$12 <span>/person</span></span>
-                            <a href="booking.html?id=7" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="activity-card">
-                    <div class="card-image" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);"></div>
-                    <div class="card-body">
-                        <h3>Art & Wine Night</h3>
-                        <p class="location">Greensboro, NC</p>
-                        <div class="card-meta">
-                            <span>Wed, Jul 16</span>
-                            <span>7-9 PM</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">$35 <span>/person</span></span>
-                            <a href="booking.html?id=8" class="view-detail-btn">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            <!-- ===== EVENTS GRID ===== -->
             <div class="activity-grid">
                 <#if events?has_content>
                     <#list events as event>
                         <div class="activity-card">
-                            <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                <#if event.featured?? && event.featured == true>
-                                    <span class="card-badge">Featured</span>
-                                </#if>
-                                <#if event.category??>
-                                    <span class="card-badge" style="right: 10px; top: 40px;">${event.category}</span>
-                                </#if>
-                            </div>
-                            <div class="card-body">
-                                <h3>${event.eventName}</h3>
-                                <p class="location">${event.city}, ${event.state}</p>
-                                <div class="card-meta">
-                                    <span>${event.date}</span>
-                                    <span>${event.startTime} - ${event.endTime}</span>
+                            <#if event.imageUrl??&& event.imageUrl?has_content>
+                                <div
+                                    class="card-image"
+                                    style="
+                                        background-image:
+                                            url('${event.imageUrl}');
+                                        background-size: cover;
+                                        background-position: center;
+                                    ">
+
+                                    <#if event.featured??
+                                        && event.featured>
+
+                                        <span class="card-badge">
+                                            Featured
+                                        </span>
+
+                                    </#if>
                                 </div>
-                                <div class="card-footer">
-                                    <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
-                                    <a href="booking.html?id=${event.id}" class="view-detail-btn">View Details</a>
+                            <#else>
+                                            <div
+                                    class="card-image" style="background:linear-gradient(
+                                                135deg, #667eea 0%, #764ba2 100%);">
+
+                                    <#if event.featured??
+                                        && event.featured>
+
+                                        <span class="card-badge">Featured</span>
+
+                                    </#if>
+
                                 </div>
-                            </div>
+
+                            </#if>
+                                <div class="card-body">
+                                    <h3>${event.eventName}</h3>
+                                    <p class="location"> ${event.city}, ${event.state}</p>
+                                    <div class="card-meta">
+                                        <span>${event.date}</span>
+                                        <span>${event.startTime}- ${event.endTime}</span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="price">$<#if event.pricePerPerson??>
+                                                $${event.pricePerPerson?string["0.00"]}
+                                                <span>/person</span>
+                                            <#else>
+                                                Contact provider
+                                            </#if>
+                                        </span>
+                                        <a href="booking.html?id=1" class="view-detail-btn">View Details</a>
+                                    </div>
+                                </div>
+                        
                         </div>
                     </#list>
                 <#else>
-                    <p class="no-events">No events found matching your interests. Try adding more interests!</p>
+
+                    <p class="no-events">
+                        No events are currently available.
+                    </p>
+
                 </#if>
             </div>
-            //end of "This section can be deleted once the looping cards work"
 
             <div class="pagination">
                 <a href="#" class="disabled">Previous</a>
@@ -275,10 +171,10 @@
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="/events/browse/${customer.id}">Browse Activities</a>
-                <a href="myPlans.html">My Plans</a>
-                <a href="/customer/profile/${customer.id}">Profile</a>
+                <a href="#">Home</a>
+                <a href="/events/browse/${customer.id?c}">Browse Activities</a>
+                <a href="#">My Plans</a>
+                <a href="/customer/profile/${customer.id?c}">Profile</a>
             </div>
             <div class="footer-section">
                 <h4>Location</h4>
