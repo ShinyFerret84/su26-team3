@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triad Activities - Create Event</title>
+    <title>Triad Activities - Update Event</title>
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/design.css">
     <link rel="stylesheet" href="/provider.css">
@@ -20,7 +20,7 @@
         <nav class="main-nav">
             <a href="/providers/${provider.id?c}" >Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a> 
-            <a href="/providers/${providerId}/events/new" class="active">Create Event</a>
+            <a href="/providers/${providerId}/events/new">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -34,16 +34,15 @@
             
             <!-- Page Header -->
             <div class="page-header">
-                <h1>Create a New Event</h1>
+                <h1>Edit Event</h1>
                 <p>
-                    Fill out the information below to publish a new activity
-                    for customers to discover.
+                    Review and update the event information below
                 </p>
             </div>
 
-            <!-- Form Card -->
+            <!--Update Event Form-->
             <div class="form-card">
-                <form action="/providers/{providerId}/events/create" method="post">
+                <form action="/providers/{providerId}/events/update" method="post">
                     <!-- Event Information -->
 
                     <h2>Event Information</h2>
@@ -58,7 +57,6 @@
                                 id="eventName"
                                 name="eventName"
                                 value="${event.eventName!''}"
-                                placeholder="Wine Tasting Experience"
                                 required>
                         </div>
 
@@ -67,12 +65,44 @@
 
                             <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option value="Food & Drink">Food & Drink</option>
-                                <option value="Outdoor">Outdoor Activities</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Arts & Culture">Arts & Culture</option>
-                                <option value="Sports & Recreation">Sports & Recreation</option>
-                                <option value="Educational">Educational</option>
+                                <option value="Food & Drink"
+                                    <#if event.category?? &&
+                                         event.category == "Food & Drink"> selected
+                                    </#if>> Food & Drink
+                                </option>
+
+                                <option value="Outdoor" 
+                                        <#if event.category?? &&
+                                         event.category == "Outdoor Activities"> selected
+                                    </#if>> Outdoor Activities
+                                </option>
+
+                                <option value="Entertainment"
+                                    <#if event.category?? &&
+                                         event.category == "Entertainment"> selected
+                                    </#if>> Entertainment
+                                </option>
+
+                                <option value="Arts & Culture"
+                                    <#if event.category?? &&
+                                         event.category == "Arts & Culture"> selected
+                                    </#if>>Arts & Culture
+                                </option>
+
+                                <option value="Sports & Recreation"
+                                    <#if event.category?? &&
+                                         event.category == "Sports & Recreation">
+                                        selected
+                                    </#if> >Sports & Recreation
+                                </option>
+
+                                <option value="Educational"
+                                    <#if event.category?? &&
+                                         event.category == "Educational">
+                                        selected
+                                    </#if>> Educational
+                                </option>
+
                             </select>
                         </div>
 
@@ -84,7 +114,6 @@
                                 id="price"
                                 name="pricePerPerson"
                                 value="${event.pricePerPerson!''}"
-                                placeholder="45"
                                 min="0"
                                 required>
                         </div>
@@ -95,8 +124,7 @@
                             </label>
 
                             <textarea
-                                id="description" name="description"
-                                placeholder="Describe your event and what attendees can expect." required>
+                                id="description" name="description" required>
                                     ${event.description!''}</textarea>
                         </div>
 
@@ -153,7 +181,6 @@
                                 id="capacity"
                                 name="maxCapacity"
                                 value="${event.maxCapacity!''}"
-                                placeholder="25"
                                 min="1"
                                 required>
                         </div>
@@ -178,7 +205,6 @@
                                 id="venue"
                                 name="venueName"
                                 value="${event.venueName!''}"
-                                placeholder="Yadkin Valley Winery"
                                 required>
                         </div>
 
@@ -192,7 +218,6 @@
                                 id="address"
                                 name="streetAddress"
                                 value="${event.streetAddress!''}"
-                                placeholder="123 Main Street"
                                 required>
                         </div>
 
@@ -204,7 +229,6 @@
                                 id="city"
                                 name="city"
                                 value="${event.city!''}"
-                                placeholder="Winston-Salem"
                                 required>
                         </div>
 
@@ -216,7 +240,6 @@
                                 id="state"
                                 name="state"
                                 value="${event.state!''}"
-                                placeholder="NC"
                                 maxlength="2"
                                 required>
                         </div>
@@ -229,7 +252,6 @@
                                 id="zip"
                                 name="zipCode"
                                 value="${event.zipCode!''}"
-                                placeholder="27101"
                                 required>
                         </div>
 
@@ -263,10 +285,10 @@
                     <div class="form-actions">
 
                         <button
-                            type="reset"
+                            a href="/providers/${provider.id?c}"
                             class="btn-secondary">
 
-                            Clear Form
+                            Back to Dashboard
 
                         </button>
 
@@ -274,13 +296,50 @@
                             type="submit"
                             class="btn-primary">
 
-                            Publish Event
+                            Save Changes
 
                         </button>
 
                     </div>
 
                 </form>
+
+            </div>
+
+                <!-- Cancel Event Section -->
+            <div class="form-card danger-section">
+
+                <h2>Cancel Event</h2>
+
+                <p>
+                    Cancelling this event will keep the event and booking
+                    records in the database, but customers will no longer
+                    be able to make new bookings.
+                </p>
+
+                <#if event.cancelled?? && event.cancelled>
+
+                    <p class="cancelled-message">
+                        This event has already been cancelled.
+                    </p>
+
+                <#else>
+
+                    <form
+                        action="/providers/${provider.id?c}/events/${event.id?c}/cancel"
+                        method="post"
+                        onsubmit="return confirm('Are you sure you want to cancel this event?');">
+
+                        <button
+                            type="submit"
+                            class="btn-secondary delete-button">
+                            Cancel Event
+                        </button>
+
+                    </form>
+
+                </#if>
+
             </div>
         </div>
     </main> 
@@ -301,8 +360,8 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
 
-                <a href="index.html">Home</a>
-                <a href="browse.html">Browse Activities</a>
+                <a href="#">Home</a>
+                <a href="#">Browse Activities</a>
                 
             </div>
 
