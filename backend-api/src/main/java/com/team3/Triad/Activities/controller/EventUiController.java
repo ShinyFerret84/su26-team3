@@ -39,7 +39,7 @@ public class EventUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("event", new Event());
 
-        return "new-event-form";
+        return "provider/new-event-form";
     }
 
     // Create event
@@ -91,7 +91,7 @@ public class EventUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("event", event);
 
-        return "event-update-form";
+        return "provider/event-update-form";
     }
 
     // Update event
@@ -118,9 +118,9 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    // Delete event
+    // Delete event (cancel event; not searchable but stays in database)
     @PostMapping("/providers/{providerId}/events/{eventId}/delete")
-    public String deleteEvent(
+    public String cancelEvent(
             @PathVariable Long providerId,
             @PathVariable Long eventId) {
 
@@ -131,7 +131,7 @@ public class EventUiController {
                 && event.getProvider() != null
                 && event.getProvider().getId().equals(providerId)) {
 
-            eventService.deleteEvent(eventId);
+            eventService.cancelEvent(eventId);
         }
 
         return "redirect:/providers/" + providerId;

@@ -29,7 +29,7 @@ public class ProviderUiController {
     @GetMapping("/providers/new")
     public String showProviderForm(Model model) {
         model.addAttribute("provider", new Provider());
-        return "new-provider-form";
+        return "provider/new-provider-form";
     }
 
     //Create Provider
@@ -50,6 +50,9 @@ public class ProviderUiController {
             @PathVariable Long id,
             Model model) {
 
+        System.out.println(
+            "Provider dashboard requested for ID: " + id);
+
         Provider provider =
                 providerService.getProviderById(id);
 
@@ -64,7 +67,8 @@ public class ProviderUiController {
         List<Event> allUpcomingEvents = events.stream()
                 .filter(event ->
                         event.getDate() != null
-                        && !event.getDate().isBefore(LocalDate.now()))
+                        && !event.getDate().isBefore(LocalDate.now())
+                        && !Boolean.TRUE.equals(event.isCancelled()))
                 .sorted((event1, event2) ->
                         event1.getDate().compareTo(event2.getDate()))
                 .toList();
@@ -91,7 +95,7 @@ public class ProviderUiController {
         model.addAttribute("upcomingEventCount",allUpcomingEvents.size());
         model.addAttribute("pastEventCount",allPastEvents.size());
 
-        return "provider-landing";
+        return "provider/provider-landing";
     }
 
     //Display provider update form
@@ -103,13 +107,13 @@ public class ProviderUiController {
         Provider provider =
                 providerService.getProviderById(id);
 
-        if (provider == null || !provider.getActive()) {
+        if (provider == null || !Boolean.TRUE.equals(provider.getActive())) {
             return "redirect:/providers/new";
         }
 
         model.addAttribute("provider", provider);
 
-        return "provider-update-form";
+        return "provider/provider-profile";
     }
 
     //Update provider
@@ -161,7 +165,7 @@ public class ProviderUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("pastEvents", pastEvents);
 
-        return "provider-past-events";
+        return "provider/provider-past-events";
 }
 
 }

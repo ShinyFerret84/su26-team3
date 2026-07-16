@@ -12,13 +12,13 @@
 
     <header class="app-header">
         <div class="logo">
-            <a href="index.html">Triad<span>Activities</span></a>
+            <a href="#">Triad<span>Activities</span></a>
         </div>
         <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="/events/browse/${customer.id}" class="active">Browse</a>
-            <a href="myPlans.html">My Plans</a>
-            <a href="/customer/profile/${customer.id}">Profile</a>
+            <a href="#">Home</a>
+            <a href="/events/browse/${customer.id?c}" class="active">Browse</a>
+            <a href="#">My Plans</a>
+            <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
             <!-- Shows the customer's location, defaults to Winston-Salem, NC if not set -->
@@ -85,35 +85,71 @@
                 <span class="result-count">Showing 1-${events?size} of ${events?size}</span>
             </div>
 
-            <!-- EVENTS GRID  -->
             <div class="activity-grid">
                 <#if events?has_content>
                     <#list events as event>
                         <div class="activity-card">
-                            <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                <#if event.featured?? && event.featured == true>
-                                    <span class="card-badge">Featured</span>
-                                </#if>
-                                <#if event.category??>
-                                    <span class="card-badge" style="right: 10px; top: 40px;">${event.category}</span>
-                                </#if>
-                            </div>
-                            <div class="card-body">
-                                <h3>${event.eventName}</h3>
-                                <p class="location">${event.city}, ${event.state}</p>
-                                <div class="card-meta">
-                                    <span>${event.date}</span>
-                                    <span>${event.startTime} - ${event.endTime}</span>
+                            <#if event.imageUrl??&& event.imageUrl?has_content>
+                                <div
+                                    class="card-image"
+                                    style="
+                                        background-image:
+                                            url('${event.imageUrl}');
+                                        background-size: cover;
+                                        background-position: center;
+                                    ">
+
+                                    <#if event.featured??
+                                        && event.featured>
+
+                                        <span class="card-badge">
+                                            Featured
+                                        </span>
+
+                                    </#if>
                                 </div>
-                                <div class="card-footer">
-                                    <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
-                                    <a href="booking.html?id=${event.id}" class="view-detail-btn">View Details</a>
+                            <#else>
+                                            <div
+                                    class="card-image" style="background:linear-gradient(
+                                                135deg, #667eea 0%, #764ba2 100%);">
+
+                                    <#if event.featured??
+                                        && event.featured>
+
+                                        <span class="card-badge">Featured</span>
+
+                                    </#if>
+
                                 </div>
-                            </div>
+
+                            </#if>
+                                <div class="card-body">
+                                    <h3>${event.eventName}</h3>
+                                    <p class="location"> ${event.city}, ${event.state}</p>
+                                    <div class="card-meta">
+                                        <span>${event.date}</span>
+                                        <span>${event.startTime}- ${event.endTime}</span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="price">$<#if event.pricePerPerson??>
+                                                ${event.pricePerPerson?string["0.00"]}
+                                                <span>/person</span>
+                                            <#else>
+                                                Contact provider
+                                            </#if>
+                                        </span>
+                                        <a href="booking.html?id=1" class="view-detail-btn">View Details</a>
+                                    </div>
+                                </div>
+                        
                         </div>
                     </#list>
                 <#else>
-                    <p class="no-events">No events found matching your interests. Try adding more interests!</p>
+
+                    <p class="no-events">
+                        No events are currently available.
+                    </p>
+
                 </#if>
             </div>
 
@@ -135,10 +171,10 @@
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="/events/browse/${customer.id}">Browse Activities</a>
-                <a href="myPlans.html">My Plans</a>
-                <a href="/customer/profile/${customer.id}">Profile</a>
+                <a href="#">Home</a>
+                <a href="/events/browse/${customer.id?c}">Browse Activities</a>
+                <a href="#">My Plans</a>
+                <a href="/customer/profile/${customer.id?c}">Profile</a>
             </div>
             <div class="footer-section">
                 <h4>Location</h4>

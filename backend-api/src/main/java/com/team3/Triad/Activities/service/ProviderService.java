@@ -73,7 +73,12 @@ public class ProviderService {
                     provider.setWebsite(providerDetails.getWebsite());
                     provider.setDescription(providerDetails.getDescription());
 
-                    provider.setPassword(providerDetails.getPassword());
+                    if (providerDetails.getPassword() != null
+                        && !providerDetails.getPassword().isBlank()) {
+
+                    provider.setPassword(
+                            providerDetails.getPassword());
+                    }
 
                     return providerRepository.save(provider);
                 })

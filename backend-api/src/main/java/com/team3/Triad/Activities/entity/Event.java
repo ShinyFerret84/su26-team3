@@ -1,6 +1,5 @@
 package com.team3.Triad.Activities.entity;
-
-import java.math.BigDecimal;
+     
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -56,9 +55,6 @@ public class Event {
     private String zipCode;
 
     @Column(nullable = false)
-    private BigDecimal cost;
-
-    @Column(nullable = false)
     private LocalDate date;
 
     @Column(nullable = false)
@@ -84,6 +80,9 @@ public class Event {
 
     @Column(nullable = false)
     private Boolean featured = false;
+
+    @Column(nullable = false)
+    private boolean cancelled = false;
 
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)

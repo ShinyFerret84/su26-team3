@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,11 +54,11 @@ public class EventController {
         return eventService.updateEvent(id, event);
     }
 
-    //DELETE event
-    @DeleteMapping("/{id}")
-    public void deleteEvent(@PathVariable Long id) {
-        eventService.deleteEvent(id);
-    }
+    //DELETE event (really cancel, event stays in database but not active)
+    @PutMapping("/{id}/cancel")
+    public Event cancelEvent(@PathVariable Long id) {
+        return eventService.cancelEvent(id);
+}
 
     // SEARCH events
     @GetMapping("/search")
