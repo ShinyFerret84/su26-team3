@@ -102,7 +102,7 @@
                                 <p class="location">${event.city}, ${event.state}</p>
                                 <div class="card-meta">
                                     <span>${event.date}</span>
-                                    <span>${event.startTime} - ${event.endTime}</span>
+                                    <span>${event.startTime?string['h:mm a']} - ${event.endTime?string['h:mm a']}</span>
                                 </div>
                                 <div class="card-footer">
                                     <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
