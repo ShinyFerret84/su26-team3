@@ -19,7 +19,9 @@ import java.util.Optional;
 @RequestMapping("/api/customers")
 @CrossOrigin(origins = "*")
 public class CustomerController {
-
+    // User story 1: Customer Login 
+    // POST: http://localhost:8080/api/customers/register
+    //Body:  {"firstName":"Luna","lastName":"Clark","email":"LunaClark@gmail.com","location":"Winston-Salem, NC","password":"password123"}
     @Autowired
     private CustomerManager customerManager;
 
@@ -36,6 +38,9 @@ public class CustomerController {
         }
     }
 
+
+    //Customer by ID
+    // GET: http://localhost:8080/api/customers/1
     // Customer login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
@@ -184,8 +189,8 @@ public class CustomerController {
 
     // USER1: Interest Profile Management
     // These endpoints allow customers to manage their interests
-
-    // GET /api/customers/{id}/interests This gets all interests for a customer
+    // POST: http://localhost:8080/api/customers/1/interests
+    // BODY: {"interest":"Hiking"}
     @GetMapping("/{id}/interests")
     public ResponseEntity<?> getCustomerInterests(@PathVariable Long id) {
         try {
@@ -225,6 +230,7 @@ public class CustomerController {
     }
 
     // DELETE /api/customers/{id}/interests/{interest}  will remove an interest
+    // DELETE: http://localhost:8080/api/customers/1/interests/Hiking
     @DeleteMapping("/{id}/interests/{interest}")
     public ResponseEntity<?> removeInterest(
             @PathVariable Long id,
@@ -241,4 +247,7 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
         }
     }
+    //Add hiking back to the interests list for customer 1
+    // POST: http://localhost:8080/api/customers/1/interests
+    // BODY: { "interest": "Hiking" }
 }

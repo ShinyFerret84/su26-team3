@@ -18,15 +18,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/customer")
 public class CustomerEventUiController {
-
+    // User story 2: Customer Browse Events shows events matching customer's interests
+    // After running spring boot:http://localhost:8080/customer/browse/1
     @Autowired
     private EventService eventService;
 
     @Autowired
     private CustomerManager customerManager;
 
-    // User story 2: Customer Browse Events shows events matching customer's interests
-    // URL: http://localhost:8080/customer/browse/1
+
     @GetMapping("/browse/{customerId}")
     public String browseEvents(@PathVariable Long customerId,
                                @RequestParam(required = false) String search,
@@ -59,7 +59,7 @@ public class CustomerEventUiController {
                     .toList();
         }
 
-        // Add data to model for the FreeMarker template
+        // Add data to model for the FreeMarker template / html page
         model.addAttribute("customer", customer);
         model.addAttribute("events", events);
         model.addAttribute("interests", interests);
@@ -68,4 +68,23 @@ public class CustomerEventUiController {
 
         return "customer/browse"; // loads browse.ftlh
     }
+
+    // Get customer interest 
+    // GET : http://localhost:8080/api/customers/1/interests
+
+    // Add customer interest
+    // POST: http://localhost:8080/api/customers/1/interests
+    // Body: {"interest": "Cooking"}
+
+    // Get all the events
+    //GET: http://localhost:8080/api/events
+
+    // Add an event 
+    // Post: http://localhost:8080/api/events
+    // Body: { }
+
+    // Get event by ID
+    // GET: http://localhost:8080/api/events/1
+    // GET: http://localhost:8080/api/events/2
+    // GET: http://localhost:8080/api/events/3
 }
