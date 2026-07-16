@@ -20,7 +20,7 @@
             <a href="profile.html">Profile</a>
         </nav>
         <div class="header-actions">
-            <span class="location">Winston-Salem, NC</span>
+            <span class="location">Winston-Salem, NC</span>  //This shows the local area the person wants to find events, need to figure out the filter. Ideally would default to customers registered area
         </div>
     </header>
 
@@ -82,6 +82,7 @@
                 <span class="result-count">Showing 1-8 of 8</span>
             </div>
 
+            //Activity card to loop
             <div class="activity-grid">
                 <div class="activity-card">
                     <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
@@ -100,7 +101,9 @@
                         </div>
                     </div>
                 </div>
+                //End single activity card
 
+                //This section can be deleted once the looping cards work
                 <div class="activity-card">
                     <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
                     <div class="card-body">
@@ -219,6 +222,7 @@
                     </div>
                 </div>
             </div>
+            //end of "This section can be deleted once the looping cards work"
 
             <div class="pagination">
                 <a href="#" class="disabled">Previous</a>
