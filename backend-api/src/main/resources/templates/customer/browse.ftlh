@@ -132,7 +132,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <span class="price">$<#if event.pricePerPerson??>
-                                                $${event.pricePerPerson?string["0.00"]}
+                                                ${event.pricePerPerson?string["0.00"]}
                                                 <span>/person</span>
                                             <#else>
                                                 Contact provider
