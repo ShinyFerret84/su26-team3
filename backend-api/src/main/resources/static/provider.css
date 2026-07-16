@@ -315,4 +315,8 @@
         padding: 12px;
         font-size: 14px;
     }
+
+    .empty-events-message > p {
+        margin-bottom: 20px;
+    }
 }

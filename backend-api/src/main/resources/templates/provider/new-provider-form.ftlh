@@ -14,12 +14,14 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <a href="index.html"> Triad<span>Activities</span></a>          //needs to link to Maria's customer controller
+            <!--update when index.html is updated-->
+            <a href="#"> Triad<span>Activities</span></a>          <!--//needs to link to Maria's customer controller-->
         </div>
 
         <nav class="main-nav">
-            <a href="index.html">Home</a>                                   //needs to link to Maria's customer controller
-            <a href="browse.html">Browse</a>
+            <!--update when index.html and browse.html is updated-->
+            <a href="#">Home</a>                                   <!--//needs to link to Maria's customer controller-->
+            <a href="#">Browse</a>
         </nav>
 
         <div class="header-actions">
@@ -47,41 +49,45 @@
 
                         <div class="form-grid">
 
-                        <div class="form-group">
-                            <label for="firstName">First Name *</label>
-                            <input type="text"
-                                   id="firstName"
-                                   name="firstName"
-                                   placeholder="John"
-                                   required>
-                        </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    value="${provider.firstName!''}"
+                                    placeholder="John"
+                                    required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="lastName">Last Name *</label>
-                            <input type="text"
-                                   id="lastName"
-                                   name="lastName"
-                                   placeholder="Smith"
-                                   required>
-                        </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    value="${provider.lastName!''}"
+                                    placeholder="Smith"
+                                    required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email"
-                                   id="email"
-                                   name="email"
-                                   placeholder="johnsmith@email.com"
-                                   required>
-                        </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email"
+                                    id="email"
+                                    name="email"
+                                    value="${provider.email!''}"
+                                    placeholder="johnsmith@email.com"
+                                    required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel"
-                                   id="phone"
-                                   name="phoneNumber"
-                                   placeholder="555-555-5555">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel"
+                                    id="phone"
+                                    name="phoneNumber"
+                                    value="${provider.phoneNumber!''}"
+                                    placeholder="555-555-5555">
+                            </div>
                         </div>
-
                     <br>
 
                     <!-- Business Information -->
@@ -95,6 +101,7 @@
                             <input type="text"
                                    id="companyName"
                                    name="companyName"
+                                   value="${provider.companyName!''}"
                                    placeholder="Shiny Ferret Studios"
                                    required>
                         </div>
@@ -120,6 +127,7 @@
                             <input type="url"
                                    id="website"
                                    name="website"
+                                   value="${provider.website!''}"
                                    placeholder="https://www.yourbusiness.com">
                         </div>
 
@@ -129,7 +137,7 @@
                             </label>
 
                             <textarea id="description" name="description"
-                                      placeholder="Tell customers about your business..."></textarea>
+                                      placeholder="Tell customers about your business...">${provider.description!''}</textarea>
                         </div>
 
                     </div>
@@ -148,25 +156,11 @@
                             <input type="password"
                                    id="password"
                                    name="password"
-                                   required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="confirmPassword">
-                                Confirm Password *
-                            </label>
-
-                            <input type="password"
-                                   id="confirmPassword"
+                                   value="${provider.password!''}"
                                    required>
                         </div>
 
                     </div>
-
-                    <p>
-                        <strong>Note:</strong> Passwords must match before
-                        the account can be created.
-                    </p>
 
                     <!-- Buttons -->
 
@@ -205,8 +199,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
 
-                <a href="index.html">Home</a>
-                <a href="browse.html">Browse Activities</a>
+                 <!-- Update when customer routes are ready -->
+                <a href="#">Home</a>
+                <a href="#">Browse Activities</a>
                 
             </div>
 

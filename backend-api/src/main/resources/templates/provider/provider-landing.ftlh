@@ -19,7 +19,7 @@
 
         <nav class="main-nav">
             <a href="/providers/${provider.id?c}" class="active">Dashboard</a> 
-            <!--<a href="provider-profile.html">Profile</a> -->
+            <a href="/providers/${provider.id?c}/edit">Profile</a>
             <a href="/providers/${provider.id?c}/events/new">Create Event</a>
             <!--add metrics back in-->
         </nav>
@@ -131,7 +131,7 @@
 
             <#else>
 
-                <p>You do not have any upcoming events.</p>
+                <p class="empty-events-message">You do not have any upcoming events.</p>
 
                 <a href="/providers/${provider.id?c}/events/new" class="btn-primary">
                         Create Your First Event
