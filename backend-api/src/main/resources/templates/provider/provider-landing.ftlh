@@ -14,14 +14,14 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <a href="/provider/${provider.id?c}"> Triad<span>Activities</span></a>
+            <a href="/providers/${provider.id?c}"> Triad<span>Activities</span></a>
         </div>
 
         <nav class="main-nav">
-            <a href="/provider/${provider.id?c}" class="active">Dashboard</a> 
-            <a href="provider-profile.html">Profile</a> 
-            <a href="/provider/${provider.id?c}/events/new">Create Event</a>
-            //add metrics back in
+            <a href="/providers/${provider.id?c}" class="active">Dashboard</a> 
+            <!--<a href="provider-profile.html">Profile</a> -->
+            <a href="/providers/${provider.id?c}/events/new">Create Event</a>
+            <!--add metrics back in-->
         </nav>
 
     </header>
@@ -40,8 +40,10 @@
                 <div class="profile-user-info">
                     <h1>Welcome back, ${provider.firstName}!</h1>
                     <p class="profile-email"> ${provider.email}</p>
-                    <p class="profile-location"> ${provider.city}, ${provider.state}</p>
-                    <p class="profile-member">Provider since ${provider.memberSince?string("MMMM yyyy")}
+                    <p class="profile-location"> ${provider.companyName}</p>
+                    <p class="profile-member">Provider since ${provider.memberSince}</p>
+                </div>
+            </div>
 
             <!-- Statistics Section -->
             <div class="profile-stats-grid">
@@ -52,13 +54,13 @@
                 </div>
 
                 <div class="stat-card">
-                    <span class="stat-number">${upcomingEvents?size}</span>
-                    <p class="stat-label">Total Attendees</p>
+                    <span class="stat-number">${upcomingEventCount}</span>
+                    <p class="stat-label">Upcoming Events</p>
                 </div>
 
                 <div class="stat-card">
-                    <span class="stat-number">4.8</span>
-                    <p class="stat-label">Average Rating</p>
+                    <span class="stat-number">${pastEventCount}</span>
+                    <p class="stat-label">Past Events</p>
                 </div>
 
             </div>
@@ -68,7 +70,7 @@
 
                 <div class="section-header">
                     <h2>Upcoming Events</h2>
-                    <a href="/provider/${provider.id?c}/events/new"
+                    <a href="/providers/${provider.id?c}/events/new"
                         class="view-all">Create Event →</a>
                 </div>
 
@@ -98,17 +100,26 @@
                             
                             <div class="card-body">
                                 <h3>${event.eventName}</h3>
-                                <p class="location">${event.state}, ${event.city}</p>
+                                <p class="location">${event.city}, ${event.state}</p>
                                 <div class="card-meta">
-                                    <span>${event.date?string("EEE, MMMM d")}</span>
-                                    <span> ${event.startTime?string("h:mm a")} - ${event.endTime?string("h:mm a")} </span>
+                                    <span>${event.date}</span>
+                                    <span> ${event.startTime} - ${event.endTime} </span>
                                 </div>
 
                                 <div class="card-footer">
-                                    <span class="price">$${event.pricePerPerson?string["0.00"]} 
-                                        <span>/person</span> </span>
+                                    <span class="price">
+                                        
+                                        <#if event.pricePerPerson??>
+                                            $${event.pricePerPerson?string["0.00"]} 
+                                            <span>/person</span> 
+                                        
+                                        <#else>
+                                            Price not set
+                                        </#if>
 
-                                    <a href="/provider/${provider.id?c}/events/${event.id?c}/edit" 
+                                    </span>
+
+                                    <a href="/providers/${provider.id?c}/events/${event.id?c}/edit" 
                                         class="view-detail-btn">
                                         Manage                               
                                     </a>
@@ -122,7 +133,7 @@
 
                 <p>You do not have any upcoming events.</p>
 
-                <a href="/provider/${provider.id?c}/events/new" class="btn-primary">
+                <a href="/providers/${provider.id?c}/events/new" class="btn-primary">
                         Create Your First Event
                 </a>
 
@@ -137,7 +148,7 @@
                     <h2>Past Events</h2>   
                     
                     <#if pastEventCount gt 3>
-                        <a href="/provider/${provider.id?c}/events/past" class="view-all">
+                        <a href="/providers/${provider.id?c}/events/past" class="view-all">
                             View All Past Events →
                         </a>
                     </#if>
@@ -170,13 +181,19 @@
                                     <h3>${event.eventName} </h3>
                                     <p class="location">${event.city} , ${event.state} </p>
                                     <div class="card-meta">
-                                        <span>${event.date?string("EEE, MMMM d")}</span>
-                                        <span> ${event.startTime?string("h:mm a")} - ${event.endTime?string("h:mm a")} </span>
+                                        <span>${event.date}</span>
+                                        <span> ${event.startTime} - ${event.endTime} </span>
                                     </div>
 
                                     <div class="card-footer">
-                                        <span class="price">$${event.pricePerPerson?string["0.00"]}
-                                            <span>/person</span> </span>
+                                        <span class="price">
+                                            <#if event.pricePerPerson??>
+                                                $${event.pricePerPerson?string["0.00"]}
+                                                <span>/person</span> 
+                                            <#else>
+                                                Price not set
+                                            </#if>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -207,10 +224,10 @@
 
         <div class="footer-section">
             <h4>Quick Links</h4>
-            <a href="/provider/${provider.id?c}">Dashboard</a>
-            <a href="provider-profile.html">Profile</a>
-            <a href="/provider/${provider.id?c}/events/new">Create Event</a>
-            <a href="provider-metrics.html">Metrics</a>
+            <a href="/providers/${provider.id?c}">Dashboard</a>
+            <!--<a href="provider-profile.html">Profile</a>-->
+            <a href="/providers/${provider.id?c}/events/new">Create Event</a>
+            <!--<a href="provider-metrics.html">Metrics</a>-->
         </div>
 
         <div class="footer-section">
