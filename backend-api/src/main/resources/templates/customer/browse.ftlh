@@ -21,7 +21,7 @@
             <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
-            <span class="location">Winston-Salem, NC</span> 
+            <!-- Shows the customer's location, defaults to Winston-Salem, NC if not set -->
             <span class="location">${customer.location!"Winston-Salem, NC"}</span>
         </div>
     </header>
@@ -78,7 +78,7 @@
             </div>
         </section>
 
-        <!-- ===== RESULTS SECTION ===== -->
+        <!-- RESULTS SECTION  -->
         <section class="results-section">
             <div class="section-header">
                 <h2 id="resultsCount">${events?size} Activities Found</h2>
