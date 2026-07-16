@@ -21,7 +21,7 @@
             <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
-            <span class="location">Winston-Salem, NC</span>  //This shows the local area the person wants to find events, need to figure out the filter. Ideally would default to customers registered area
+            <span class="location">Winston-Salem, NC</span> 
             <span class="location">${customer.location!"Winston-Salem, NC"}</span>
         </div>
     </header>
@@ -132,7 +132,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <span class="price">$<#if event.pricePerPerson??>
-                                                $${event.pricePerPerson?string["0.00"]}
+                                                ${event.pricePerPerson?string["0.00"]}
                                                 <span>/person</span>
                                             <#else>
                                                 Contact provider
