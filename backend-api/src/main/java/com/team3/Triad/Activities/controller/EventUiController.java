@@ -14,6 +14,7 @@ import com.team3.Triad.Activities.service.ProviderService;
 
 @Controller
 public class EventUiController {
+
     private final EventService eventService;
     private final ProviderService providerService;
 

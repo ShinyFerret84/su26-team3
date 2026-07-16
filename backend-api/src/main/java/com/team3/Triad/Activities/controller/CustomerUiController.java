@@ -19,7 +19,8 @@ public class CustomerUiController {
     private CustomerManager customerManager;
 
     // USER 1 story: Show customer profile page with their interests
-    // URL: http://localhost:8080/customer/profile/1
+    // Link after running spring-boot:http://localhost:8080/customer/profile/1
+
     @GetMapping("/profile/{id}")
     public String viewProfile(@PathVariable Long id, Model model) {
         
