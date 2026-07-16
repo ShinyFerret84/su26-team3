@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Triad Activities</title>
-    <link rel="stylesheet" href="../common/shared.css">
-    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="/shared.css">
+    <link rel="stylesheet" href="/design.css">
+    <link rel="stylesheet" href="/profile.css">
+
 </head>
 <body>
 
