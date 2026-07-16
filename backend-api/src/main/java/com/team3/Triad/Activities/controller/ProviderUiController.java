@@ -60,8 +60,8 @@ public class ProviderUiController {
 
         List<Event> events =
                 eventService.getEventsByProviderId(id);
-
-        List<Event> upcomingEvents = events.stream()
+    
+        List<Event> allUpcomingEvents = events.stream()
                 .filter(event ->
                         event.getDate() != null
                         && !event.getDate().isBefore(LocalDate.now()))
@@ -69,7 +69,7 @@ public class ProviderUiController {
                         event1.getDate().compareTo(event2.getDate()))
                 .toList();
 
-        List<Event> pastEvents = events.stream()
+        List<Event> allPastEvents = events.stream()
                 .filter(event ->
                         event.getDate() != null
                         && event.getDate().isBefore(LocalDate.now()))
@@ -77,10 +77,19 @@ public class ProviderUiController {
                         event2.getDate().compareTo(event1.getDate()))
                 .toList();
 
+        List<Event> upcomingEvents =
+                allUpcomingEvents.stream().limit(3).toList();
+
+        List<Event> recentPastEvents =
+                allPastEvents.stream().limit(3).toList();
+
+
         model.addAttribute("provider", provider);
         model.addAttribute("upcomingEvents", upcomingEvents);
-        model.addAttribute("pastEvents", pastEvents);
+        model.addAttribute("pastEvents", recentPastEvents);
         model.addAttribute("eventCount", events.size());
+        model.addAttribute("upcomingEventCount",allUpcomingEvents.size());
+        model.addAttribute("pastEventCount",allPastEvents.size());
 
         return "provider-landing";
     }
@@ -122,5 +131,37 @@ public class ProviderUiController {
 
         return "redirect:/providers/new";
     }
+
+    @GetMapping("/providers/{id}/events/past")
+    public String showAllPastEvents(
+                @PathVariable Long id,
+                Model model) {
+
+        Provider provider =
+                providerService.getProviderById(id);
+
+        if (provider == null
+                || Boolean.FALSE.equals(provider.getActive())) {
+
+                return "redirect:/providers/new";
+        }
+
+        List<Event> pastEvents =
+                eventService.getEventsByProviderId(id)
+                        .stream()
+                        .filter(event ->
+                                event.getDate() != null
+                                && event.getDate()
+                                        .isBefore(LocalDate.now()))
+                        .sorted((event1, event2) ->
+                                event2.getDate()
+                                        .compareTo(event1.getDate()))
+                        .toList();
+
+        model.addAttribute("provider", provider);
+        model.addAttribute("pastEvents", pastEvents);
+
+        return "provider-past-events";
+}
 
 }

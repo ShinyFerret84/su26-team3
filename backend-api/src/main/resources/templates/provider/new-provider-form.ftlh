@@ -147,6 +147,7 @@
 
                             <input type="password"
                                    id="password"
+                                   name="password"
                                    required>
                         </div>
 
