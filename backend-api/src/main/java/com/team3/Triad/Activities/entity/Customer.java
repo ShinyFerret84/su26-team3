@@ -28,9 +28,9 @@ public class Customer {
 
     private String location;
 
-    // NEW: Changed from single String to List for multiple interests
-    // NEW: @ElementCollection creates a separate table for interests
-    // NEW: Each interest is stored as a separate row in customer_interests table
+    // Changed from single String to List for multiple interests
+    // @ElementCollection creates a separate table for interests
+    // Each interest is stored as a separate row in customer_interests table
     @ElementCollection
     @CollectionTable(name = "customer_interests", 
                      joinColumns = @JoinColumn(name = "customer_id"))
@@ -40,9 +40,9 @@ public class Customer {
     @Column(name = "member_since")
     private String memberSince;
 
-    // One customer can have many bookings (list of events they booked)
+    // One customer can have many bookings
     // MappedBy = customer means the Booking.java file has the customer field
-    // CascadeType.ALL = if you delete a customer, delete their bookings too
+    // CascadeType.ALL = if you delete a customer, delete their bookings and reviews too
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class Customer {
     public Customer() {}
 
     // Constructor to create a new customer with basic info
-    // NEW: Changed parameter from String interests to List<String> interests
+    // Changed parameter from String interests to List<String> interests
     public Customer(String firstName, String lastName, String email, String location, List<String> interests) {
         this.firstName = firstName;
         this.lastName = lastName;
