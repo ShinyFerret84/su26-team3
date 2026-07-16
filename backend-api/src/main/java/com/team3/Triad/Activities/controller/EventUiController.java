@@ -1,6 +1,5 @@
 package com.team3.Triad.Activities.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ public class EventUiController {
         this.providerService = providerService;
     }
 
-    //New event form
+    // New event form
     @GetMapping("/providers/{providerId}/events/new")
     public String showNewEventForm(
             @PathVariable Long providerId,
@@ -42,7 +41,7 @@ public class EventUiController {
         return "new-event-form";
     }
 
-     //Create event
+    // Create event
     @PostMapping("/providers/{providerId}/events/create")
     public String createEvent(
             @PathVariable Long providerId,
@@ -51,7 +50,7 @@ public class EventUiController {
         Provider provider =
                 providerService.getProviderById(providerId);
 
-        //Failsafe check: confirms the provider id is in the database
+        // Failsafe check: confirms the provider id is in the database
         if (provider == null || !provider.getActive()) {
             return "redirect:/providers/new";
         }
@@ -67,7 +66,7 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    //Display event update form
+    // Display event update form
     @GetMapping("/providers/{providerId}/events/{eventId}/edit")
     public String showEventUpdateForm(
             @PathVariable Long providerId,
@@ -94,7 +93,7 @@ public class EventUiController {
         return "event-update-form";
     }
 
-    //Update event
+    // Update event
     @PostMapping("/providers/{providerId}/events/{eventId}/update")
     public String updateEvent(
             @PathVariable Long providerId,
@@ -118,7 +117,7 @@ public class EventUiController {
         return "redirect:/providers/" + providerId;
     }
 
-    //Delete event
+    // Delete event
     @PostMapping("/providers/{providerId}/events/{eventId}/delete")
     public String deleteEvent(
             @PathVariable Long providerId,
