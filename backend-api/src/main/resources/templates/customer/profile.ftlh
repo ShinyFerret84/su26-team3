@@ -177,13 +177,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
         const CUSTOMER_ID = 1;
         const API_BASE = '/api/customers';
 
         document.addEventListener('DOMContentLoaded', function() {
-
             const editProfileBtn = document.getElementById('editProfileBtn');
             const editForm = document.getElementById('editProfileForm');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -193,7 +191,6 @@
             const addInterestBtn = document.getElementById('addInterestBtn');
             const messageDiv = document.getElementById('message');
 
-            // Edit Profile
             if (editProfileBtn) {
                 editProfileBtn.addEventListener('click', function() {
                     editForm.style.display = 'block';
@@ -208,7 +205,6 @@
                 });
             }
 
-            // Save Profile
             if (profileForm) {
                 profileForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -219,7 +215,7 @@
                     const location = document.getElementById('location').value.trim();
                     
                     try {
-                        const response = await fetch(`${API_BASE}/${CUSTOMER_ID}`, {
+                        const response = await fetch(API_BASE + '/' + CUSTOMER_ID, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ firstName, lastName, email, location, password: 'password123' })
@@ -229,7 +225,7 @@
                         
                         const customer = await response.json();
                         
-                        document.getElementById('displayName').textContent = `${customer.firstName} ${customer.lastName}`;
+                        document.getElementById('displayName').textContent = customer.firstName + ' ' + customer.lastName;
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
@@ -244,7 +240,6 @@
                 });
             }
 
-            // Add Interest
             if (addInterestBtn && interestInput) {
                 addInterestBtn.addEventListener('click', async function() {
                     const interest = interestInput.value.trim();
@@ -255,10 +250,10 @@
                     }
                     
                     try {
-                        const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests`, {
+                        const response = await fetch(API_BASE + '/' + CUSTOMER_ID + '/interests', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ interest })
+                            body: JSON.stringify({ interest: interest })
                         });
                         
                         if (!response.ok) throw new Error('Failed to add interest');
@@ -266,7 +261,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage(`"${interest}" added! 🎉`, 'success');
+                        showMessage('"' + interest + '" added! 🎉', 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);
@@ -282,14 +277,13 @@
                 });
             }
 
-            // Remove Interest
             if (interestsContainer) {
                 interestsContainer.addEventListener('click', async function(e) {
                     if (e.target.classList.contains('remove-btn')) {
                         const interest = e.target.getAttribute('data-interest');
                         
                         try {
-                            const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests/${encodeURIComponent(interest)}`, {
+                            const response = await fetch(API_BASE + '/' + CUSTOMER_ID + '/interests/' + encodeURIComponent(interest), {
                                 method: 'DELETE'
                             });
                             
@@ -297,7 +291,7 @@
                             
                             const customer = await response.json();
                             displayInterests(customer.interests || []);
-                            showMessage(`"${interest}" removed.`, 'success');
+                            showMessage('"' + interest + '" removed.', 'success');
                             
                         } catch (error) {
                             console.error('Error:', error);
@@ -307,7 +301,6 @@
                 });
             }
 
-            // Display Interests
             function displayInterests(interests) {
                 if (!interestsContainer) return;
                 
@@ -318,26 +311,21 @@
                 
                 let html = '';
                 interests.forEach(function(interest) {
-                    html += `
-                        <span class="interest-tag">
-                            ${interest}
-                            <button class="remove-btn" data-interest="${interest}">×</button>
-                        </span>
-                    `;
+                    html += '<span class="interest-tag">' + interest + ' <button class="remove-btn" data-interest="' + interest + '">×</button></span>';
                 });
                 interestsContainer.innerHTML = html;
             }
 
-            // Show Message
-            function showMessage(text, type = 'success') {
+            function showMessage(text, type) {
                 if (!messageDiv) return;
+                if (!type) type = 'success';
                 
                 messageDiv.textContent = text;
-                messageDiv.className = `message ${type}`;
+                messageDiv.className = 'message ' + type;
                 messageDiv.classList.remove('hidden');
                 
                 clearTimeout(window.messageTimeout);
-                window.messageTimeout = setTimeout(() => {
+                window.messageTimeout = setTimeout(function() {
                     messageDiv.classList.add('hidden');
                 }, 4000);
             }
