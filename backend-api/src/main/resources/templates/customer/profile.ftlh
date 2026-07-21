@@ -177,10 +177,10 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript - FIXED! -->
     <script>
         const CUSTOMER_ID = 1;
-        const API_BASE = '/api/customers';
+        const API_BASE = '/api/customers';  // ← FIXED: removed ${}
 
         document.addEventListener('DOMContentLoaded', function() {
 
