@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- HEADER  -->
+    <!-- ===== HEADER ===== -->
     <header class="app-header">
         <div class="logo">
             <a href="/index.html">Triad<span>Activities</span></a>
@@ -28,25 +28,52 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- ===== MAIN CONTENT ===== -->
     <main>
         <div class="profile-page">
 
-       <!-- Profile Header -->
-      <div class="profile-header-section">
-        <div class="profile-avatar">
-          <span class="avatar-initials">${initials!"??"}</span>
-      </div>
-      <div class="profile-user-info">
-        <h1 id="displayName">${firstName!"User"} ${lastName!""}</h1>
-        <p class="profile-email" id="displayEmail">${email!"No email set"}</p>
-        <p class="profile-location" id="displayLocation">${location!"No location set"}</p>
-        <p class="profile-member">Member since ${memberSince!"2025"}</p>
-    </div>
-    <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
-</div>
+            <!-- ===== PROFILE HEADER ===== -->
+            <div class="profile-header-section">
+                <div class="profile-avatar">
+                    <span class="avatar-initials">${initials!"??"}</span>
+                </div>
+                <div class="profile-user-info">
+                    <h1 id="displayName">${firstName!"User"} ${lastName!""}</h1>
+                    <p class="profile-email" id="displayEmail">${email!"No email set"}</p>
+                    <p class="profile-location" id="displayLocation">${location!"No location set"}</p>
+                    <p class="profile-member">Member since ${memberSince!"2025"}</p>
+                </div>
+                <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+            </div>
 
-            <!-- Stats Cards -->
+            <!-- ===== EDIT PROFILE FORM ===== -->
+            <div class="profile-edit-section" id="editProfileForm" style="display: none;">
+                <h2>Edit Personal Information</h2>
+                <form id="profileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" value="${firstName!''}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" value="${lastName!''}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="${email!''}">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" value="${location!''}" placeholder="e.g., Winston-Salem, NC">
+                    </div>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" class="btn-secondary" id="cancelEditBtn">Cancel</button>
+                </form>
+            </div>
+
+            <!-- ===== STATS CARDS ===== -->
             <div class="profile-stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">${activitiesDone!"-"}</span>
@@ -62,25 +89,37 @@
                 </div>
             </div>
 
-            <!-- Interests Section -->
+            <!-- ===== INTERESTS SECTION ===== -->
             <div class="profile-interests-section">
                 <div class="section-header">
                     <h2>My Interests</h2>
-                    <button class="btn-secondary" onclick="alert('Edit interests')">Edit Interests</button>
                 </div>
-                <div class="interests-tags">
+                
+                <!-- Add Interest Row -->
+                <div class="add-interest">
+                    <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
+                    <button id="addInterestBtn" class="btn-secondary">+ Add</button>
+                </div>
+                
+                <!-- Interests Tags -->
+                <div class="interests-tags" id="interestsContainer">
                     <#if interests?has_content>
                         <#list interests as interest>
-                            <span class="interest-tag">${interest}</span>
+                            <span class="interest-tag">
+                                ${interest}
+                                <button class="remove-btn" onclick="removeInterest('${interest}')">×</button>
+                            </span>
                         </#list>
                     <#else>
-                        <p class="no-interests">No interests added yet.</p>
+                        <p class="no-interests">No interests added yet. Start adding some!</p>
                     </#if>
-                    <span class="interest-tag-add" onclick="alert('Add new interest')">+ Add</span>
                 </div>
             </div>
 
-            <!-- My Recent Reviews -->
+            <!-- ===== MESSAGE ===== -->
+            <div id="message" class="message hidden"></div>
+
+            <!-- ===== REVIEWS SECTION ===== -->
             <div class="profile-reviews-section">
                 <div class="section-header">
                     <h2>My Recent Reviews</h2>
@@ -122,33 +161,6 @@
         </div>
     </main>
 
-    <!-- Edit Profile Form  -->
-<div class="profile-edit-section" id="editProfileForm" style="display: none;">
-    <h2>Edit Personal Information</h2>
-    <form id="profileForm">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" value="${firstName!''}">
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" value="${lastName!''}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" value="${email!''}">
-        </div>
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" value="${location!''}" placeholder="e.g., Winston-Salem, NC">
-        </div>
-        <button type="submit" class="btn-primary">Save Changes</button>
-        <button type="button" class="btn-secondary" id="cancelEditBtn">Cancel</button>
-    </form>
-</div>
-
     <!-- ===== FOOTER ===== -->
     <footer class="app-footer">
         <div class="footer-content">
@@ -172,6 +184,181 @@
             <p>&copy; 2025 Triad Activities. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // ============================================================
+        // PROFILE PAGE Frontend JavaScript user story 1
+        // ============================================================
+
+        const CUSTOMER_ID = 1;
+        const API_BASE = '/api/customers';
+
+        // Wait for the page to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Get elements
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const editForm = document.getElementById('editProfileForm');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const profileForm = document.getElementById('profileForm');
+            const interestsContainer = document.getElementById('interestsContainer');
+            const interestInput = document.getElementById('interestInput');
+            const addInterestBtn = document.getElementById('addInterestBtn');
+            const messageDiv = document.getElementById('message');
+
+            // ============================================================
+            // SHOW/HIDE EDIT FORM
+            // ============================================================
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', function() {
+                    editForm.style.display = 'block';
+                    editProfileBtn.style.display = 'none';
+                });
+            }
+
+            if (cancelEditBtn) {
+                cancelEditBtn.addEventListener('click', function() {
+                    editForm.style.display = 'none';
+                    editProfileBtn.style.display = 'block';
+                });
+            }
+
+            // ============================================================
+            // SAVE PROFILE
+            // ============================================================
+            if (profileForm) {
+                profileForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const firstName = document.getElementById('firstName').value.trim();
+                    const lastName = document.getElementById('lastName').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const location = document.getElementById('location').value.trim();
+                    
+                    try {
+                        const response = await fetch(`${API_BASE}/${CUSTOMER_ID}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ firstName, lastName, email, location, password: 'password123' })
+                        });
+                        
+                        if (!response.ok) throw new Error('Failed to save');
+                        
+                        const customer = await response.json();
+                        
+                        document.getElementById('displayName').textContent = `${customer.firstName} ${customer.lastName}`;
+                        document.getElementById('displayEmail').textContent = customer.email;
+                        document.getElementById('displayLocation').textContent = customer.location;
+                        
+                        showMessage('Profile saved successfully!', 'success');
+                        editForm.style.display = 'none';
+                        editProfileBtn.style.display = 'block';
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showMessage('Failed to save profile.', 'error');
+                    }
+                });
+            }
+
+            // ============================================================
+            // ADD INTEREST
+            // ============================================================
+            if (addInterestBtn && interestInput) {
+                addInterestBtn.addEventListener('click', async function() {
+                    const interest = interestInput.value.trim();
+                    
+                    if (!interest) {
+                        showMessage('Please enter an interest!', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ interest })
+                        });
+                        
+                        if (!response.ok) throw new Error('Failed to add interest');
+                        
+                        const customer = await response.json();
+                        displayInterests(customer.interests || []);
+                        interestInput.value = '';
+                        showMessage(`"${interest}" added!`, 'success');
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showMessage('Failed to add interest.', 'error');
+                    }
+                });
+
+                // Allow Enter key
+                interestInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addInterestBtn.click();
+                    }
+                });
+            }
+
+            // ============================================================
+            // REMOVE INTEREST
+            // ============================================================
+            window.removeInterest = async function(interest) {
+                try {
+                    const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests/${encodeURIComponent(interest)}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to remove');
+                    
+                    const customer = await response.json();
+                    displayInterests(customer.interests || []);
+                    showMessage(`"${interest}" removed.`, 'success');
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    showMessage('Failed to remove interest.', 'error');
+                }
+            };
+
+            // ============================================================
+            // DISPLAY INTERESTS
+            // ============================================================
+            function displayInterests(interests) {
+                if (!interestsContainer) return;
+                
+                if (!interests || interests.length === 0) {
+                    interestsContainer.innerHTML = '<p class="no-interests">No interests added yet. Start adding some!</p>';
+                    return;
+                }
+                
+                interestsContainer.innerHTML = interests.map(interest => `
+                    <span class="interest-tag">
+                        ${interest}
+                        <button class="remove-btn" onclick="removeInterest('${interest}')">×</button>
+                    </span>
+                `).join('');
+            }
+
+            // ============================================================
+            // SHOW MESSAGE
+            // ============================================================
+            function showMessage(text, type = 'success') {
+                if (!messageDiv) return;
+                
+                messageDiv.textContent = text;
+                messageDiv.className = `message ${type}`;
+                messageDiv.classList.remove('hidden');
+                
+                clearTimeout(window.messageTimeout);
+                window.messageTimeout = setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 4000);
+            }
+        });
+    </script>
 
 </body>
 </html>
