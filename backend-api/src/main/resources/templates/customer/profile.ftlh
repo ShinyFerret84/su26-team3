@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Triad Activities</title>
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="/design.css">
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header class="app-header">
         <div class="logo">
             <a href="/index.html">Triad<span>Activities</span></a>
@@ -28,11 +25,10 @@
         </div>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
     <main>
         <div class="profile-page">
 
-            <!-- ===== PROFILE HEADER ===== -->
+            <!-- Profile Header -->
             <div class="profile-header-section">
                 <div class="profile-avatar">
                     <span class="avatar-initials">${initials!"??"}</span>
@@ -46,7 +42,7 @@
                 <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
             </div>
 
-            <!-- ===== EDIT PROFILE FORM ===== -->
+            <!-- Edit Profile Form -->
             <div class="profile-edit-section" id="editProfileForm" style="display: none;">
                 <h2>Edit Personal Information</h2>
                 <form id="profileForm">
@@ -73,7 +69,7 @@
                 </form>
             </div>
 
-            <!-- ===== STATS CARDS ===== -->
+            <!-- Stats -->
             <div class="profile-stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">${activitiesDone!"-"}</span>
@@ -89,23 +85,21 @@
                 </div>
             </div>
 
-            <!-- ===== INTERESTS SECTION ===== -->
+            <!-- Interests Section -->
             <div class="profile-interests-section">
                 <div class="section-header">
                     <h2>My Interests</h2>
                 </div>
                 
-                <!-- Add Interest Row -->
                 <div class="add-interest">
                     <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
                     <button type="button" id="addInterestBtn" class="btn-secondary">+ Add</button>
                 </div>
                 
-                <!-- Interests Tags -->
                 <div class="interests-tags" id="interestsContainer">
                     <#if interests?has_content>
                         <#list interests as interest>
-                            <span class="interest-tag" data-interest="${interest}">
+                            <span class="interest-tag">
                                 ${interest}
                                 <button class="remove-btn" data-interest="${interest}">×</button>
                             </span>
@@ -116,10 +110,9 @@
                 </div>
             </div>
 
-            <!-- ===== MESSAGE ===== -->
             <div id="message" class="message hidden"></div>
 
-            <!-- ===== REVIEWS SECTION ===== -->
+            <!-- Reviews -->
             <div class="profile-reviews-section">
                 <div class="section-header">
                     <h2>My Recent Reviews</h2>
@@ -144,7 +137,7 @@
                         </div>
                         <span class="review-stars">★★★★</span>
                     </div>
-                    <p class="review-text">"Great hike with beautiful views. Would be better with more time at the top."</p>
+                    <p class="review-text">"Great hike with beautiful views."</p>
                 </div>
 
                 <div class="review-card">
@@ -155,23 +148,22 @@
                         </div>
                         <span class="review-stars">★★★★★</span>
                     </div>
-                    <p class="review-text">"Incredible music and atmosphere! The band was amazing."</p>
+                    <p class="review-text">"Incredible music and atmosphere!"</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Triad Activities</h4>
-                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+                <p>Discover the best experiences in the Triad area.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="/index.html">Home</a>
-                <a href="/browse.html">Browse Activities</a>
+                <a href="/browse.html">Browse</a>
                 <a href="/myPlans.html">My Plans</a>
                 <a href="/customer/profile/${customer.id}">Profile</a>
             </div>
@@ -185,19 +177,13 @@
         </div>
     </footer>
 
-    JAVASCRIPT 
-        <script>
-        // ============================================================
-        // PROFILE PAGE - WORKING VERSION
-        // ============================================================
-
-        // This is a JavaScript variable - NO ${} around it!
+    <!-- JavaScript -->
+    <script>
         const CUSTOMER_ID = 1;
         const API_BASE = '/api/customers';
 
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Get all elements
             const editProfileBtn = document.getElementById('editProfileBtn');
             const editForm = document.getElementById('editProfileForm');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -207,7 +193,7 @@
             const addInterestBtn = document.getElementById('addInterestBtn');
             const messageDiv = document.getElementById('message');
 
-            //  SHOW / HIDE EDIT FORM
+            // Edit Profile
             if (editProfileBtn) {
                 editProfileBtn.addEventListener('click', function() {
                     editForm.style.display = 'block';
@@ -222,7 +208,7 @@
                 });
             }
 
-            // SAVE PROFILE (Update Name, Email, Location)
+            // Save Profile
             if (profileForm) {
                 profileForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -243,12 +229,11 @@
                         
                         const customer = await response.json();
                         
-                        // Update the displayed name, email, location
                         document.getElementById('displayName').textContent = `${customer.firstName} ${customer.lastName}`;
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
-                        showMessage('Profile saved successfully!', 'success');
+                        showMessage('Profile saved successfully! ✅', 'success');
                         editForm.style.display = 'none';
                         editProfileBtn.style.display = 'block';
                         
@@ -259,9 +244,7 @@
                 });
             }
 
-            // ============================================================
-            // 3. ADD INTEREST (Works from + Add button)
-            // ============================================================
+            // Add Interest
             if (addInterestBtn && interestInput) {
                 addInterestBtn.addEventListener('click', async function() {
                     const interest = interestInput.value.trim();
@@ -283,7 +266,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage(`"${interest}" added! `, 'success');
+                        showMessage(`"${interest}" added! 🎉`, 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);
@@ -291,7 +274,6 @@
                     }
                 });
 
-                // Allow Enter key to add interest
                 interestInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
@@ -300,10 +282,9 @@
                 });
             }
 
-            // REMOVE INTEREST (Works from × button on tags)
+            // Remove Interest
             if (interestsContainer) {
                 interestsContainer.addEventListener('click', async function(e) {
-                    // Check if the clicked element is a remove button
                     if (e.target.classList.contains('remove-btn')) {
                         const interest = e.target.getAttribute('data-interest');
                         
@@ -326,7 +307,7 @@
                 });
             }
 
-            // DISPLAY INTERESTS (Renders tags)
+            // Display Interests
             function displayInterests(interests) {
                 if (!interestsContainer) return;
                 
@@ -347,7 +328,7 @@
                 interestsContainer.innerHTML = html;
             }
 
-            // SHOW MESSAGE
+            // Show Message
             function showMessage(text, type = 'success') {
                 if (!messageDiv) return;
                 
