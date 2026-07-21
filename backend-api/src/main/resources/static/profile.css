@@ -1,4 +1,4 @@
-  /* Profile design layout */
+/* Profile design layout */
 .profile-page {
     max-width: 1200px;
     margin: 0 auto;
@@ -78,6 +78,17 @@
 .btn-edit-profile:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Cancel button for edit form */
+#cancelEditBtn {
+    background: #fc8181;
+    margin-top: 10px;
+}
+
+#cancelEditBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(252, 129, 129, 0.4);
 }
 
 /* Stats Grid */
@@ -174,7 +185,7 @@
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-/* ===== Interests Section ===== */
+/* Interests Section */
 .profile-interests-section {
     background: white;
     padding: 30px;
@@ -195,6 +206,7 @@
     font-size: 20px;
 }
 
+/* Add interest row - NEW */
 .add-interest {
     display: flex;
     gap: 10px;
@@ -254,6 +266,7 @@
     animation: fadeIn 0.3s ease;
 }
 
+/* Remove button on interest tag */
 .interest-tag .remove-btn {
     background: rgba(255,255,255,0.2);
     border: none;
