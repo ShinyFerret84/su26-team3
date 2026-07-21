@@ -16,7 +16,7 @@
         </div>
         <nav class="main-nav">
             <a href="#">Home</a>
-            <a href="/events/browse/${customer.id?c}" class="active">Browse</a>
+            <a href="/customer/browse/${customer.id?c}" class="active">Browse</a>
             <a href="#">My Plans</a>
             <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
@@ -172,7 +172,7 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="#">Home</a>
-                <a href="/events/browse/${customer.id?c}">Browse Activities</a>
+                <a href="/customer/browse/${customer.id?c}">Browse Activities</a>
                 <a href="#">My Plans</a>
                 <a href="/customer/profile/${customer.id?c}">Profile</a>
             </div>
@@ -185,6 +185,93 @@
             <p>&copy; 2025 Triad Activities. All rights reserved.</p>
         </div>
     </footer>
+
+    //JAVASCRIPT - Makes Search, Filter, and Sort work from the page
+    <script>
+          const customerId = ${customer.id?c};
+
+        // Get elements
+        const searchInput = document.querySelector('.filter-search input');
+        const searchBtn = document.querySelector('.search-btn-small');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const dateFilter = document.getElementById('dateFilter');
+        const priceRange = document.querySelector('.price-range-display input[type="range"]');
+
+        // APPLY FILTERS Reloads page with filter parameters
+        function applyFilters() {
+            const search = searchInput ? searchInput.value.trim() : '';
+            const category = categoryFilter ? categoryFilter.value : '';
+            const sort = sortFilter ? sortFilter.value : '';
+            const date = dateFilter ? dateFilter.value : '';
+            const price = priceRange ? priceRange.value : '';
+
+            let url = '/customer/browse/' + customerId;
+            const params = [];
+
+            if (search) params.push('search=' + encodeURIComponent(search));
+            if (category && category !== 'all') params.push('category=' + encodeURIComponent(category));
+            if (sort && sort !== 'featured') params.push('sort=' + encodeURIComponent(sort));
+            if (date) params.push('date=' + encodeURIComponent(date));
+            if (price) params.push('price=' + encodeURIComponent(price));
+
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+
+            window.location.href = url;
+        }
+
+        // SEARCH BUTTON - Works when clicked
+        if (searchBtn) {
+            searchBtn.addEventListener('click', applyFilters);
+        }
+
+        // Works when pressing Enter in search box
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyFilters();
+                }
+            });
+        }
+
+        // CATEGORY FILTER Works when dropdown changes
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', applyFilters);
+        }
+
+        // SORT FILTER Works when dropdown changes
+        if (sortFilter) {
+            sortFilter.addEventListener('change', applyFilters);
+        }
+
+        // DATE FILTER Works when date changes
+        if (dateFilter) {
+            dateFilter.addEventListener('change', applyFilters);
+        }
+
+        // PRICE RANGE Works when slider changes (with delay)
+        if (priceRange) {
+            let priceTimeout;
+            priceRange.addEventListener('input', function() {
+                clearTimeout(priceTimeout);
+                priceTimeout = setTimeout(applyFilters, 500);
+            });
+        }
+
+        // VIEW DETAILS BUTTON Shows event ID 
+        document.querySelectorAll('.view-detail-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const eventId = this.getAttribute('href').split('=')[1];
+                alert('View details for event ID: ' + eventId);
+            });
+        });
+
+        console.log('Browse page JavaScript loaded!');
+    </script>
 
 </body>
 </html>
