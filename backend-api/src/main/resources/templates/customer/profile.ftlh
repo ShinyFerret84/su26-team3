@@ -91,17 +91,15 @@
                     <h2>My Interests</h2>
                 </div>
                 
-                <!-- Add Interest -->
                 <div class="add-interest">
                     <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
                     <button type="button" id="addInterestBtn" class="btn-secondary">+ Add</button>
                 </div>
                 
-                <!-- Interests Tags -->
                 <div class="interests-tags" id="interestsContainer">
                     <#if interests?has_content>
                         <#list interests as interest>
-                            <span class="interest-tag" id="tag-${interest?index}">
+                            <span class="interest-tag">
                                 ${interest}
                                 <button class="remove-btn" data-interest="${interest}">×</button>
                             </span>
@@ -112,7 +110,6 @@
                 </div>
             </div>
 
-            <!-- Message -->
             <div id="message" class="message hidden"></div>
 
             <!-- Reviews -->
@@ -140,7 +137,7 @@
                         </div>
                         <span class="review-stars">★★★★</span>
                     </div>
-                    <p class="review-text">"Great hike with beautiful views. Would be better with more time at the top."</p>
+                    <p class="review-text">"Great hike with beautiful views."</p>
                 </div>
 
                 <div class="review-card">
@@ -151,7 +148,7 @@
                         </div>
                         <span class="review-stars">★★★★★</span>
                     </div>
-                    <p class="review-text">"Incredible music and atmosphere! The band was amazing."</p>
+                    <p class="review-text">"Incredible music and atmosphere!"</p>
                 </div>
             </div>
         </div>
@@ -161,12 +158,12 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Triad Activities</h4>
-                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+                <p>Discover the best experiences in the Triad area.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="/index.html">Home</a>
-                <a href="/browse.html">Browse Activities</a>
+                <a href="/browse.html">Browse</a>
                 <a href="/myPlans.html">My Plans</a>
                 <a href="/customer/profile/${customer.id}">Profile</a>
             </div>
@@ -180,26 +177,23 @@
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // PROFILE PAGE 
         const CUSTOMER_ID = 1;
         const API_BASE = '/api/customers';
 
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Get elements
-            const interestsContainer = document.getElementById('interestsContainer');
-            const interestInput = document.getElementById('interestInput');
-            const addInterestBtn = document.getElementById('addInterestBtn');
-            const messageDiv = document.getElementById('message');
             const editProfileBtn = document.getElementById('editProfileBtn');
             const editForm = document.getElementById('editProfileForm');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
             const profileForm = document.getElementById('profileForm');
+            const interestsContainer = document.getElementById('interestsContainer');
+            const interestInput = document.getElementById('interestInput');
+            const addInterestBtn = document.getElementById('addInterestBtn');
+            const messageDiv = document.getElementById('message');
 
-            // ============================================================
-            // SHOW/HIDE EDIT FORM
-            // ============================================================
+            // Edit Profile
             if (editProfileBtn) {
                 editProfileBtn.addEventListener('click', function() {
                     editForm.style.display = 'block';
@@ -214,9 +208,7 @@
                 });
             }
 
-            // ============================================================
-            // SAVE PROFILE
-            // ============================================================
+            // Save Profile
             if (profileForm) {
                 profileForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -252,9 +244,7 @@
                 });
             }
 
-            // ============================================================
-            // ADD INTEREST
-            // ============================================================
+            // Add Interest
             if (addInterestBtn && interestInput) {
                 addInterestBtn.addEventListener('click', async function() {
                     const interest = interestInput.value.trim();
@@ -284,7 +274,6 @@
                     }
                 });
 
-                // Allow Enter key
                 interestInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
@@ -293,10 +282,9 @@
                 });
             }
 
-            // REMOVE INTEREST 
+            // Remove Interest
             if (interestsContainer) {
                 interestsContainer.addEventListener('click', async function(e) {
-                    // Check if the clicked element is a remove button
                     if (e.target.classList.contains('remove-btn')) {
                         const interest = e.target.getAttribute('data-interest');
                         
@@ -319,9 +307,7 @@
                 });
             }
 
-            // ============================================================
-            // DISPLAY INTERESTS
-            // ============================================================
+            // Display Interests
             function displayInterests(interests) {
                 if (!interestsContainer) return;
                 
@@ -331,7 +317,7 @@
                 }
                 
                 let html = '';
-                interests.forEach(function(interest, index) {
+                interests.forEach(function(interest) {
                     html += `
                         <span class="interest-tag">
                             ${interest}
@@ -342,9 +328,7 @@
                 interestsContainer.innerHTML = html;
             }
 
-            // ============================================================
-            // SHOW MESSAGE
-            // ============================================================
+            // Show Message
             function showMessage(text, type = 'success') {
                 if (!messageDiv) return;
                 
