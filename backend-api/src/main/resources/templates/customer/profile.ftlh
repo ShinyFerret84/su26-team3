@@ -98,7 +98,7 @@
                 <!-- Add Interest Row -->
                 <div class="add-interest">
                     <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
-                    <button id="addInterestBtn" class="btn-secondary">+ Add</button>
+                    <button type="button" id="addInterestBtn" class="btn-secondary">+ Add</button>
                 </div>
                 
                 <!-- Interests Tags -->
@@ -107,7 +107,7 @@
                         <#list interests as interest>
                             <span class="interest-tag">
                                 ${interest}
-                                <button class="remove-btn" onclick="removeInterest('${interest}')">×</button>
+                                <button class="remove-btn" onclick="window.removeInterest('${interest}')">×</button>
                             </span>
                         </#list>
                     <#else>
@@ -185,9 +185,12 @@
         </div>
     </footer>
 
+    <!-- ============================================================
+    JAVASCRIPT - Makes the buttons work!
+    ============================================================ -->
     <script>
         // ============================================================
-        // PROFILE PAGE Frontend JavaScript user story 1
+        // PROFILE PAGE - Frontend JavaScript (US-1)
         // ============================================================
 
         const CUSTOMER_ID = 1;
@@ -285,7 +288,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage(`"${interest}" added!`, 'success');
+                        showMessage(`"${interest}" added! 🎉`, 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);
@@ -337,7 +340,7 @@
                 interestsContainer.innerHTML = interests.map(interest => `
                     <span class="interest-tag">
                         ${interest}
-                        <button class="remove-btn" onclick="removeInterest('${interest}')">×</button>
+                        <button class="remove-btn" onclick="window.removeInterest('${interest}')">×</button>
                     </span>
                 `).join('');
             }
