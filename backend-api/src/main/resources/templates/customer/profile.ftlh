@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Triad Activities</title>
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="/design.css">
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header class="app-header">
         <div class="logo">
             <a href="/index.html">Triad<span>Activities</span></a>
@@ -28,11 +25,10 @@
         </div>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
     <main>
         <div class="profile-page">
 
-            <!-- ===== PROFILE HEADER ===== -->
+            <!-- Profile Header -->
             <div class="profile-header-section">
                 <div class="profile-avatar">
                     <span class="avatar-initials">${initials!"??"}</span>
@@ -46,7 +42,7 @@
                 <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
             </div>
 
-            <!-- ===== EDIT PROFILE FORM ===== -->
+            <!-- Edit Profile Form -->
             <div class="profile-edit-section" id="editProfileForm" style="display: none;">
                 <h2>Edit Personal Information</h2>
                 <form id="profileForm">
@@ -73,7 +69,7 @@
                 </form>
             </div>
 
-            <!-- ===== STATS CARDS ===== -->
+            <!-- Stats -->
             <div class="profile-stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">${activitiesDone!"-"}</span>
@@ -89,13 +85,13 @@
                 </div>
             </div>
 
-            <!-- ===== INTERESTS SECTION ===== -->
+            <!-- Interests Section -->
             <div class="profile-interests-section">
                 <div class="section-header">
                     <h2>My Interests</h2>
                 </div>
                 
-                <!-- Add Interest Row -->
+                <!-- Add Interest -->
                 <div class="add-interest">
                     <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
                     <button type="button" id="addInterestBtn" class="btn-secondary">+ Add</button>
@@ -105,9 +101,9 @@
                 <div class="interests-tags" id="interestsContainer">
                     <#if interests?has_content>
                         <#list interests as interest>
-                            <span class="interest-tag">
+                            <span class="interest-tag" id="tag-${interest?index}">
                                 ${interest}
-                                <button class="remove-btn" onclick="window.removeInterest('${interest}')">×</button>
+                                <button class="remove-btn" data-interest="${interest}">×</button>
                             </span>
                         </#list>
                     <#else>
@@ -116,10 +112,10 @@
                 </div>
             </div>
 
-            <!-- ===== MESSAGE ===== -->
+            <!-- Message -->
             <div id="message" class="message hidden"></div>
 
-            <!-- ===== REVIEWS SECTION ===== -->
+            <!-- Reviews -->
             <div class="profile-reviews-section">
                 <div class="section-header">
                     <h2>My Recent Reviews</h2>
@@ -161,7 +157,6 @@
         </div>
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -185,29 +180,22 @@
         </div>
     </footer>
 
-    <!-- ============================================================
-    JAVASCRIPT - Makes the buttons work!
-    ============================================================ -->
     <script>
-        // ============================================================
-        // PROFILE PAGE - Frontend JavaScript (US-1)
-        // ============================================================
-
+        // PROFILE PAGE 
         const CUSTOMER_ID = 1;
         const API_BASE = '/api/customers';
 
-        // Wait for the page to fully load
         document.addEventListener('DOMContentLoaded', function() {
 
             // Get elements
-            const editProfileBtn = document.getElementById('editProfileBtn');
-            const editForm = document.getElementById('editProfileForm');
-            const cancelEditBtn = document.getElementById('cancelEditBtn');
-            const profileForm = document.getElementById('profileForm');
             const interestsContainer = document.getElementById('interestsContainer');
             const interestInput = document.getElementById('interestInput');
             const addInterestBtn = document.getElementById('addInterestBtn');
             const messageDiv = document.getElementById('message');
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const editForm = document.getElementById('editProfileForm');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const profileForm = document.getElementById('profileForm');
 
             // ============================================================
             // SHOW/HIDE EDIT FORM
@@ -253,7 +241,7 @@
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
-                        showMessage('Profile saved successfully!', 'success');
+                        showMessage('Profile saved successfully! ✅', 'success');
                         editForm.style.display = 'none';
                         editProfileBtn.style.display = 'block';
                         
@@ -305,26 +293,31 @@
                 });
             }
 
-            // ============================================================
-            // REMOVE INTEREST
-            // ============================================================
-            window.removeInterest = async function(interest) {
-                try {
-                    const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests/${encodeURIComponent(interest)}`, {
-                        method: 'DELETE'
-                    });
-                    
-                    if (!response.ok) throw new Error('Failed to remove');
-                    
-                    const customer = await response.json();
-                    displayInterests(customer.interests || []);
-                    showMessage(`"${interest}" removed.`, 'success');
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    showMessage('Failed to remove interest.', 'error');
-                }
-            };
+            // REMOVE INTEREST 
+            if (interestsContainer) {
+                interestsContainer.addEventListener('click', async function(e) {
+                    // Check if the clicked element is a remove button
+                    if (e.target.classList.contains('remove-btn')) {
+                        const interest = e.target.getAttribute('data-interest');
+                        
+                        try {
+                            const response = await fetch(`${API_BASE}/${CUSTOMER_ID}/interests/${encodeURIComponent(interest)}`, {
+                                method: 'DELETE'
+                            });
+                            
+                            if (!response.ok) throw new Error('Failed to remove');
+                            
+                            const customer = await response.json();
+                            displayInterests(customer.interests || []);
+                            showMessage(`"${interest}" removed.`, 'success');
+                            
+                        } catch (error) {
+                            console.error('Error:', error);
+                            showMessage('Failed to remove interest.', 'error');
+                        }
+                    }
+                });
+            }
 
             // ============================================================
             // DISPLAY INTERESTS
@@ -337,12 +330,16 @@
                     return;
                 }
                 
-                interestsContainer.innerHTML = interests.map(interest => `
-                    <span class="interest-tag">
-                        ${interest}
-                        <button class="remove-btn" onclick="window.removeInterest('${interest}')">×</button>
-                    </span>
-                `).join('');
+                let html = '';
+                interests.forEach(function(interest, index) {
+                    html += `
+                        <span class="interest-tag">
+                            ${interest}
+                            <button class="remove-btn" data-interest="${interest}">×</button>
+                        </span>
+                    `;
+                });
+                interestsContainer.innerHTML = html;
             }
 
             // ============================================================
