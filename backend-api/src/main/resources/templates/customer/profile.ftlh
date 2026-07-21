@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Triad Activities</title>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/design.css">
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header class="app-header">
         <div class="logo">
             <a href="/index.html">Triad<span>Activities</span></a>
@@ -25,10 +28,11 @@
         </div>
     </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <main>
         <div class="profile-page">
 
-            <!-- Profile Header -->
+            <!-- ===== PROFILE HEADER ===== -->
             <div class="profile-header-section">
                 <div class="profile-avatar">
                     <span class="avatar-initials">${initials!"??"}</span>
@@ -42,7 +46,7 @@
                 <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
             </div>
 
-            <!-- Edit Profile Form -->
+            <!-- ===== EDIT PROFILE FORM ===== -->
             <div class="profile-edit-section" id="editProfileForm" style="display: none;">
                 <h2>Edit Personal Information</h2>
                 <form id="profileForm">
@@ -69,7 +73,7 @@
                 </form>
             </div>
 
-            <!-- Stats -->
+            <!-- ===== STATS CARDS ===== -->
             <div class="profile-stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">${activitiesDone!"-"}</span>
@@ -85,13 +89,13 @@
                 </div>
             </div>
 
-            <!-- Interests Section -->
+            <!-- ===== INTERESTS SECTION ===== -->
             <div class="profile-interests-section">
                 <div class="section-header">
                     <h2>My Interests</h2>
                 </div>
                 
-                <!-- Add Interest -->
+                <!-- Add Interest Row -->
                 <div class="add-interest">
                     <input type="text" id="interestInput" placeholder="Add an interest (e.g., Hiking)">
                     <button type="button" id="addInterestBtn" class="btn-secondary">+ Add</button>
@@ -101,7 +105,7 @@
                 <div class="interests-tags" id="interestsContainer">
                     <#if interests?has_content>
                         <#list interests as interest>
-                            <span class="interest-tag" id="tag-${interest?index}">
+                            <span class="interest-tag" data-interest="${interest}">
                                 ${interest}
                                 <button class="remove-btn" data-interest="${interest}">×</button>
                             </span>
@@ -112,10 +116,10 @@
                 </div>
             </div>
 
-            <!-- Message -->
+            <!-- ===== MESSAGE ===== -->
             <div id="message" class="message hidden"></div>
 
-            <!-- Reviews -->
+            <!-- ===== REVIEWS SECTION ===== -->
             <div class="profile-reviews-section">
                 <div class="section-header">
                     <h2>My Recent Reviews</h2>
@@ -157,6 +161,7 @@
         </div>
     </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="app-footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -180,26 +185,29 @@
         </div>
     </footer>
 
-    <script>
-        // PROFILE PAGE 
+    JAVASCRIPT 
+        <script>
+        // ============================================================
+        // PROFILE PAGE - WORKING VERSION
+        // ============================================================
+
+        // This is a JavaScript variable - NO ${} around it!
         const CUSTOMER_ID = 1;
         const API_BASE = '/api/customers';
 
         document.addEventListener('DOMContentLoaded', function() {
 
-            // Get elements
-            const interestsContainer = document.getElementById('interestsContainer');
-            const interestInput = document.getElementById('interestInput');
-            const addInterestBtn = document.getElementById('addInterestBtn');
-            const messageDiv = document.getElementById('message');
+            // Get all elements
             const editProfileBtn = document.getElementById('editProfileBtn');
             const editForm = document.getElementById('editProfileForm');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
             const profileForm = document.getElementById('profileForm');
+            const interestsContainer = document.getElementById('interestsContainer');
+            const interestInput = document.getElementById('interestInput');
+            const addInterestBtn = document.getElementById('addInterestBtn');
+            const messageDiv = document.getElementById('message');
 
-            // ============================================================
-            // SHOW/HIDE EDIT FORM
-            // ============================================================
+            //  SHOW / HIDE EDIT FORM
             if (editProfileBtn) {
                 editProfileBtn.addEventListener('click', function() {
                     editForm.style.display = 'block';
@@ -214,9 +222,7 @@
                 });
             }
 
-            // ============================================================
-            // SAVE PROFILE
-            // ============================================================
+            // SAVE PROFILE (Update Name, Email, Location)
             if (profileForm) {
                 profileForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -237,11 +243,12 @@
                         
                         const customer = await response.json();
                         
+                        // Update the displayed name, email, location
                         document.getElementById('displayName').textContent = `${customer.firstName} ${customer.lastName}`;
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
-                        showMessage('Profile saved successfully! ✅', 'success');
+                        showMessage('Profile saved successfully!', 'success');
                         editForm.style.display = 'none';
                         editProfileBtn.style.display = 'block';
                         
@@ -253,7 +260,7 @@
             }
 
             // ============================================================
-            // ADD INTEREST
+            // 3. ADD INTEREST (Works from + Add button)
             // ============================================================
             if (addInterestBtn && interestInput) {
                 addInterestBtn.addEventListener('click', async function() {
@@ -276,7 +283,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage(`"${interest}" added! 🎉`, 'success');
+                        showMessage(`"${interest}" added! `, 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);
@@ -284,7 +291,7 @@
                     }
                 });
 
-                // Allow Enter key
+                // Allow Enter key to add interest
                 interestInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
@@ -293,7 +300,7 @@
                 });
             }
 
-            // REMOVE INTEREST 
+            // REMOVE INTEREST (Works from × button on tags)
             if (interestsContainer) {
                 interestsContainer.addEventListener('click', async function(e) {
                     // Check if the clicked element is a remove button
@@ -319,9 +326,7 @@
                 });
             }
 
-            // ============================================================
-            // DISPLAY INTERESTS
-            // ============================================================
+            // DISPLAY INTERESTS (Renders tags)
             function displayInterests(interests) {
                 if (!interestsContainer) return;
                 
@@ -331,7 +336,7 @@
                 }
                 
                 let html = '';
-                interests.forEach(function(interest, index) {
+                interests.forEach(function(interest) {
                     html += `
                         <span class="interest-tag">
                             ${interest}
@@ -342,9 +347,7 @@
                 interestsContainer.innerHTML = html;
             }
 
-            // ============================================================
             // SHOW MESSAGE
-            // ============================================================
             function showMessage(text, type = 'success') {
                 if (!messageDiv) return;
                 
