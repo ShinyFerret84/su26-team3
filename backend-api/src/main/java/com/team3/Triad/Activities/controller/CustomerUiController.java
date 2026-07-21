@@ -64,4 +64,8 @@ public class CustomerUiController {
             return "error/404";
         }
     }
+    @GetMapping("/test")
+public String testPage() {
+    return "customer/test";
+}
 }
