@@ -107,8 +107,8 @@
                     <#else>
                         <p class="no-interests">No interests added yet. Start adding some!</p>
                     </#if>
-                </div>
-            </div>
+                </div> <!-- END interests-tags -->
+            </div> <!-- END profile-interests-section -->
 
             <div id="message" class="message hidden"></div>
 
@@ -177,10 +177,10 @@
         </div>
     </footer>
 
-    <!-- JavaScript - FIXED! -->
+    <!-- JavaScript -->
     <script>
         const CUSTOMER_ID = 1;
-        const API_BASE = '/api/customers';  // ← FIXED: removed ${}
+        const API_BASE = '/api/customers';
 
         document.addEventListener('DOMContentLoaded', function() {
 
