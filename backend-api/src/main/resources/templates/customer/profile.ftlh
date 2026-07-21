@@ -107,8 +107,8 @@
                     <#else>
                         <p class="no-interests">No interests added yet. Start adding some!</p>
                     </#if>
-                </div> <!-- END interests-tags -->
-            </div> <!-- END profile-interests-section -->
+                </div>
+            </div>
 
             <div id="message" class="message hidden"></div>
 
