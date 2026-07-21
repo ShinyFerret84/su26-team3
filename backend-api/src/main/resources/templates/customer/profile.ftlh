@@ -32,19 +32,19 @@
     <main>
         <div class="profile-page">
 
-            <!-- Profile Header -->
-            <div class="profile-header-section">
-                <div class="profile-avatar">
-                    <span class="avatar-initials">${initials!"??"}</span>
-                </div>
-                <div class="profile-user-info">
-                    <h1>${firstName!"User"} ${lastName!""}</h1>
-                    <p class="profile-email">${email!"No email set"}</p>
-                    <p class="profile-location">${location!"No location set"}</p>
-                    <p class="profile-member">Member since ${memberSince!"2025"}</p>
-                </div>
-                <button class="btn-edit-profile" onclick="alert('Edit profile form would appear here')">Edit Profile</button>
-            </div>
+       <!-- Profile Header -->
+      <div class="profile-header-section">
+        <div class="profile-avatar">
+          <span class="avatar-initials">${initials!"??"}</span>
+      </div>
+      <div class="profile-user-info">
+        <h1 id="displayName">${firstName!"User"} ${lastName!""}</h1>
+        <p class="profile-email" id="displayEmail">${email!"No email set"}</p>
+        <p class="profile-location" id="displayLocation">${location!"No location set"}</p>
+        <p class="profile-member">Member since ${memberSince!"2025"}</p>
+    </div>
+    <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+</div>
 
             <!-- Stats Cards -->
             <div class="profile-stats-grid">
@@ -121,6 +121,33 @@
             </div>
         </div>
     </main>
+
+    <!-- Edit Profile Form  -->
+<div class="profile-edit-section" id="editProfileForm" style="display: none;">
+    <h2>Edit Personal Information</h2>
+    <form id="profileForm">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" value="${firstName!''}">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" value="${lastName!''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="${email!''}">
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" value="${location!''}" placeholder="e.g., Winston-Salem, NC">
+        </div>
+        <button type="submit" class="btn-primary">Save Changes</button>
+        <button type="button" class="btn-secondary" id="cancelEditBtn">Cancel</button>
+    </form>
+</div>
 
     <!-- ===== FOOTER ===== -->
     <footer class="app-footer">
