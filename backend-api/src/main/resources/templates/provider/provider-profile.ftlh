@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triad Activities - Provider Portal</title>
+    
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/design.css">
-    <link rel="stylesheet" href="/provider.css">
+    <link rel="stylesheet" href="/provider.css?v=2">
+    
 </head>
 
 <body>
@@ -30,7 +32,7 @@
         <div class="profile-page">
 
             <!--Header Section-->
-            <<div class="page-header">
+            <div class="page-header">
                 <h1>Business Profile</h1>
                 <p>Review and update your business account information.</p>
             </div>
@@ -274,7 +276,7 @@
                         <a
                             href="/providers/${provider.id?c}"
                             class="btn-secondary">
-                            Cancel
+                            ← Back to Dashboard
                         </a>
 
                         <button

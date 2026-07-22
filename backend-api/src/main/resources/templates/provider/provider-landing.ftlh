@@ -6,7 +6,7 @@
     <title>Triad Activities - Provider Portal</title>
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/design.css">
-    <link rel="stylesheet" href="/provider.css">
+    <link rel="stylesheet" href="/provider.css?v=3">
 </head>
 
 <body>
@@ -70,8 +70,20 @@
 
                 <div class="section-header">
                     <h2>Upcoming Events</h2>
-                    <a href="/providers/${provider.id?c}/events/new"
-                        class="view-all">Create Event →</a>
+                    
+                    <div class="section-actions">
+                        <#if upcomingEventCount gt 3>
+                            <a href="/providers/${provider.id?c}/events/upcoming"
+                            class="view-all">
+                                View All Upcoming Events →
+                            </a>
+                        </#if>
+
+                        <a href="/providers/${provider.id?c}/events/new"
+                        class="view-all">
+                            Create Event →
+                        </a>
+                    </div>
                 </div>
 
             <#if upcomingEvents?has_content>
@@ -131,12 +143,13 @@
 
             <#else>
 
-                <p class="empty-events-message">You do not have any upcoming events.</p>
+                <div class="empty-events">
+                    <p class="empty-events-message">You do not have any upcoming events.</p>
 
-                <a href="/providers/${provider.id?c}/events/new" class="btn-primary">
-                        Create Your First Event
-                </a>
-
+                    <a href="/providers/${provider.id?c}/events/new" class="create-event-btn">
+                            Create Your First Event
+                    </a>
+                </div>
             </#if>    
 
             </div>

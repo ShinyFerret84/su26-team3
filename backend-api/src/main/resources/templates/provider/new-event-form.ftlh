@@ -43,7 +43,7 @@
 
             <!-- Form Card -->
             <div class="form-card">
-                <form action="/providers/{providerId}/events/create" method="post">
+                <form action="/providers/${provider.id?c}/events/create" method="post">
                     <!-- Event Information -->
 
                     <h2>Event Information</h2>
