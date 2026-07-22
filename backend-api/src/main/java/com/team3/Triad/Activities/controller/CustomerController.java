@@ -39,7 +39,7 @@ public class CustomerController {
     }
 
 
-    //Customer by ID
+    // Customer by ID
     // GET: http://localhost:8080/api/customers/1
     // Customer login
     @PostMapping("/login")
