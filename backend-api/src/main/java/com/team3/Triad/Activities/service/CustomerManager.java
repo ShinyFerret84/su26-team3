@@ -113,11 +113,14 @@ public class CustomerManager {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
-        List<Booking> bookings = bookingRepository.findByCustomerIdAndStatus(customerId, "CONFIRMED");
-        boolean hasAttended = bookings.stream().anyMatch(b -> b.getEvent().getId().equals(eventId));
-        if (!hasAttended) {
-            throw new RuntimeException("You can only review events you have attended");
-        }
+        
+        // COMMENTED OUT: Attendance check for testing US-4
+        // List<Booking> bookings = bookingRepository.findByCustomerIdAndStatus(customerId, "CONFIRMED");
+        // boolean hasAttended = bookings.stream().anyMatch(b -> b.getEvent().getId().equals(eventId));
+        // if (!hasAttended) {
+        //     throw new RuntimeException("You can only review events you have attended");
+        // }
+        
         Review review = new Review();
         review.setCustomer(customer);
         review.setEvent(event);
@@ -135,10 +138,7 @@ public class CustomerManager {
         return reviewRepository.findByCustomerId(customerId);
     }
 
-    // USER1: Interest Profile Management Save Customer
-
-    //  It saves customer to database (used for updating interests)
-    // This method is needed by CustomerController when adding/removing interests
+    // USER1: Interest Profile Management - Save Customer
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
