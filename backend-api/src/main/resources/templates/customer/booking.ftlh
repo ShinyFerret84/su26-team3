@@ -66,10 +66,6 @@
             color: #f6ad55;
             font-size: 18px;
         }
-        .detail-rating span:last-child {
-            color: #718096;
-            font-size: 14px;
-        }
         .detail-location {
             color: #718096;
             font-size: 16px;
@@ -100,9 +96,6 @@
             border-radius: 8px;
             margin-bottom: 24px;
         }
-        .detail-includes h4 {
-            margin-bottom: 12px;
-        }
         .detail-includes ul {
             list-style: none;
             padding: 0;
@@ -113,9 +106,6 @@
         }
         .provider-section {
             margin-bottom: 24px;
-        }
-        .provider-section h4 {
-            margin-bottom: 12px;
         }
         .provider-card {
             display: flex;
@@ -143,37 +133,6 @@
         .provider-info p {
             color: #718096;
             font-size: 14px;
-        }
-        .provider-desc {
-            margin-top: 4px;
-            color: #4a5568 !important;
-        }
-        .reviews-section h4 {
-            margin-bottom: 16px;
-        }
-        .review-item {
-            padding: 16px 0;
-            border-bottom: 1px solid #edf2f7;
-        }
-        .review-item:last-child {
-            border-bottom: none;
-        }
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-        .review-header .stars {
-            color: #f6ad55;
-        }
-        .review-item p {
-            color: #4a5568;
-            margin-bottom: 4px;
-        }
-        .review-item small {
-            color: #a0aec0;
-            font-size: 12px;
         }
         .booking-sidebar {
             position: sticky;
@@ -219,7 +178,6 @@
             font-family: inherit;
             font-size: 14px;
             outline: none;
-            transition: border-color 0.2s;
         }
         .booking-form select:focus,
         .booking-form textarea:focus {
@@ -294,7 +252,6 @@
         @media (max-width: 992px) {
             .detail-container {
                 grid-template-columns: 1fr;
-                gap: 30px;
             }
             .booking-sidebar {
                 position: static;
@@ -303,20 +260,12 @@
         @media (max-width: 768px) {
             .detail-header {
                 flex-direction: column;
-                gap: 8px;
             }
             .detail-header h2 {
                 font-size: 22px;
             }
-            .detail-meta {
-                gap: 12px;
-                font-size: 14px;
-            }
             .detail-image {
                 height: 200px;
-            }
-            .booking-card-sticky {
-                padding: 16px;
             }
         }
     </style>
@@ -350,7 +299,7 @@
                         <span class="detail-badge">Featured</span>
                     </#if>
                 </div>
-                
+
                 <div class="detail-header">
                     <h2>${event.eventName}</h2>
                     <div class="detail-rating">
@@ -358,15 +307,15 @@
                         <span>(0 reviews)</span>
                     </div>
                 </div>
-                
+
                 <p class="detail-location">${event.city}, ${event.state}</p>
-                
+
                 <div class="detail-meta">
                     <span>${event.date}</span>
                     <span>${event.startTime} - ${event.endTime}</span>
                     <span>${event.maxCapacity} spots</span>
                 </div>
-                
+
                 <div class="detail-description">
                     <h4>About this activity</h4>
                     <p>${event.description}</p>
@@ -394,11 +343,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="reviews-section">
-                    <h4>Reviews</h4>
-                    <p style="color: #a0aec0;">No reviews yet. Be the first to write one!</p>
-                </div>
             </div>
 
             <div class="booking-sidebar">
@@ -407,14 +351,14 @@
                         <span class="price">$${event.pricePerPerson!0}</span>
                         <span class="price-per">/ person</span>
                     </div>
-                    
-                    <form id="bookingForm" class="booking-form">
-                        <input type="hidden" id="customerId" value="${customer.id}">
-                        <input type="hidden" id="eventId" value="${event.id}">
+
+                    <form id="bookingForm" class="booking-form" action="/customer/booking/confirm" method="post">
+                        <input type="hidden" name="customerId" value="${customer.id}">
+                        <input type="hidden" name="eventId" value="${event.id}">
 
                         <div class="form-group">
                             <label>Number of people</label>
-                            <select id="numberOfPeople" required>
+                            <select id="numberOfPeople" name="numberOfPeople" required>
                                 <#list 1..event.maxCapacity as i>
                                     <option value="${i}">${i} person${i > 1 ? 's' : ''}</option>
                                 </#list>
@@ -423,7 +367,7 @@
 
                         <div class="form-group">
                             <label>Special requests</label>
-                            <textarea id="specialRequests" placeholder="Dietary restrictions, mobility needs, etc."></textarea>
+                            <textarea id="specialRequests" name="specialRequests" placeholder="Dietary restrictions, mobility needs, etc."></textarea>
                         </div>
 
                         <div class="booking-total">
@@ -449,7 +393,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Triad Activities</h4>
-                <p>Discover the best experiences in the Triad area. From wine tasting to hiking, find your next adventure!</p>
+                <p>Discover the best experiences in the Triad area.</p>
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
@@ -463,51 +407,20 @@
 
     <script>
         const pricePerPerson = ${event.pricePerPerson!0};
-        const maxCapacity = ${event.maxCapacity};
 
-        const numberOfPeopleSelect = document.getElementById('numberOfPeople');
-        const totalPriceSpan = document.getElementById('totalPrice');
-
-        numberOfPeopleSelect.addEventListener('change', function() {
+        document.getElementById('numberOfPeople').addEventListener('change', function() {
             const people = parseInt(this.value) || 0;
             const total = people * pricePerPerson;
-            totalPriceSpan.textContent = '$' + total.toFixed(2);
+            document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
         });
 
-        document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            const messageDiv = document.getElementById('message');
+            const people = document.getElementById('numberOfPeople').value;
 
-            const customerId = document.getElementById('customerId').value;
-            const eventId = document.getElementById('eventId').value;
-            const numberOfPeople = document.getElementById('numberOfPeople').value;
-            const specialRequests = document.getElementById('specialRequests').value.trim();
-
-            try {
-                const response = await fetch('/api/customers/' + customerId + '/bookings', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        event: { id: parseInt(eventId) },
-                        numberOfPeople: parseInt(numberOfPeople),
-                        specialRequests: specialRequests
-                    })
-                });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to book event');
-                }
-
-                const booking = await response.json();
-                showMessage('Booking confirmed successfully!', 'success');
-
-                setTimeout(function() {
-                    window.location.href = '/customer/myplans/' + customerId;
-                }, 2000);
-
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage(error.message || 'Failed to book event. Please try again.', 'error');
+            if (!people || parseInt(people) < 1) {
+                e.preventDefault();
+                showMessage('Please select the number of people.', 'error');
             }
         });
 

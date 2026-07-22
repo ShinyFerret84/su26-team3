@@ -17,7 +17,7 @@
         <nav class="main-nav">
             <a href="/index.html">Home</a>
             <a href="/browse.html">Browse</a>
-            <a href="/myPlans.html">My Plans</a>
+            <a href="/customer/myplans/${customer.id}">My Plans</a>
             <a href="/customer/profile/${customer.id}" class="active">Profile</a>
         </nav>
         <div class="header-actions">
@@ -112,45 +112,34 @@
 
             <div id="message" class="message hidden"></div>
 
-            <!-- Reviews -->
+            <!-- ===== REVIEWS SECTION ===== -->
             <div class="profile-reviews-section">
                 <div class="section-header">
-                    <h2>My Recent Reviews</h2>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-header">
-                        <div>
-                            <h3>Wine Tasting in Yadkin Valley</h3>
-                            <span class="review-date">2 weeks ago</span>
-                        </div>
-                        <span class="review-stars">★★★★★</span>
-                    </div>
-                    <p class="review-text">"Amazing experience! Beautiful views and delicious wine. Highly recommend!"</p>
+                    <h2>My Reviews</h2>
                 </div>
 
-                <div class="review-card">
-                    <div class="review-header">
-                        <div>
-                            <h3>Hiking at Hanging Rock</h3>
-                            <span class="review-date">1 month ago</span>
+                <#if customer.reviews?has_content>
+                    <#list customer.reviews as review>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div>
+                                    <h3>${review.event.eventName}</h3>
+                                    <span class="review-date">${review.reviewDate}</span>
+                                </div>
+                                <span class="review-stars">
+                                    <#list 1..5 as star>
+                                        <#if star <= review.rating>★<#else>☆</#if>
+                                    </#list>
+                                </span>
+                            </div>
+                            <p class="review-text">${review.comment}</p>
                         </div>
-                        <span class="review-stars">★★★★</span>
-                    </div>
-                    <p class="review-text">"Great hike with beautiful views."</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div>
-                            <h3>Live Jazz Night</h3>
-                            <span class="review-date">2 months ago</span>
-                        </div>
-                        <span class="review-stars">★★★★★</span>
-                    </div>
-                    <p class="review-text">"Incredible music and atmosphere!"</p>
-                </div>
+                    </#list>
+                <#else>
+                    <p class="no-reviews">You haven't written any reviews yet.</p>
+                </#if>
             </div>
+
         </div>
     </main>
 
@@ -163,8 +152,8 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="/index.html">Home</a>
-                <a href="/browse.html">Browse</a>
-                <a href="/myPlans.html">My Plans</a>
+                <a href="/customer/browse/${customer.id}">Browse</a>
+                <a href="/customer/myplans/${customer.id}">My Plans</a>
                 <a href="/customer/profile/${customer.id}">Profile</a>
             </div>
             <div class="footer-section">
@@ -229,7 +218,7 @@
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
-                        showMessage('Profile saved successfully! ', 'success');
+                        showMessage('Profile saved successfully!', 'success');
                         editForm.style.display = 'none';
                         editProfileBtn.style.display = 'block';
                         
@@ -261,7 +250,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage('"' + interest + '" added! ', 'success');
+                        showMessage('"' + interest + '" added!', 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);

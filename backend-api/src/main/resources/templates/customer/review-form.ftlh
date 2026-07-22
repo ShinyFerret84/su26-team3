@@ -148,10 +148,14 @@
 
             <div id="message" class="message hidden"></div>
 
-            <form id="reviewForm" class="review-form">
+            <form id="reviewForm" class="review-form" action="/customer/review/submit" method="post">
+                <input type="hidden" name="customerId" value="${customer.id}">
+                <input type="hidden" name="eventId" value="${event.id}">
+                <input type="hidden" name="bookingId" value="${bookingId}">
+
                 <div class="form-group">
                     <label for="rating">Rating</label>
-                    <select id="rating" required>
+                    <select id="rating" name="rating" required>
                         <option value="">Select a rating</option>
                         <option value="5">5 stars - Excellent</option>
                         <option value="4">4 stars - Good</option>
@@ -163,7 +167,7 @@
 
                 <div class="form-group">
                     <label for="comment">Comment</label>
-                    <textarea id="comment" rows="5" placeholder="Describe your experience..." required></textarea>
+                    <textarea id="comment" name="comment" rows="5" placeholder="Describe your experience..." required></textarea>
                 </div>
 
                 <div class="form-actions">
@@ -191,9 +195,6 @@
     </footer>
 
     <script>
-        const customerId = ${customer.id};
-        const eventId = ${event.id};
-
         document.getElementById('reviewForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -210,31 +211,28 @@
             }
 
             try {
-                const response = await fetch('/api/customers/' + customerId + '/reviews', {
+                const formData = new FormData(this);
+                const params = new URLSearchParams(formData);
+
+                const response = await fetch('/customer/review/submit?' + params.toString(), {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        rating: parseInt(rating),
-                        comment: comment,
-                        event: { id: eventId }
-                    })
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
                 });
 
                 if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Failed to submit review');
+                    throw new Error('Failed to submit review');
                 }
 
-                const result = await response.json();
+                const result = await response.text();
                 showMessage('Review submitted successfully!', 'success');
 
                 setTimeout(function() {
-                    window.location.href = '/customer/myplans/' + customerId;
+                    window.location.href = '/customer/myplans/' + ${customer.id};
                 }, 2000);
 
             } catch (error) {
                 console.error('Error:', error);
-                showMessage(error.message || 'Failed to submit review. Please try again.', 'error');
+                showMessage('Failed to submit review. Please try again.', 'error');
             }
         });
 
