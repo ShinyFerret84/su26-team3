@@ -20,7 +20,7 @@
         <nav class="main-nav">
             <a href="/providers/${provider.id?c}" >Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a> 
-            <a href="/providers/${providerId}/events/new" class="active">Create Event</a>
+            <a href="/providers/${provider.id?c}/events/new" class="active">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -122,25 +122,51 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="startTime">Start Time *</label>
+                            <label for="startTimeText">Start Time *</label>
 
-                            <input
-                                type="time"
-                                id="startTime"
-                                name="startTime"
-                                value="${event.startTime!''}"
-                                required>
+                            <div class="time-input-group">
+                                <input
+                                    type="text"
+                                    id="startTimeText"
+                                    name="startTimeText"
+                                    placeholder="8:00"
+                                    pattern="^(0?[1-9]|1[0-2]):[0-5][0-9]$"
+                                    required>
+
+                                <label>
+                                    <input type="radio" name="startMeridiem" value="AM">
+                                    AM
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="startMeridiem" value="PM">
+                                    PM
+                                </label>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="endTime">End Time *</label>
+                            <label for="endTimeText">End Time *</label>
 
-                            <input
-                                type="time"
-                                id="endTime"
-                                name="endTime"
-                                value="${event.endTime!''}"
-                                required>
+                            <div class="time-input-group">
+                                <input
+                                    type="text"
+                                    id="endTimeText"
+                                    name="endTimeText"
+                                    placeholder="8:00"
+                                    pattern="^(0?[1-9]|1[0-2]):[0-5][0-9]$"
+                                    required>
+
+                                <label>
+                                    <input type="radio" name="endMeridiem" value="AM">
+                                    AM
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="endMeridiem" value="PM">
+                                    PM
+                                </label> 
+                            </div>
                         </div>
 
                         <div class="form-group">

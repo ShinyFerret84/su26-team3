@@ -6,7 +6,7 @@
     <title>Triad Activities - Update Event</title>
     <link rel="stylesheet" href="/shared.css">
     <link rel="stylesheet" href="/design.css">
-    <link rel="stylesheet" href="/provider.css">
+    <link rel="stylesheet" href="/provider.css?v=2">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <nav class="main-nav">
             <a href="/providers/${provider.id?c}" >Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a> 
-            <a href="/providers/${providerId}/events/new">Create Event</a>
+            <a href="/providers/${provider.id?c}/events/new">Create Event</a>
         </nav>
 
         <div class="header-actions">
@@ -42,7 +42,7 @@
 
             <!--Update Event Form-->
             <div class="form-card">
-                <form action="/providers/{providerId}/events/update" method="post">
+                <form action="/providers/${provider.id?c}/events/${event.id?c}/update" method="post">
                     <!-- Event Information -->
 
                     <h2>Event Information</h2>
@@ -150,25 +150,65 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="startTime">Start Time *</label>
+                            <label for="startTimeText">Start Time *</label>
 
-                            <input
-                                type="time"
-                                id="startTime"
-                                name="startTime"
-                                value="${event.startTime!''}"
-                                required>
+                            <div class="time-input-group">
+                                <input
+                                    type="text"
+                                    id="startTimeText"
+                                    name="startTimeText"
+                                    value="${startTimeText!''}"
+                                    placeholder="8:00"
+                                    pattern="^(0?[1-9]|1[0-2]):[0-5][0-9]$"
+                                    required>
+
+                                <label>
+                                    <input type="radio"
+                                        name="startMeridiem"
+                                        value="AM"
+                                        <#if startMeridiem == "AM">checked</#if>>
+                                        AM
+                                </label>
+
+                                <label>
+                                    <input type="radio"
+                                        name="startMeridiem"
+                                        value="PM"
+                                        <#if startMeridiem == "PM">checked</#if>>
+                                        PM
+                                </label>
+                            </div>    
                         </div>
 
                         <div class="form-group">
-                            <label for="endTime">End Time *</label>
+                            <label for="endTimeText">End Time *</label>
 
-                            <input
-                                type="time"
-                                id="endTime"
-                                name="endTime"
-                                value="${event.endTime!''}"
-                                required>
+                            <div class="time-input-group">
+                                <input
+                                    type="text"
+                                    id="endTimeText"
+                                    name="endTimeText"
+                                    value="${endTimeText!''}"
+                                    placeholder="8:00"
+                                    pattern="^(0?[1-9]|1[0-2]):[0-5][0-9]$"
+                                    required>
+
+                                <label>
+                                    <input type="radio"
+                                        name="endMeridiem"
+                                        value="AM"
+                                        <#if startMeridiem == "AM">checked</#if>>
+                                        AM
+                                </label>
+
+                                <label>
+                                    <input type="radio"
+                                        name="endMeridiem"
+                                        value="PM"
+                                        <#if startMeridiem == "PM">checked</#if>>
+                                        PM
+                                </label>
+                            </div>   
                         </div>
 
                         <div class="form-group">
@@ -284,20 +324,13 @@
 
                     <div class="form-actions">
 
-                        <button
-                            a href="/providers/${provider.id?c}"
-                            class="btn-secondary">
-
+                        <a href="/providers/${provider.id?c}" class="btn-secondary">
                             Back to Dashboard
+                        </a>
+                       
 
-                        </button>
-
-                        <button
-                            type="submit"
-                            class="btn-primary">
-
+                        <button type="submit" class="btn-primary">
                             Save Changes
-
                         </button>
 
                     </div>
@@ -326,7 +359,7 @@
                 <#else>
 
                     <form
-                        action="/providers/${provider.id?c}/events/${event.id?c}/cancel"
+                        action="/providers/${provider.id?c}/events/${event.id?c}/delete"
                         method="post"
                         onsubmit="return confirm('Are you sure you want to cancel this event?');">
 

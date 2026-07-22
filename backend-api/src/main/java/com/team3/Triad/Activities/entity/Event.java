@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,6 +19,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -95,4 +98,40 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
+
+    @Transient
+    public String getFormattedDate() {
+        if (date == null) {
+            return "";
+        }
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("MM/dd/yy");
+
+        return date.format(formatter);
+    }
+
+    @Transient
+    public String getFormattedStartTime() {
+        if (startTime == null) {
+            return "";
+        }
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+
+        return startTime.format(formatter);
+    }
+
+    @Transient
+    public String getFormattedEndTime() {
+        if (endTime == null) {
+            return "";
+        }
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+
+        return endTime.format(formatter);
+    }
 }

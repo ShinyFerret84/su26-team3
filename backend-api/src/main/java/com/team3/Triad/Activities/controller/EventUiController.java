@@ -6,6 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
@@ -46,7 +53,11 @@ public class EventUiController {
     @PostMapping("/providers/{providerId}/events/create")
     public String createEvent(
             @PathVariable Long providerId,
-            @ModelAttribute("event") Event event) {
+            @ModelAttribute("event") Event event,
+            @RequestParam String startTimeText,
+            @RequestParam String startMeridiem,
+            @RequestParam String endTimeText,
+            @RequestParam String endMeridiem) {
 
         Provider provider =
                 providerService.getProviderById(providerId);
@@ -56,6 +67,14 @@ public class EventUiController {
             return "redirect:/providers/new";
         }
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+        String fullStartTime = startTimeText.trim() + " " + startMeridiem;
+        String fullEndTime = endTimeText.trim() + " " + endMeridiem;
+        LocalTime parsedStartTime = LocalTime.parse(fullStartTime, timeFormatter);
+        LocalTime parsedEndTime = LocalTime.parse(fullEndTime, timeFormatter);
+
+        event.setStartTime(parsedStartTime);
+        event.setEndTime(parsedEndTime);
         event.setProvider(provider);
 
         if (event.getFeatured() == null) {
@@ -91,6 +110,12 @@ public class EventUiController {
         model.addAttribute("provider", provider);
         model.addAttribute("event", event);
 
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("h:mm", Locale.ENGLISH);
+        model.addAttribute("startTimeText", event.getStartTime().format(displayFormatter));
+        model.addAttribute("endTimeText", event.getEndTime().format(displayFormatter));
+        model.addAttribute("startMeridiem", event.getStartTime().getHour() < 12 ? "AM" : "PM");
+        model.addAttribute("endMeridiem", event.getEndTime().getHour() < 12 ? "AM" : "PM");
+
         return "provider/event-update-form";
     }
 
@@ -99,7 +124,11 @@ public class EventUiController {
     public String updateEvent(
             @PathVariable Long providerId,
             @PathVariable Long eventId,
-            @ModelAttribute("event") Event event) {
+            @ModelAttribute("event") Event event,
+            @RequestParam String startTimeText,
+            @RequestParam String startMeridiem,
+            @RequestParam String endTimeText,
+            @RequestParam String endMeridiem) {
 
         Event existingEvent =
                 eventService.getEventById(eventId);
@@ -111,7 +140,19 @@ public class EventUiController {
             return "redirect:/providers/" + providerId;
         }
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+        String fullStartTime = startTimeText.trim() + " " + startMeridiem;
+        String fullEndTime = endTimeText.trim() + " " + endMeridiem;
+        LocalTime parsedStartTime = LocalTime.parse(fullStartTime, timeFormatter);
+        LocalTime parsedEndTime = LocalTime.parse(fullEndTime, timeFormatter);
+
+        event.setStartTime(parsedStartTime);
+        event.setEndTime(parsedEndTime);
         event.setProvider(existingEvent.getProvider());
+
+        if (event.getFeatured() == null) {
+            event.setFeatured(existingEvent.getFeatured());
+        }
 
         eventService.updateEvent(eventId, event);
 
@@ -135,5 +176,10 @@ public class EventUiController {
         }
 
         return "redirect:/providers/" + providerId;
+    }
+
+    @InitBinder("event")
+    public void configureEventBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("startTime", "endTime");
     }
 }

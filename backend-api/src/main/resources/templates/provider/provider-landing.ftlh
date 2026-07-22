@@ -114,8 +114,8 @@
                                 <h3>${event.eventName}</h3>
                                 <p class="location">${event.city}, ${event.state}</p>
                                 <div class="card-meta">
-                                    <span>${event.date}</span>
-                                    <span> ${event.startTime} - ${event.endTime} </span>
+                                    <span>${event.formattedDate}</span>
+                                    <span> ${event.formattedStartTime} - ${event.formattedEndTime} </span>
                                 </div>
 
                                 <div class="card-footer">
@@ -194,8 +194,8 @@
                                     <h3>${event.eventName} </h3>
                                     <p class="location">${event.city} , ${event.state} </p>
                                     <div class="card-meta">
-                                        <span>${event.date}</span>
-                                        <span> ${event.startTime} - ${event.endTime} </span>
+                                        <span>${event.formattedDate}</span>
+                                        <span> ${event.formattedStartTime} - ${event.formattedEndTime} </span>
                                     </div>
 
                                     <div class="card-footer">
