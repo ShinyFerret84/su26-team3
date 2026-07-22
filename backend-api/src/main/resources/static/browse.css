@@ -307,4 +307,34 @@
     .filter-row {
         grid-template-columns: 1fr;
     }
+
+    /* Clear Filters Button */
+.clear-btn {
+    background: #fc8181;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(252, 129, 129, 0.4);
+}
+
+@media (max-width: 768px) {
+    .filter-search {
+        flex-wrap: wrap;
+    }
+    .clear-btn {
+        margin-left: 0;
+        width: 100%;
+    }
+}
 }

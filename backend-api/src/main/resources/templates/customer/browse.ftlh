@@ -64,9 +64,9 @@
                 <div class="filter-group">
                     <label>Price Range</label>
                     <div class="price-range-display">
-                        <span>$0</span>
-                        <input type="range" min="0" max="100" value="50">
-                        <span>$100+</span>
+                        <span id="priceMinDisplay">$0</span>
+                        <input type="range" min="0" max="100" value="50" id="priceRange">
+                        <span id="priceMaxDisplay">$100+</span>
                     </div>
                 </div>
             </div>
@@ -185,10 +185,10 @@
         </div>
     </footer>
 
-    JAVASCRIPT Search button works, filters ONLY apply when clicked
+    // JAVASCRIPT  All filters work
     <script>
-        // BROWSE PAGE  
-        // Search button works, filters only apply when clicked
+        // BROWSE PAGE Frontend JavaScript (US-2)
+        // Search works, Sort works, Price filter works, Clear Filters works
 
         const customerId = ${customer.id?c};
 
@@ -198,7 +198,16 @@
         const categoryFilter = document.getElementById('categoryFilter');
         const sortFilter = document.getElementById('sortFilter');
         const dateFilter = document.getElementById('dateFilter');
-        const priceRange = document.querySelector('.price-range-display input[type="range"]');
+        const priceRange = document.getElementById('priceRange');
+        const priceMinDisplay = document.getElementById('priceMinDisplay');
+        const priceMaxDisplay = document.getElementById('priceMaxDisplay');
+
+        // PRICE RANGE Update display when slider moves
+        if (priceRange && priceMinDisplay) {
+            priceRange.addEventListener('input', function() {
+                priceMinDisplay.textContent = '$' + this.value;
+            });
+        }
 
         // APPLY FILTERS Reloads page with filter parameters
         function applyFilters() {
@@ -215,7 +224,7 @@
             if (category && category !== 'all') params.push('category=' + encodeURIComponent(category));
             if (sort && sort !== 'featured') params.push('sort=' + encodeURIComponent(sort));
             if (date) params.push('date=' + encodeURIComponent(date));
-            if (price) params.push('price=' + encodeURIComponent(price));
+            if (price && price !== '50') params.push('price=' + encodeURIComponent(price));
 
             if (params.length > 0) {
                 url += '?' + params.join('&');
@@ -224,7 +233,21 @@
             window.location.href = url;
         }
 
-        // SEARCH BUTTON 
+        // CLEAR FILTERS Reset everything
+        function clearFilters() {
+            // Reset all filter elements
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'all';
+            if (sortFilter) sortFilter.value = 'featured';
+            if (dateFilter) dateFilter.value = '';
+            if (priceRange) priceRange.value = '50';
+            if (priceMinDisplay) priceMinDisplay.textContent = '$0';
+            
+            // Redirect to base browse page (no filters)
+            window.location.href = '/customer/browse/' + customerId;
+        }
+
+        // SEARCH BUTTON  Works when clicked
         if (searchBtn) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -242,7 +265,51 @@
             });
         }
 
-        // VIEW DETAILS BUTTON Shows event ID 
+        // CATEGORY FILTER Applies when dropdown changes
+        if (categoryFilter) {
+            categoryFilter.addEventListener('change', function() {
+                applyFilters();
+            });
+        }
+
+        // SORT FILTER Applies when dropdown changes
+        if (sortFilter) {
+            sortFilter.addEventListener('change', function() {
+                applyFilters();
+            });
+        }
+
+        // DATE FILTER Applies when date changes
+        if (dateFilter) {
+            dateFilter.addEventListener('change', function() {
+                applyFilters();
+            });
+        }
+
+        // PRICE RANGE  Applies when user stops sliding
+        if (priceRange) {
+            let priceTimeout;
+            priceRange.addEventListener('change', function() {
+                clearTimeout(priceTimeout);
+                priceTimeout = setTimeout(applyFilters, 300);
+            });
+        }
+
+        // CLEAR FILTERS BUTTON  Add this button to the page
+        const filterSection = document.querySelector('.filter-search');
+        if (filterSection) {
+            const clearBtn = document.createElement('button');
+            clearBtn.textContent = 'Clear Filters';
+            clearBtn.className = 'clear-btn';
+            clearBtn.style.cssText = 'background: #fc8181; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-left: 10px;';
+            clearBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                clearFilters();
+            });
+            filterSection.appendChild(clearBtn);
+        }
+
+        // VIEW DETAILS BUTTON - Shows event ID 
         document.querySelectorAll('.view-detail-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -251,7 +318,7 @@
             });
         });
 
-        console.log('Browse page JavaScript loaded! Search button works!');
+        console.log('Browse page JavaScript loaded! All filters work!');
     </script>
 
 </body>
