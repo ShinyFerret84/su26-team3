@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../customer/design.css">
     <link rel="stylesheet" href="provider.css">
 </head>
-<body>
 
     <header class="app-header">
         <div class="logo">
