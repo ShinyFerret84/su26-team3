@@ -21,7 +21,6 @@
             <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
-            <!-- Shows the customer's location, defaults to Winston-Salem, NC if not set -->
             <span class="location">${customer.location!"Winston-Salem, NC"}</span>
         </div>
     </header>
@@ -186,9 +185,12 @@
         </div>
     </footer>
 
-    //JAVASCRIPT - Makes Search, Filter, and Sort work from the page
+    JAVASCRIPT Search button works, filters ONLY apply when clicked
     <script>
-          const customerId = ${customer.id?c};
+        // BROWSE PAGE  
+        // Search button works, filters only apply when clicked
+
+        const customerId = ${customer.id?c};
 
         // Get elements
         const searchInput = document.querySelector('.filter-search input');
@@ -222,42 +224,21 @@
             window.location.href = url;
         }
 
-        // SEARCH BUTTON - Works when clicked
+        // SEARCH BUTTON 
         if (searchBtn) {
-            searchBtn.addEventListener('click', applyFilters);
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                applyFilters();
+            });
         }
 
-        // Works when pressing Enter in search box
+        // ENTER KEY Works when pressing Enter in search box
         if (searchInput) {
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     applyFilters();
                 }
-            });
-        }
-
-        // CATEGORY FILTER Works when dropdown changes
-        if (categoryFilter) {
-            categoryFilter.addEventListener('change', applyFilters);
-        }
-
-        // SORT FILTER Works when dropdown changes
-        if (sortFilter) {
-            sortFilter.addEventListener('change', applyFilters);
-        }
-
-        // DATE FILTER Works when date changes
-        if (dateFilter) {
-            dateFilter.addEventListener('change', applyFilters);
-        }
-
-        // PRICE RANGE Works when slider changes (with delay)
-        if (priceRange) {
-            let priceTimeout;
-            priceRange.addEventListener('input', function() {
-                clearTimeout(priceTimeout);
-                priceTimeout = setTimeout(applyFilters, 500);
             });
         }
 
@@ -270,7 +251,7 @@
             });
         });
 
-        console.log('Browse page JavaScript loaded!');
+        console.log('Browse page JavaScript loaded! Search button works!');
     </script>
 
 </body>
