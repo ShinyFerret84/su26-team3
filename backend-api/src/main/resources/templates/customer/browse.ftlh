@@ -172,14 +172,10 @@
         </div>
     </footer>
 
-    <!-- ============================================================
-    JAVASCRIPT - ALL filters work together when you click Search!
-    ============================================================ -->
+   // JAVASCRIPT  ALL filters work together when you click Search!
     <script>
-        // ============================================================
-        // BROWSE PAGE - Frontend JavaScript (US-2)
+        // BROWSE PAGE  Frontend JavaScript (US-2)
         // Select filters first, then click Search to apply ALL at once
-        // ============================================================
 
         const customerId = ${customer.id?c};
 
@@ -190,9 +186,7 @@
         const sortFilter = document.getElementById('sortFilter');
         const clearBtn = document.getElementById('clearBtn');
 
-        // ============================================================
-        // APPLY FILTERS - Reloads page with ALL selected filters
-        // ============================================================
+        // APPLY FILTERS Reloads page with ALL selected filters
         function applyFilters() {
             const search = searchInput ? searchInput.value.trim() : '';
             const category = categoryFilter ? categoryFilter.value : '';
@@ -212,9 +206,7 @@
             window.location.href = url;
         }
 
-        // ============================================================
-        // CLEAR FILTERS - Reset everything and reload
-        // ============================================================
+        // CLEAR FILTERS Reset everything and reload
         function clearFilters() {
             if (searchInput) searchInput.value = '';
             if (categoryFilter) categoryFilter.value = 'all';
@@ -223,9 +215,7 @@
             window.location.href = '/customer/browse/' + customerId;
         }
 
-        // ============================================================
-        // SEARCH BUTTON - Applies ALL filters together!
-        // ============================================================
+        // SEARCH BUTTON Applies ALL filters together
         if (searchBtn) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -233,9 +223,7 @@
             });
         }
 
-        // ============================================================
-        // ENTER KEY - Also applies ALL filters together!
-        // ============================================================
+        // ENTER KEY also applies ALL filters together
         if (searchInput) {
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -245,9 +233,7 @@
             });
         }
 
-        // ============================================================
-        // CLEAR FILTERS BUTTON - Reset everything
-        // ============================================================
+        // CLEAR FILTERS BUTTON Reset everything
         if (clearBtn) {
             clearBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -255,9 +241,7 @@
             });
         }
 
-        // ============================================================
-        // VIEW DETAILS BUTTON - Shows event ID (for demo)
-        // ============================================================
+        // VIEW DETAILS BUTTON Shows event ID 
         document.querySelectorAll('.view-detail-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
