@@ -12,10 +12,10 @@
 
     <header class="app-header">
         <div class="logo">
-            <a href="#">Triad<span>Activities</span></a>
+            <a href="/index.html">Triad<span>Activities</span></a>
         </div>
         <nav class="main-nav">
-            <a href="#">Home</a>
+            <a href="/index.html">Home</a>
             <a href="/customer/browse/${customer.id?c}" class="active">Browse</a>
             <a href="/customer/myplans/${customer.id?c}">My Plans</a>
             <a href="/customer/profile/${customer.id?c}">Profile</a>
@@ -158,7 +158,7 @@
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="#">Home</a>
+                <a href="/index.html">Home</a>
                 <a href="/customer/browse/${customer.id?c}">Browse Activities</a>
                 <a href="/customer/myplans/${customer.id?c}">My Plans</a>
                 <a href="/customer/profile/${customer.id?c}">Profile</a>
