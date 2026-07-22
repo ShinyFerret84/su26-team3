@@ -172,7 +172,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">Submit Review</button>
-                    <a href="/customer/myplans/${customer.id}" class="btn-secondary">Cancel</a>
+                    <a href="/customer/profile/${customer.id}" class="btn-secondary">Cancel</a>
                 </div>
             </form>
         </div>
@@ -195,45 +195,22 @@
     </footer>
 
     <script>
-        document.getElementById('reviewForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
             const rating = document.getElementById('rating').value;
             const comment = document.getElementById('comment').value.trim();
 
             if (!rating) {
+                e.preventDefault();
                 showMessage('Please select a rating!', 'error');
                 return;
             }
             if (!comment) {
+                e.preventDefault();
                 showMessage('Please write a comment!', 'error');
                 return;
             }
 
-            try {
-                const formData = new FormData(this);
-                const params = new URLSearchParams(formData);
-
-                const response = await fetch('/customer/review/submit?' + params.toString(), {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to submit review');
-                }
-
-                const result = await response.text();
-                showMessage('Review submitted successfully!', 'success');
-
-                setTimeout(function() {
-                    window.location.href = '/customer/myplans/' + ${customer.id};
-                }, 2000);
-
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('Failed to submit review. Please try again.', 'error');
-            }
+            showMessage('Submitting review...', 'success');
         });
 
         function showMessage(text, type) {

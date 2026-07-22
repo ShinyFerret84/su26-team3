@@ -120,7 +120,7 @@ public class CustomerBookingController {
         return "customer/review-form";
     }
 
-    // USER 4: Submit Review
+    // USER 4: Submit Review - Redirects to Profile Page
     @PostMapping("/review/submit")
     public String submitReview(@RequestParam Long customerId,
                                @RequestParam Long eventId,
@@ -131,9 +131,11 @@ public class CustomerBookingController {
             Review review = customerManager.addReview(customerId, eventId, rating, comment);
             model.addAttribute("review", review);
             model.addAttribute("message", "Review submitted successfully!");
-            return "customer/review-confirmation";
+            // Redirect to customer profile page
+            return "redirect:/customer/profile/" + customerId;
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("customerId", customerId);
             return "customer/review-error";
         }
     }
