@@ -17,7 +17,7 @@
         <nav class="main-nav">
             <a href="#">Home</a>
             <a href="/customer/browse/${customer.id?c}" class="active">Browse</a>
-            <a href="#">My Plans</a>
+            <a href="/customer/myplans/${customer.id?c}">My Plans</a>
             <a href="/customer/profile/${customer.id?c}">Profile</a>
         </nav>
         <div class="header-actions">
@@ -124,7 +124,8 @@
                                                 Contact provider
                                             </#if>
                                         </span>
-                                        <a href="booking.html?id=1" class="view-detail-btn">View Details</a>
+                                        <!-- Updated: View Details links to booking page -->
+                                        <a href="/customer/booking/${event.id}?customerId=${customer.id?c}" class="view-detail-btn">View Details</a>
                                     </div>
                                 </div>
                         
@@ -159,7 +160,7 @@
                 <h4>Quick Links</h4>
                 <a href="#">Home</a>
                 <a href="/customer/browse/${customer.id?c}">Browse Activities</a>
-                <a href="#">My Plans</a>
+                <a href="/customer/myplans/${customer.id?c}">My Plans</a>
                 <a href="/customer/profile/${customer.id?c}">Profile</a>
             </div>
             <div class="footer-section">
@@ -172,9 +173,9 @@
         </div>
     </footer>
 
-   // JAVASCRIPT  ALL filters work together when you click Search!
+    //JAVASCRIPT ALL filters work together when you click Search!
     <script>
-        // BROWSE PAGE  Frontend JavaScript (US-2)
+        // BROWSE PAGE  Frontend JavaScript 
         // Select filters first, then click Search to apply ALL at once
 
         const customerId = ${customer.id?c};
@@ -186,7 +187,7 @@
         const sortFilter = document.getElementById('sortFilter');
         const clearBtn = document.getElementById('clearBtn');
 
-        // APPLY FILTERS Reloads page with ALL selected filters
+        // APPLY FILTERS  Reloads page with ALL selected filters
         function applyFilters() {
             const search = searchInput ? searchInput.value.trim() : '';
             const category = categoryFilter ? categoryFilter.value : '';
@@ -206,7 +207,7 @@
             window.location.href = url;
         }
 
-        // CLEAR FILTERS Reset everything and reload
+        // CLEAR FILTERS  Reset everything and reload
         function clearFilters() {
             if (searchInput) searchInput.value = '';
             if (categoryFilter) categoryFilter.value = 'all';
@@ -215,7 +216,7 @@
             window.location.href = '/customer/browse/' + customerId;
         }
 
-        // SEARCH BUTTON Applies ALL filters together
+        // SEARCH BUTTON  Applies ALL filters together
         if (searchBtn) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -223,7 +224,7 @@
             });
         }
 
-        // ENTER KEY also applies ALL filters together
+        // ENTER KEY  Also applies ALL filters together
         if (searchInput) {
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -233,6 +234,7 @@
             });
         }
 
+        
         // CLEAR FILTERS BUTTON Reset everything
         if (clearBtn) {
             clearBtn.addEventListener('click', function(e) {
@@ -241,12 +243,12 @@
             });
         }
 
-        // VIEW DETAILS BUTTON Shows event ID 
+        // USER STORY 3: VIEW DETAILS BUTTON Navigates to booking page 
         document.querySelectorAll('.view-detail-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const eventId = this.getAttribute('href').split('=')[1];
-                alert('View details for event ID: ' + eventId);
+                // Let the link work normally - no need to prevent default
+                // The href now points to /customer/booking/{eventId}
+                console.log('Navigating to booking page for event: ' + this.getAttribute('href'));
             });
         });
 
