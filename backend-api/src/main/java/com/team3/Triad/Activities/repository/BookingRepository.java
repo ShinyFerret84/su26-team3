@@ -17,6 +17,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     // Get bookings for a specific event
     List<Booking> findByEventId(Long eventId);
 
-    //Used by prodiver statistics, total attendees and total revenue
+    // Used by provider statistics, total attendees and total revenue
     List<Booking> findByEventProviderId(Long providerId);
+
+    // USER STORY 3: Check if a customer has a booking for a specific event
+    List<Booking> findByCustomerIdAndEventId(Long customerId, Long eventId);
 }
