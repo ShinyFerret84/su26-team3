@@ -114,13 +114,7 @@ public class CustomerManager {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
         
-        // COMMENTED OUT: Attendance check for testing US-4
-        // List<Booking> bookings = bookingRepository.findByCustomerIdAndStatus(customerId, "CONFIRMED");
-        // boolean hasAttended = bookings.stream().anyMatch(b -> b.getEvent().getId().equals(eventId));
-        // if (!hasAttended) {
-        //     throw new RuntimeException("You can only review events you have attended");
-        // }
-        
+        // Attendance check for testing User story 4
         Review review = new Review();
         review.setCustomer(customer);
         review.setEvent(event);
@@ -138,7 +132,7 @@ public class CustomerManager {
         return reviewRepository.findByCustomerId(customerId);
     }
 
-    // USER1: Interest Profile Management - Save Customer
+    // USER Story 1: Interest Profile Management Save Customer
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }

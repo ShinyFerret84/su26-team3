@@ -216,7 +216,7 @@
             window.location.href = '/customer/browse/' + customerId;
         }
 
-        // SEARCH BUTTON  Applies ALL filters together
+        // SEARCH BUTTON  Applies all filters together
         if (searchBtn) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
