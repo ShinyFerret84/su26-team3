@@ -1,8 +1,6 @@
 package com.team3.Triad.Activities.controller;
 
-import com.team3.Triad.Activities.entity.Booking;
 import com.team3.Triad.Activities.entity.Customer;
-import com.team3.Triad.Activities.repository.BookingRepository;
 import com.team3.Triad.Activities.service.CustomerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,9 +17,6 @@ public class CustomerUiController {
 
     @Autowired
     private CustomerManager customerManager;
-
-    @Autowired
-    private BookingRepository bookingRepository;  // NEW: Added for US-3 and US-4
 
     // USER 1 story: Show customer profile page with their interests
     // Link after running spring-boot:http://localhost:8080/customer/profile/1
@@ -76,57 +70,4 @@ public class CustomerUiController {
         return "customer/test";
     }
 
-    // User story 3: My Plans Page shows customer's bookings
-    // URL: http://localhost:8080/customer/myplans/1
-    @GetMapping("/myplans/{id}")
-    public String viewMyPlans(@PathVariable Long id, Model model) {
-        // Get customer from database by ID
-        Optional<Customer> customerOpt = customerManager.getCustomerById(id);
-        
-        // If customer exists show their plans
-        if (customerOpt.isPresent()) {
-            Customer customer = customerOpt.get();
-            
-            // Get all bookings for this customer
-            List<Booking> bookings = bookingRepository.findByCustomerId(id);
-            
-            // Send customer and bookings data to the HTML template
-            model.addAttribute("customer", customer);
-            model.addAttribute("bookings", bookings);
-            
-            // Load the myPlans.ftlh template
-            return "customer/myPlans";
-            
-        } else {
-            // Customer not found - show error page
-            return "error/404";
-        }
-    }
-
-    // USER STORY 4: Review Form Page write a review for a completed booking
-    // URL: http://localhost:8080/customer/review/{bookingId}
-    // ============================================================
-    @GetMapping("/review/{bookingId}")
-    public String showReviewForm(@PathVariable Long bookingId, Model model) {
-        // Get booking from database by ID
-        Optional<Booking> bookingOpt = bookingRepository.findById(bookingId);
-        
-        // If booking exists show the review form
-        if (bookingOpt.isPresent()) {
-            Booking booking = bookingOpt.get();
-            Customer customer = booking.getCustomer();
-            
-            // Send customer, event, and booking data to the HTML template
-            model.addAttribute("customer", customer);
-            model.addAttribute("event", booking.getEvent());
-            model.addAttribute("bookingId", bookingId);
-            
-            // Load the review-form.ftlh template
-            return "customer/review-form";
-            
-        } else {
-            // Booking not found - show error page
-            return "error/404";
-        }
-    }
 }
