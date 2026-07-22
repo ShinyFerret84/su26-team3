@@ -12,26 +12,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerEventUiController {
-    // User story 2: Customer Browse Events shows events matching customer's interests
-    // After running spring boot:http://localhost:8080/customer/browse/1
+
     @Autowired
     private EventService eventService;
 
     @Autowired
     private CustomerManager customerManager;
 
-
+    // User story 2: Customer Browse Events shows events matching customer's interests
+    // URL: http://localhost:8080/customer/browse/1
     @GetMapping("/browse/{customerId}")
     public String browseEvents(@PathVariable Long customerId,
                                @RequestParam(required = false) String search,
                                @RequestParam(required = false) String category,
+                               @RequestParam(required = false) String sort,
                                Model model) {
 
         // Get customer to find their interests
@@ -44,14 +44,7 @@ public class CustomerEventUiController {
         List<String> interests = customer.getInterests();
 
         // Get events matching customer's interests
-        List<Event> events =
-        eventService.getEventsByInterests(interests)
-                .stream()
-                .filter(event ->
-                        event.getDate() != null
-                        && !event.getDate().isBefore(LocalDate.now())
-                        && !event.isCancelled())
-                .toList();
+        List<Event> events = eventService.getEventsByInterests(interests);
 
         // Filter by search term if provided
         if (search != null && !search.isEmpty()) {
@@ -67,32 +60,54 @@ public class CustomerEventUiController {
                     .toList();
         }
 
-        // Add data to model for the FreeMarker template / html page
+        // SORT apply sorting if provided (price-low, price-high, date)
+        if (sort != null && !sort.isEmpty()) {
+            switch (sort) {
+                case "price-low":
+                    // Sort by price: Low to High
+                    events = events.stream()
+                            .sorted((e1, e2) -> {
+                                Double p1 = e1.getPricePerPerson() != null ? e1.getPricePerPerson() : 0.0;
+                                Double p2 = e2.getPricePerPerson() != null ? e2.getPricePerPerson() : 0.0;
+                                return p1.compareTo(p2);
+                            })
+                            .toList();
+                    break;
+                case "price-high":
+                    // Sort by price: High to Low
+                    events = events.stream()
+                            .sorted((e1, e2) -> {
+                                Double p1 = e1.getPricePerPerson() != null ? e1.getPricePerPerson() : 0.0;
+                                Double p2 = e2.getPricePerPerson() != null ? e2.getPricePerPerson() : 0.0;
+                                return p2.compareTo(p1);
+                            })
+                            .toList();
+                    break;
+                case "date":
+                    // Sort by date: Soonest first
+                    events = events.stream()
+                            .sorted((e1, e2) -> {
+                                if (e1.getDate() == null && e2.getDate() == null) return 0;
+                                if (e1.getDate() == null) return 1;
+                                if (e2.getDate() == null) return -1;
+                                return e1.getDate().compareTo(e2.getDate());
+                            })
+                            .toList();
+                    break;
+                default:
+                    // featured - no sorting needed, keep as is
+                    break;
+            }
+        }
+
+        // Add data to model for the FreeMarker template
         model.addAttribute("customer", customer);
         model.addAttribute("events", events);
         model.addAttribute("interests", interests);
         model.addAttribute("search", search);
         model.addAttribute("category", category);
+        model.addAttribute("sort", sort);
 
         return "customer/browse"; // loads browse.ftlh
     }
-
-    // Get customer interest 
-    // GET : http://localhost:8080/api/customers/1/interests
-
-    // Add customer interest
-    // POST: http://localhost:8080/api/customers/1/interests
-    // Body: {"interest": "Cooking"}
-
-    // Get all the events
-    //GET: http://localhost:8080/api/events
-
-    // Add an event 
-    // Post: http://localhost:8080/api/events
-    // Body: { }
-
-    // Get event by ID
-    // GET: http://localhost:8080/api/events/1
-    // GET: http://localhost:8080/api/events/2
-    // GET: http://localhost:8080/api/events/3
 }
