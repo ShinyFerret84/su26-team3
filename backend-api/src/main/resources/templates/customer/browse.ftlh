@@ -55,25 +55,12 @@
                         <option value="date">Date: Soonest</option>
                     </select>
                 </div>
-
-                <div class="filter-group">
-                    <label for="dateFilter">Date</label>
-                    <input type="date" id="dateFilter">
-                </div>
-
-                <div class="filter-group">
-                    <label>Price Range</label>
-                    <div class="price-range-display">
-                        <span id="priceMinDisplay">$0</span>
-                        <input type="range" min="0" max="100" value="50" id="priceRange">
-                        <span id="priceMaxDisplay">$100+</span>
-                    </div>
-                </div>
             </div>
 
             <div class="filter-search">
-                <input type="text" placeholder="Search activities by name, location, or keyword...">
-                <button class="search-btn-small">Search</button>
+                <input type="text" id="searchInput" placeholder="Search activities by name, location, or keyword...">
+                <button class="search-btn-small" id="searchBtn">Search</button>
+                <button class="clear-btn" id="clearBtn">Clear Filters</button>
             </div>
         </section>
 
@@ -185,37 +172,25 @@
         </div>
     </footer>
 
-    // JAVASCRIPT  All filters work
+   // JAVASCRIPT  ALL filters work together when you click Search!
     <script>
-        // BROWSE PAGE Frontend JavaScript (US-2)
-        // Search works, Sort works, Price filter works, Clear Filters works
+        // BROWSE PAGE  Frontend JavaScript (US-2)
+        // Select filters first, then click Search to apply ALL at once
 
         const customerId = ${customer.id?c};
 
         // Get elements
-        const searchInput = document.querySelector('.filter-search input');
-        const searchBtn = document.querySelector('.search-btn-small');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
         const categoryFilter = document.getElementById('categoryFilter');
         const sortFilter = document.getElementById('sortFilter');
-        const dateFilter = document.getElementById('dateFilter');
-        const priceRange = document.getElementById('priceRange');
-        const priceMinDisplay = document.getElementById('priceMinDisplay');
-        const priceMaxDisplay = document.getElementById('priceMaxDisplay');
+        const clearBtn = document.getElementById('clearBtn');
 
-        // PRICE RANGE Update display when slider moves
-        if (priceRange && priceMinDisplay) {
-            priceRange.addEventListener('input', function() {
-                priceMinDisplay.textContent = '$' + this.value;
-            });
-        }
-
-        // APPLY FILTERS Reloads page with filter parameters
+        // APPLY FILTERS Reloads page with ALL selected filters
         function applyFilters() {
             const search = searchInput ? searchInput.value.trim() : '';
             const category = categoryFilter ? categoryFilter.value : '';
             const sort = sortFilter ? sortFilter.value : '';
-            const date = dateFilter ? dateFilter.value : '';
-            const price = priceRange ? priceRange.value : '';
 
             let url = '/customer/browse/' + customerId;
             const params = [];
@@ -223,8 +198,6 @@
             if (search) params.push('search=' + encodeURIComponent(search));
             if (category && category !== 'all') params.push('category=' + encodeURIComponent(category));
             if (sort && sort !== 'featured') params.push('sort=' + encodeURIComponent(sort));
-            if (date) params.push('date=' + encodeURIComponent(date));
-            if (price && price !== '50') params.push('price=' + encodeURIComponent(price));
 
             if (params.length > 0) {
                 url += '?' + params.join('&');
@@ -233,21 +206,16 @@
             window.location.href = url;
         }
 
-        // CLEAR FILTERS Reset everything
+        // CLEAR FILTERS Reset everything and reload
         function clearFilters() {
-            // Reset all filter elements
             if (searchInput) searchInput.value = '';
             if (categoryFilter) categoryFilter.value = 'all';
             if (sortFilter) sortFilter.value = 'featured';
-            if (dateFilter) dateFilter.value = '';
-            if (priceRange) priceRange.value = '50';
-            if (priceMinDisplay) priceMinDisplay.textContent = '$0';
             
-            // Redirect to base browse page (no filters)
             window.location.href = '/customer/browse/' + customerId;
         }
 
-        // SEARCH BUTTON  Works when clicked
+        // SEARCH BUTTON Applies ALL filters together
         if (searchBtn) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -255,7 +223,7 @@
             });
         }
 
-        // ENTER KEY Works when pressing Enter in search box
+        // ENTER KEY also applies ALL filters together
         if (searchInput) {
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
@@ -265,51 +233,15 @@
             });
         }
 
-        // CATEGORY FILTER Applies when dropdown changes
-        if (categoryFilter) {
-            categoryFilter.addEventListener('change', function() {
-                applyFilters();
-            });
-        }
-
-        // SORT FILTER Applies when dropdown changes
-        if (sortFilter) {
-            sortFilter.addEventListener('change', function() {
-                applyFilters();
-            });
-        }
-
-        // DATE FILTER Applies when date changes
-        if (dateFilter) {
-            dateFilter.addEventListener('change', function() {
-                applyFilters();
-            });
-        }
-
-        // PRICE RANGE  Applies when user stops sliding
-        if (priceRange) {
-            let priceTimeout;
-            priceRange.addEventListener('change', function() {
-                clearTimeout(priceTimeout);
-                priceTimeout = setTimeout(applyFilters, 300);
-            });
-        }
-
-        // CLEAR FILTERS BUTTON  Add this button to the page
-        const filterSection = document.querySelector('.filter-search');
-        if (filterSection) {
-            const clearBtn = document.createElement('button');
-            clearBtn.textContent = 'Clear Filters';
-            clearBtn.className = 'clear-btn';
-            clearBtn.style.cssText = 'background: #fc8181; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-left: 10px;';
+        // CLEAR FILTERS BUTTON Reset everything
+        if (clearBtn) {
             clearBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 clearFilters();
             });
-            filterSection.appendChild(clearBtn);
         }
 
-        // VIEW DETAILS BUTTON - Shows event ID 
+        // VIEW DETAILS BUTTON Shows event ID 
         document.querySelectorAll('.view-detail-btn').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -318,7 +250,7 @@
             });
         });
 
-        console.log('Browse page JavaScript loaded! All filters work!');
+        console.log('Browse page loaded! Select filters, then click Search!');
     </script>
 
 </body>
