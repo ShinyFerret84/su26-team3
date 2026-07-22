@@ -70,4 +70,11 @@ public class CustomerUiController {
         return "customer/test";
     }
 
+    // HOME PAGE Shows the landing page for the application
+    // URL: http://localhost:8080/
+    @GetMapping("/")
+    public String homePage() {
+        return "customer/index";
+    }
+
 }

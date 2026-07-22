@@ -16,7 +16,7 @@
         </div>
         <nav class="main-nav">
             <a href="/index.html">Home</a>
-            <a href="/browse.html">Browse</a>
+            <a href="/customer/browse/${customer.id}">Browse</a>
             <a href="/customer/myplans/${customer.id}">My Plans</a>
             <a href="/customer/profile/${customer.id}" class="active">Profile</a>
         </nav>
