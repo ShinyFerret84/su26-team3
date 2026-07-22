@@ -229,7 +229,7 @@
                         document.getElementById('displayEmail').textContent = customer.email;
                         document.getElementById('displayLocation').textContent = customer.location;
                         
-                        showMessage('Profile saved successfully! ✅', 'success');
+                        showMessage('Profile saved successfully! ', 'success');
                         editForm.style.display = 'none';
                         editProfileBtn.style.display = 'block';
                         
@@ -261,7 +261,7 @@
                         const customer = await response.json();
                         displayInterests(customer.interests || []);
                         interestInput.value = '';
-                        showMessage('"' + interest + '" added! 🎉', 'success');
+                        showMessage('"' + interest + '" added! ', 'success');
                         
                     } catch (error) {
                         console.error('Error:', error);
