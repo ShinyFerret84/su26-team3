@@ -1,3 +1,8 @@
+
+<!--
+
+This is a duplicate file.
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,4 +151,5 @@
     <script src="../common/script.js"></script>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
+-->

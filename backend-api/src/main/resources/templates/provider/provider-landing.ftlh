@@ -21,7 +21,7 @@
             <a href="/providers/${provider.id?c}" class="active">Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a>
             <a href="/providers/${provider.id?c}/events/new">Create Event</a>
-            <!--add metrics back in-->
+            <a href="/providers/${provider.id?c}/metrics">Metrics</a>
         </nav>
 
     </header>
@@ -238,9 +238,9 @@
         <div class="footer-section">
             <h4>Quick Links</h4>
             <a href="/providers/${provider.id?c}">Dashboard</a>
-            <!--<a href="provider-profile.html">Profile</a>-->
+            <a href="/providers/${provider.id?c}/edit">Profile</a>
             <a href="/providers/${provider.id?c}/events/new">Create Event</a>
-            <!--<a href="provider-metrics.html">Metrics</a>-->
+            <a href="/providers/${provider.id?c}/metrics">Metrics</a>
         </div>
 
         <div class="footer-section">

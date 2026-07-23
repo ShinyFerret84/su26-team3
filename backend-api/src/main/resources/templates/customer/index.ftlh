@@ -15,13 +15,12 @@
         </div>
         <nav class="main-nav">
             <a href="/" class="active">Home</a>
-            <a href="/customer/browse/1">Browse</a>
-            <a href="/customer/myplans/1">My Plans</a>
-            <a href="/customer/profile/1">Profile</a>
+            <a href="/customer/browse">Browse</a>
         </nav>
         <div class="header-actions">
-            <a href="/customer/profile/1" class="login-btn-header">Profile</a>
-            <a href="/customer/browse/1" class="get-started-btn-header">Get Started</a>
+            <a href="/providers/login" class="login-btn-header">Provider Login</a>
+            <a href="/customer/login" class="login-btn-header">Customer Login</a>
+            <a href="/customer/signup" class="get-started-btn-header">Get Started</a>
         </div>
     </header>
 
@@ -31,28 +30,18 @@
             <div class="hero-content">
                 <h1>Discover Amazing Activities in the Triad</h1>
                 <p>Find the perfect experience for you and your friends in High Point, Greensboro, and beyond</p>
-                <div class="hero-search">
-                    <input type="text" placeholder="Search activities... (e.g., wine tasting, hiking, food)">
-                    <a href="/customer/browse/1" class="search-btn">Search</a>
-                </div>
-                <div class="hero-buttons">
-                    <a href="/customer/profile/1" class="hero-login-btn">I'm a Customer</a>
-                    <a href="/customer/browse/1" class="hero-signup-btn">Browse Events</a>
-                </div>
-            </div>
-        </section>
+                <form action="/customer/browse" method="get" class="hero-search">
+                    <input type="text" name="eventName" placeholder="Search activities... (e.g., wine tasting, hiking, food)">
+                    <button type="submit" class="search-btn">
+                        Search
+                    </button>
+                </form>
 
-        <!-- Categories Section -->
-        <section class="categories-section">
-            <h2>Browse by Category</h2>
-            <div class="category-filters">
-                <a href="/customer/browse/1" class="filter-chip active">All</a>
-                <a href="/customer/browse/1?category=Outdoor" class="filter-chip">Outdoor</a>
-                <a href="/customer/browse/1?category=Indoor" class="filter-chip">Indoor</a>
-                <a href="/customer/browse/1?category=Food" class="filter-chip">Food & Drink</a>
-                <a href="/customer/browse/1?category=Entertainment" class="filter-chip">Entertainment</a>
-                <a href="/customer/browse/1?category=Culture" class="filter-chip">Culture</a>
-                <a href="/customer/browse/1?category=Sports" class="filter-chip">Sports</a>
+                <div class="hero-buttons">
+                    <a href="/customer/login" class="hero-login-btn">I'm a Customer</a>
+                    <a href="/providers/login" class="hero-signup-btn">I'm a Provider</a>
+                    <a href="/customer/browse" class="hero-signup-btn">Browse Events</a>
+                </div>
             </div>
         </section>
 
@@ -60,35 +49,72 @@
         <section class="featured-section">
             <div class="section-header">
                 <h2>Featured Activities</h2>
-                <a href="/customer/browse/1" class="view-all">View All →</a>
+                <a href="/customer/browse" class="view-all">View All →</a>
             </div>
+
             <div class="activity-grid">
-                <#if events?has_content>
+                <#if events?? && events?has_content>
+                    <#assign featuredCount = 0>
+
                     <#list events as event>
-                        <#if event.featured?? && event.featured == true>
-                            <div class="activity-card">
-                                <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                    <span class="card-badge">Featured</span>
-                                </div>
-                                <div class="card-body">
-                                    <h3>${event.eventName}</h3>
-                                    <p class="location">${event.city}, ${event.state}</p>
-                                    <div class="card-meta">
-                                        <span>${event.date}</span>
-                                        <span>${event.startTime} - ${event.endTime}</span>
+                        <#if event.featured?? && event.featured>
+                            <#assign featuredCount = featuredCount + 1>
+
+                                <div class="activity-card">
+                                    <#if event.imageUrl?? && event.imageUrl?has_content>
+
+                                        <div class="card-image" style="background-image:url('${event.imageUrl}');background-size: cover;background-position: center;">
+                                            <span class="card-badge">Featured</span>
+                                        </div>
+
+                                    <#else>
+
+                                        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                            <span class="card-badge">Featured</span>
+                                        </div>
+
+                                    </#if>
+
+                                    <div class="card-body">
+                                        <h3>${event.eventName!"Unnamed Event"}</h3>
+                                        <p class="location">${event.city!"Location"}, ${event.state!""}</p>
+                                        
+                                        <div class="card-meta">
+                                            <span>${event.formattedDate!event.date!""}</span>
+                                            <span>${event.formattedStartTime!event.startTime!""} - ${event.formattedEndTime!event.endTime!""}</span>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <span class="price">
+                                                <#if event.pricePerPerson??>
+                                                    $${event.pricePerPerson?string["#,##0.00"]} <span>/person</span>
+                                                <#else>
+                                                    Price not set
+                                                </#if>
+                                            </span>
+
+                                            <a href="/customer/booking/${event.id?c}" class="view-detail-btn">View Details</a>
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
-                                        <a href="/customer/booking/${event.id}?customerId=1" class="view-detail-btn">View Details</a>
-                                    </div>
                                 </div>
-                            </div>
+
                         </#if>
+                            
                     </#list>
+                            
+                        <#if featuredCount == 0>
+                            <p class="empty-message">
+                                No featured events available. Check back soon!
+                            </p>
+
+                        </#if>
+
                 <#else>
-                    <p style="color: #a0aec0; text-align: center; padding: 40px 0;">No featured events available. Check back soon!</p>
+                    <p class="empty-message">
+                        No featured events available. Check back soon!
+                    </p>
                 </#if>
-            </div>
+            </div>            
         </section>
 
         <!-- Popular Activities Section -->
@@ -97,33 +123,81 @@
                 <h2>Popular Activities</h2>
                 <a href="/customer/browse/1" class="view-all">View All →</a>
             </div>
+
             <div class="activity-grid">
-                <#if events?has_content>
+                <#if events?? && events?has_content>
+                    <#assign popularCount = 0>
+
                     <#list events as event>
-                        <#if event.featured?? && event.featured == false>
+
+                        <#if (!event.featured?? || !event.featured) && popularCount < 6>
+
+                            <#assign popularCount = popularCount + 1>
+
                             <div class="activity-card">
-                                <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
-                                </div>
-                                <div class="card-body">
-                                    <h3>${event.eventName}</h3>
-                                    <p class="location">${event.city}, ${event.state}</p>
-                                    <div class="card-meta">
-                                        <span>${event.date}</span>
-                                        <span>${event.startTime} - ${event.endTime}</span>
+                                <#if event.imageUrl?? && event.imageUrl?has_content>
+
+                                    <div class="card-image" style="background-image:url('${event.imageUrl}'); 
+                                        background-size: cover; background-position: center; ">
                                     </div>
-                                    <div class="card-footer">
-                                        <span class="price">$${event.pricePerPerson!0} <span>/person</span></span>
-                                        <a href="/customer/booking/${event.id}?customerId=1" class="view-detail-btn">View Details</a>
+
+                                <#else>
+
+                                    <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
                                     </div>
-                                </div>
+
+                                </#if>
+
+                                    <div class="card-body">
+
+                                        <h3>${event.eventName!"Unnamed Event"}</h3>
+
+                                        <p class="location">${event.city!"Location"}, ${event.state!""}</p>
+
+                                        <div class="card-meta">
+                                            <span>${event.formattedDate!event.date!""}</span>
+                                            <span>${event.formattedStartTime!event.startTime!""} - ${event.formattedEndTime!event.endTime!""}</span>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <span class="price">
+                                                <#if event.pricePerPerson??>
+                                                    $${event.pricePerPerson?string["#,##0.00"]} <span>/person</span>
+
+                                                <#else>
+                                                    Price not set
+                                                </#if>
+
+                                            </span>
+
+                                            <a href="/customer/booking/${event.id?c}" class="view-detail-btn">View Details</a>
+                                        </div>
+
+                                    </div>
+
                             </div>
+
                         </#if>
+
                     </#list>
+
+                    <#if popularCount == 0>
+
+                        <p class="empty-message">
+                            No popular events available. Check back soon!
+                        </p>
+
+                    </#if>
+
                 <#else>
+
                     <p style="color: #a0aec0; text-align: center; padding: 40px 0;">No popular events available. Check back soon!</p>
+                
                 </#if>
             </div>
+
         </section>
+
     </main>
 
     <footer class="app-footer">
@@ -135,9 +209,9 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <a href="/">Home</a>
-                <a href="/customer/browse/1">Browse Activities</a>
-                <a href="/customer/myplans/1">My Plans</a>
-                <a href="/customer/profile/1">Profile</a>
+                <a href="/customer/browse">Browse Activities</a>
+                <a href="/providers/login"> Provider Login </a>
+                <a href="/customer/login">Customer Login</a>
             </div>
             <div class="footer-section">
                 <h4>Location</h4>

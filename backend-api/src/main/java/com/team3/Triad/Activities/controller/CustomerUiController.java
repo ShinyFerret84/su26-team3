@@ -2,12 +2,16 @@ package com.team3.Triad.Activities.controller;
 
 import com.team3.Triad.Activities.entity.Customer;
 import com.team3.Triad.Activities.service.CustomerManager;
+import com.team3.Triad.Activities.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -18,8 +22,26 @@ public class CustomerUiController {
     @Autowired
     private CustomerManager customerManager;
 
+    @Autowired
+    private EventService eventService;
+
     // USER 1 story: Show customer profile page with their interests
     // Link after running spring-boot:http://localhost:8080/customer/profile/1
+
+    @GetMapping("/")
+    public String viewIndex(Model model) {
+        model.addAttribute("events", eventService.getAllEvents());
+
+        return "customer/index";
+    }
+
+    @GetMapping("/signup")
+    public String showCustomerSignupForm(Model model) {
+        model.addAttribute("customer",new Customer());
+
+        return "customer/signUpForm";
+    }
+    
 
     @GetMapping("/profile/{id}")
     public String viewProfile(@PathVariable Long id, Model model) {
@@ -63,6 +85,17 @@ public class CustomerUiController {
             // Customer not found  show error page
             return "error/404";
         }
+    }
+
+    @GetMapping("/{id}")
+    public String showCustomerHome(@PathVariable Long id,Model model) {
+        Optional<Customer> customerOpt =customerManager.getCustomerById(id);
+
+        if (customerOpt.isEmpty()) {return "error/404";}
+
+        Customer customer = customerOpt.get();
+        model.addAttribute("customer", customer);
+        return "customer/index";
     }
 
     @GetMapping("/test")

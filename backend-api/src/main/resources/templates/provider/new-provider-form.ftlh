@@ -14,14 +14,13 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <!--update when index.html is updated-->
-            <a href="#"> Triad<span>Activities</span></a>          <!--//needs to link to Maria's customer controller-->
+            <a href="customer/index"> Triad<span>Activities</span></a>
         </div>
 
         <nav class="main-nav">
             <!--update when index.html and browse.html is updated-->
-            <a href="#">Home</a>                                   <!--//needs to link to Maria's customer controller-->
-            <a href="#">Browse</a>
+            <a href="customer/index">Home</a>
+            <a href="customer/browse">Browse</a>
         </nav>
 
         <div class="header-actions">
@@ -115,7 +114,7 @@
                                 <option value="Outdoor">Outdoor Activities</option>
                                 <option value="Entertainment">Entertainment</option>
                                 <option value="Arts & Culture">Arts & Culture</option>
-                                <option value="Sporta & Recreation">Sports & Recreation</option>
+                                <option value="Sports & Recreation">Sports & Recreation</option>
                                 <option value="Educational">Educational</option>
                             </select>
 
@@ -199,9 +198,8 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
 
-                 <!-- Update when customer routes are ready -->
-                <a href="#">Home</a>
-                <a href="#">Browse Activities</a>
+                <a href="customer/index">Home</a>
+                <a href="customer/browse">Browse Activities</a>
                 
             </div>
 
