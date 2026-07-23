@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
@@ -42,6 +44,30 @@ public class CustomerUiController {
         return "customer/signUpForm";
     }
     
+    @PostMapping("/signup")
+    public String createCustomer(
+            @ModelAttribute Customer customer,
+            @RequestParam(required = false) List<String> interests,
+            @RequestParam(defaultValue = "false") boolean termsAccepted,
+            Model model) {
+
+        if (!termsAccepted) {
+            model.addAttribute("error", 
+                    "You must accept the Terms of Service and Privacy Policy.");
+            model.addAttribute("customer", customer);
+            return "customer/signUpForm";
+        }
+
+        customer.setMemberSince(LocalDate.now().toString());
+
+        if (interests != null) {
+            customer.setInterests(interests);
+        }
+
+        Customer savedCustomer = customerManager.createCustomer(customer);
+
+        return "redirect:/customer/profile/" + savedCustomer.getId();
+    }
 
     @GetMapping("/profile/{id}")
     public String viewProfile(@PathVariable Long id, Model model) {
