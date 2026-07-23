@@ -136,4 +136,16 @@ public class CustomerManager {
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    public List<Review> getReviewsByProviderId(Long providerId) {
+        return reviewRepository.findByEventProviderId(providerId);
+    }
+
+    public Review getReviewById(Long reviewId) {
+        return reviewRepository.findById(reviewId).orElse(null);
+    }
+
+    public Review saveReview(Review review) {
+        return reviewRepository.save(review);
+    }
 }
