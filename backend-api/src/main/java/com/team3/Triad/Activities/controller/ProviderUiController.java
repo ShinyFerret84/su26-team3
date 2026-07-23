@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
 import com.team3.Triad.Activities.service.EventService;
 import com.team3.Triad.Activities.service.ProviderService;
+import com.team3.Triad.Activities.dto.ProviderStatistics;
 
 @Controller
 public class ProviderUiController {
@@ -24,6 +26,28 @@ public class ProviderUiController {
         this.providerService = providerService;
         this.eventService = eventService;
     }
+
+    //Provider Login
+    @GetMapping("/providers/login")
+    public String showProviderLogin() {
+        return "provider/provider-login";
+    }
+
+    @PostMapping("/providers/login")
+    public String processProviderLogin(@RequestParam String email,
+        @RequestParam String password,
+        Model model) {
+                Provider provider = providerService.authenticateProvider(email, password);
+
+                if (provider == null) {model.addAttribute("error", "Invalid email or password.");
+
+                model.addAttribute("email", email);
+
+                return "provider/provider-login";
+                }
+
+            return "redirect:/providers/" + provider.getId();
+        }
 
     //Display New Provider Form
     @GetMapping("/providers/new")
@@ -166,6 +190,24 @@ public class ProviderUiController {
         model.addAttribute("pastEvents", pastEvents);
 
         return "provider/provider-past-events";
-}
+        }
+
+        //Metrics
+        @GetMapping("/providers/{providerId}/metrics")
+        public String showProviderMetrics(@PathVariable Long providerId, Model model){
+                Provider provider = providerService.getProviderById(providerId);
+
+                if(provider == null || !provider.getActive()) {
+                        return "redirect:/providers/new";
+                }
+
+                ProviderStatistics statistics = providerService.getProviderStatistics(providerId);
+
+                model.addAttribute("provider", provider);
+                model.addAttribute("statistics", statistics);
+
+                return "provider/provider-metrics";
+
+        }
 
 }

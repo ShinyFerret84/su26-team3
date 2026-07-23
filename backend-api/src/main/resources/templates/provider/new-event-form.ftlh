@@ -21,6 +21,7 @@
             <a href="/providers/${provider.id?c}" >Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a> 
             <a href="/providers/${provider.id?c}/events/new" class="active">Create Event</a>
+            <a href="/providers/${provider.id?c}/metrics">Metrics</a>
         </nav>
 
         <div class="header-actions">
@@ -327,8 +328,10 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
 
-                <a href="index.html">Home</a>
-                <a href="browse.html">Browse Activities</a>
+            <a href="/providers/${provider.id?c}">Dashboard</a>
+            <a href="/providers/${provider.id?c}/edit">Profile</a>
+            <a href="/providers/${provider.id?c}/events/new">Create Event</a>
+            <a href="/providers/${provider.id?c}/metrics">Metrics</a>
                 
             </div>
 

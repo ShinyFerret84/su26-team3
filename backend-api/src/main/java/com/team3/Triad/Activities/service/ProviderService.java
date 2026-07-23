@@ -31,7 +31,7 @@ public class ProviderService {
     this.eventRepository = eventRepository;
     this.bookingRepository = bookingRepository;
     this.reviewRepository = reviewRepository;
-}
+    }
 
     //GET all providers
     public List<Provider> getAllProviders() {
@@ -49,7 +49,12 @@ public class ProviderService {
     return providerRepository.findById(id)
             .filter(Provider::getActive)
             .orElse(null);
-}
+    }
+
+    //Provider Login
+    public Provider authenticateProvider(String email,String password) {
+        return providerRepository.findByEmailIgnoreCaseAndPasswordAndActiveTrue(email,password).orElse(null);
+    }
 
     //CREATE provider
     public Provider createProvider(Provider provider) {
@@ -126,12 +131,15 @@ public class ProviderService {
         }
 
         return new ProviderStatistics(
-        totalEvents,
-        totalAttendees,
-        totalReviews,
-        averageRating,
-        totalRevenue
-        );
+            totalEvents,
+            0L,
+            0L,
+            0L,
+            totalAttendees,
+            totalReviews,
+            averageRating,
+            totalRevenue
+            );
     }
 
 }
