@@ -13,18 +13,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
+import com.team3.Triad.Activities.entity.Review;
 import com.team3.Triad.Activities.service.EventService;
 import com.team3.Triad.Activities.service.ProviderService;
 import com.team3.Triad.Activities.dto.ProviderStatistics;
+import com.team3.Triad.Activities.service.CustomerManager;
 
 @Controller
 public class ProviderUiController {
     private final ProviderService providerService;
     private final EventService eventService;
+    private final CustomerManager customerManager;
 
-    public ProviderUiController(ProviderService providerService, EventService eventService) {
+    public ProviderUiController(ProviderService providerService, EventService eventService, CustomerManager customerManager) {
         this.providerService = providerService;
         this.eventService = eventService;
+        this.customerManager = customerManager;
     }
 
     //Provider Login
@@ -210,4 +214,49 @@ public class ProviderUiController {
 
         }
 
+        @GetMapping("/providers/{providerId}/reviews")
+        public String showProviderReviews(
+                @PathVariable Long providerId,
+                Model model) {
+
+        Provider provider = providerService.getProviderById(providerId);
+
+        if (provider == null) {
+                return "redirect:/providers/new";
+        }
+
+        model.addAttribute("provider", provider);
+        model.addAttribute(
+                "reviews",
+                customerManager.getReviewsByProviderId(providerId));
+
+        return "provider/reviews";
+        }
+
+        @PostMapping("/providers/{providerId}/reviews/{reviewId}/reply")
+        public String replyToReview(
+                @PathVariable Long providerId,
+                @PathVariable Long reviewId,
+                @RequestParam String providerReply) {
+
+        Review review = customerManager.getReviewById(reviewId);
+
+        if (review == null) {
+                return "redirect:/providers/" + providerId + "/reviews";
+        }
+
+        if (review.getEvent() == null
+                || review.getEvent().getProvider() == null
+                || !review.getEvent().getProvider().getId().equals(providerId)) {
+
+                return "redirect:/providers/" + providerId + "/reviews";
+        }
+
+        review.setProviderReply(providerReply);
+        review.setReplyDate(LocalDate.now().toString());
+
+        customerManager.saveReview(review);
+
+        return "redirect:/providers/" + providerId + "/reviews";
+    }
 }
