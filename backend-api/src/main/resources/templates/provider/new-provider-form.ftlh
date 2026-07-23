@@ -14,12 +14,11 @@
     <!-- Navigation Bar -->
     <header class="app-header">
         <div class="logo">
-            <a href="customer/index"> Triad<span>Activities</span></a>
+            <a href="/"> Triad<span>Activities</span></a>
         </div>
 
         <nav class="main-nav">
-            <!--update when index.html and browse.html is updated-->
-            <a href="customer/index">Home</a>
+            <a href="/">Home</a>
             <a href="customer/browse">Browse</a>
         </nav>
 
