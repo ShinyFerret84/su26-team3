@@ -78,4 +78,12 @@ public class LoginController {
             return "customer/signup";
         }
     }
+
+    // LOGOUT - Redirect to home page
+    // URL: GET /customer/logout
+    @GetMapping("/customer/logout")
+    public String logout() {
+        // Redirect to home page
+        return "redirect:/";
+    }
 }
