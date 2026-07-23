@@ -11,15 +11,15 @@
 
     <header class="app-header">
         <div class="logo">
-            <a href="#">Triad<span>Activities</span></a> 
+            <a href="customer/index">Triad<span>Activities</span></a> 
         </div>
         <nav class="main-nav">
-            <a href="#">Home</a>
-            <a href="#">Browse</a> 
+            <a href="customer/index">Home</a>
+            <a href="customer/browse">Browse</a> 
         </nav>
         <div class="header-actions">
             <a href="#" class="login-btn-header">Customer Login</a>
-            <a href="#" class="get-started-btn-header active-btn">Provider Login</a>
+            <a href="/providers/login" class="get-started-btn-header active-btn">Provider Login</a>
         </div>
     </header>
 
@@ -83,8 +83,8 @@
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="#">Home</a>
-                <a href="#">Browse Activities</a>
+                <a href="customer/index">Home</a>
+                <a href="customer/browse">Browse Activities</a> 
             </div>
             
             <div class="footer-section">
