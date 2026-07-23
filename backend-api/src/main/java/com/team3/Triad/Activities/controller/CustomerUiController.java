@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.util.List;
@@ -25,7 +27,7 @@ public class CustomerUiController {
     private CustomerManager customerManager;
 
     @Autowired
-    private EventService eventService;
+    private EventService eventService;  // ADD THIS - it was missing!
 
     // USER 1 story: Show customer profile page with their interests
     // Link after running spring-boot:http://localhost:8080/customer/profile/1
@@ -33,14 +35,12 @@ public class CustomerUiController {
     @GetMapping("/")
     public String viewIndex(Model model) {
         model.addAttribute("events", eventService.getAllEvents());
-
         return "customer/index";
     }
 
     @GetMapping("/signup")
     public String showCustomerSignupForm(Model model) {
-        model.addAttribute("customer",new Customer());
-
+        model.addAttribute("customer", new Customer());
         return "customer/signUpForm";
     }
     
@@ -111,17 +111,6 @@ public class CustomerUiController {
             // Customer not found  show error page
             return "error/404";
         }
-    }
-
-    @GetMapping("/{id}")
-    public String showCustomerHome(@PathVariable Long id,Model model) {
-        Optional<Customer> customerOpt =customerManager.getCustomerById(id);
-
-        if (customerOpt.isEmpty()) {return "error/404";}
-
-        Customer customer = customerOpt.get();
-        model.addAttribute("customer", customer);
-        return "customer/index";
     }
 
     @GetMapping("/test")

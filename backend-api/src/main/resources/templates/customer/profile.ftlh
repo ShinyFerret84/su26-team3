@@ -12,10 +12,10 @@
 
     <header class="app-header">
         <div class="logo">
-            <a href="/index.html">Triad<span>Activities</span></a>
+            <a href="/">Triad<span>Activities</span></a>
         </div>
         <nav class="main-nav">
-            <a href="/index.html">Home</a>
+            <a href="/">Home</a>
             <a href="/customer/browse/${customer.id}">Browse</a>
             <a href="/customer/myplans/${customer.id}">My Plans</a>
             <a href="/customer/profile/${customer.id}" class="active">Profile</a>
@@ -39,7 +39,10 @@
                     <p class="profile-location" id="displayLocation">${location!"No location set"}</p>
                     <p class="profile-member">Member since ${memberSince!"2025"}</p>
                 </div>
-                <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-edit-profile" id="editProfileBtn">Edit Profile</button>
+                    <a href="/customer/logout" class="btn-logout">Logout</a>
+                </div>
             </div>
 
             <!-- Edit Profile Form -->
@@ -163,7 +166,7 @@
             </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <a href="/index.html">Home</a>
+                <a href="/">Home</a>
                 <a href="/customer/browse/${customer.id}">Browse</a>
                 <a href="/customer/myplans/${customer.id}">My Plans</a>
                 <a href="/customer/profile/${customer.id}">Profile</a>

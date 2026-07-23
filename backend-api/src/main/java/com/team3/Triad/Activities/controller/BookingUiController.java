@@ -4,6 +4,7 @@ import com.team3.Triad.Activities.entity.Booking;
 import com.team3.Triad.Activities.entity.Customer;
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
+import com.team3.Triad.Activities.entity.Review;
 import com.team3.Triad.Activities.service.BookingService;
 import com.team3.Triad.Activities.service.CustomerManager;
 import com.team3.Triad.Activities.service.EventService;
@@ -189,7 +190,7 @@ public class BookingUiController {
                                        @RequestParam String comment,
                                        Model model) {
         try {
-            com.team3.Triad.Activities.entity.Review review = customerManager.addReview(
+            Review review = customerManager.addReview(
                     customerId, eventId, rating, comment);
             model.addAttribute("review", review);
             model.addAttribute("message", "Review submitted successfully!");
