@@ -23,5 +23,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     //For Provider Replies
     //Find Reviews by Event
     List<Review> findByEventProviderId(Long providerId);
-    
+
 }

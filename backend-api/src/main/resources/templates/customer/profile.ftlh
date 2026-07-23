@@ -136,6 +136,18 @@
                                 </span>
                             </div>
                             <p class="review-text">${review.comment}</p>
+
+                            <#if review.providerReply?? && review.providerReply?has_content>
+                                <div class="provider-reply">
+                                    <h4>Provider Response</h4>
+
+                                    <p>${review.providerReply}</p>
+
+                                    <#if review.replyDate??>
+                                        small>Replied on ${review.replyDate}</small>
+                                    </#if>
+                                </div>
+                            </#if>
                         </div>
                     </#list>
                 <#else>

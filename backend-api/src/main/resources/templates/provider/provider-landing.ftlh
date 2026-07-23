@@ -21,6 +21,7 @@
             <a href="/providers/${provider.id?c}" class="active">Dashboard</a> 
             <a href="/providers/${provider.id?c}/edit">Profile</a>
             <a href="/providers/${provider.id?c}/events/new">Create Event</a>
+            <a href="/providers/${provider.id?c}/reviews">Reviews</a>
             <a href="/providers/${provider.id?c}/metrics">Metrics</a>
         </nav>
 
@@ -240,6 +241,7 @@
             <a href="/providers/${provider.id?c}">Dashboard</a>
             <a href="/providers/${provider.id?c}/edit">Profile</a>
             <a href="/providers/${provider.id?c}/events/new">Create Event</a>
+            <a href="/providers/${provider.id?c}/reviews">Reviews</a>
             <a href="/providers/${provider.id?c}/metrics">Metrics</a>
         </div>
 
