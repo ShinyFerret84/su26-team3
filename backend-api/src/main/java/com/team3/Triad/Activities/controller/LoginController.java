@@ -70,7 +70,8 @@ public class LoginController {
             customer.setLocation(location);
             customer.setPassword(password);
             
-            Customer created = customerManager.createCustomer(customer);
+            // Create the customer (variable removed to fix warning)
+            customerManager.createCustomer(customer);
             model.addAttribute("success", "Account created successfully! Please log in.");
             return "customer/login";
         } catch (RuntimeException e) {

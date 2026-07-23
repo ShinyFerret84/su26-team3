@@ -4,6 +4,7 @@ import com.team3.Triad.Activities.entity.Booking;
 import com.team3.Triad.Activities.entity.Customer;
 import com.team3.Triad.Activities.entity.Event;
 import com.team3.Triad.Activities.entity.Provider;
+import com.team3.Triad.Activities.entity.Review;
 import com.team3.Triad.Activities.service.BookingService;
 import com.team3.Triad.Activities.service.CustomerManager;
 import com.team3.Triad.Activities.service.EventService;
@@ -16,9 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.team3.Triad.Activities.entity.Review;
-import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @RequestMapping("/providers/{providerId}")
@@ -189,7 +187,7 @@ public class BookingUiController {
                                        @RequestParam String comment,
                                        Model model) {
         try {
-            com.team3.Triad.Activities.entity.Review review = customerManager.addReview(
+            Review review = customerManager.addReview(
                     customerId, eventId, rating, comment);
             model.addAttribute("review", review);
             model.addAttribute("message", "Review submitted successfully!");
