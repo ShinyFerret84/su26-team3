@@ -27,7 +27,7 @@ public class CustomerEventUiController {
 
     // User story 2: Customer Browse Events shows events matching customer's interests
     // URL: http://localhost:8080/customer/browse/1
-    @GetMapping("/browse")
+    @GetMapping("/browse/{customerId}")  // ← FIXED: Added {customerId}
     public String browseEvents(@PathVariable Long customerId,
                                @RequestParam(required = false) String search,
                                @RequestParam(required = false) String category,
